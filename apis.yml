@@ -1,0 +1,279 @@
+aid: open-financial
+name: Open (open.money)
+description: >-
+  Open is one of India's leading SMB neobanks, pioneering "connected banking" -
+  a unified business finance platform that layers payments, automated
+  reconciliation, accounting, payroll, expense management, vendor payouts, and
+  GST-compliant invoicing on top of partner-bank current accounts (ICICI, SBI,
+  Axis Bank, Yes Bank and 20+ others). Beyond its SMB application, Open also
+  ships an embedded-finance / Banking-as-a-Service stack branded as Zwitch
+  (zwitch.io), which exposes the same connected-banking primitives - virtual
+  accounts, payouts via NEFT/IMPS/RTGS, UPI collect and intent flows, the Layer
+  hosted payment gateway, beneficiary management, PAN/bank/VPA verification,
+  webhooks, and split settlements - as REST APIs for fintechs and platforms
+  that want to embed account-to-account payments and Indian payment rails into
+  their own products. Open's broader portfolio also includes BankingStack
+  (white-label connected banking for partner banks), the Open Capital lending
+  product, and a suite of e-commerce plugins (WooCommerce, Magento, OpenCart,
+  PrestaShop, CS-Cart, WHMCS) plus PHP, Java, Node.js, iOS, and Android SDKs
+  for the Layer payment gateway.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+position: Producer
+created: '2026-05-24'
+modified: '2026-05-24'
+tags:
+  - Connected Banking
+  - Neobank
+  - SMB
+  - Embedded Finance
+  - Banking as a Service
+  - Payments
+  - Payouts
+  - UPI
+  - Accounting
+  - Payroll
+  - Expense Management
+  - India
+  - Fintech
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/open-financial/refs/heads/main/apis.yml
+specificationVersion: '0.20'
+apis:
+  - aid: open-financial:virtual-accounts
+    name: Open Zwitch Virtual Accounts API
+    description: >-
+      Programmatic creation and management of virtual accounts used as
+      transfer wallets, collection wallets, and collection tools on top of
+      partner-bank infrastructure. Virtual accounts give platforms a unique
+      IFSC-and-account-number pair for each end customer so that inbound
+      transfers (NEFT, IMPS, RTGS, UPI) auto-reconcile to the correct
+      beneficiary, and outbound payouts can be debited from a controlled
+      sub-ledger.
+    humanURL: https://developers.zwitch.io/reference/virtual-accounts
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - Virtual Accounts
+      - Sub-Accounts
+      - Reconciliation
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/reference/virtual-accounts
+      - type: Authentication
+        url: https://developers.zwitch.io/reference/authorization
+  - aid: open-financial:transfers
+    name: Open Zwitch Transfers API
+    description: >-
+      Initiate single or bulk fund transfers from a virtual account to bank
+      beneficiaries over NEFT, IMPS, or RTGS, and inspect transfer status,
+      UTR, and settlement details. Powers vendor payouts, refunds,
+      reimbursements, payroll, and split disbursements.
+    humanURL: https://developers.zwitch.io/reference/transfers
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - Payouts
+      - Transfers
+      - NEFT
+      - IMPS
+      - RTGS
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/reference/transfers
+      - type: Documentation
+        url: https://developers.zwitch.io/docs/bulk-transfers
+  - aid: open-financial:beneficiaries
+    name: Open Zwitch Beneficiaries API
+    description: >-
+      Manage the set of bank-account beneficiaries that can be paid from a
+      virtual account. Supports creating beneficiaries, listing, retrieving,
+      updating, and deleting, with optional penny-drop validation before the
+      beneficiary becomes eligible for payouts.
+    humanURL: https://developers.zwitch.io/reference/beneficiaries
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - Beneficiaries
+      - Payouts
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/reference/beneficiaries
+  - aid: open-financial:upi
+    name: Open Zwitch UPI API
+    description: >-
+      UPI collect requests, UPI Intent strings, and dynamic UPI QR codes for
+      accepting customer-initiated payments on India's Unified Payments
+      Interface rails. Includes mandate flows and webhook callbacks for
+      payment success / failure events.
+    humanURL: https://developers.zwitch.io/reference/upi
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - UPI
+      - Collect
+      - QR
+      - Payments
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/reference/upi
+  - aid: open-financial:layer
+    name: Open Layer Payment Gateway API
+    description: >-
+      Layer is Zwitch's hosted payment gateway. A few lines of layer.js render
+      a fully PCI-compliant checkout pop-up that accepts net banking, UPI,
+      credit/debit cards, and wallets. Server-side APIs create payment tokens,
+      query payment status, issue full and partial refunds (including batch
+      refunds), and download settlement reports. Mobile SDKs are available for
+      Android, iOS, and Flutter.
+    humanURL: https://developers.zwitch.io/docs/layer
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - Payment Gateway
+      - Checkout
+      - Cards
+      - UPI
+      - Net Banking
+      - Refunds
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/docs/layer
+      - type: Documentation
+        url: https://docs.bankopen.com/reference/payment-request
+      - type: SDK
+        url: https://github.com/bankopen/Layer-PHP-SDK
+        name: Layer PHP SDK
+      - type: SDK
+        url: https://github.com/bankopen/layer-java-sdk
+        name: Layer Java SDK
+      - type: SDK
+        url: https://github.com/bankopen/layer-nodejs-sdk
+        name: Layer Node.js SDK
+      - type: SDK
+        url: https://github.com/bankopen/open-payment-iOS-framework
+        name: Open Payment iOS Framework
+  - aid: open-financial:verification
+    name: Open Zwitch Verification API
+    description: >-
+      Identity and account-validation suite used during merchant onboarding,
+      KYB, and pre-payout checks. Endpoints cover PAN verification, name
+      matching, bank-account validation (standard and pennyless), and VPA
+      (UPI ID) verification.
+    humanURL: https://developers.zwitch.io/reference/verifications
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - Verification
+      - KYC
+      - PAN
+      - VPA
+      - Bank Account
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/reference/verifications
+  - aid: open-financial:settlements
+    name: Open Zwitch Split Settlements API
+    description: >-
+      Configure split-settlement rules so that incoming payments are
+      automatically apportioned across multiple beneficiary accounts at
+      settlement time. Used by marketplaces, aggregators, and platforms
+      handling on-behalf-of flows.
+    humanURL: https://developers.zwitch.io/reference/settlements
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - Settlements
+      - Split Payments
+      - Marketplaces
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/reference/settlements
+  - aid: open-financial:webhooks
+    name: Open Zwitch Webhooks
+    description: >-
+      Real-time event delivery for payment, transfer, refund, settlement,
+      virtual-account, and verification lifecycle events, with HMAC signature
+      verification and configurable retry policies.
+    humanURL: https://developers.zwitch.io/reference/webhooks
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - Webhooks
+      - Events
+      - Notifications
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/reference/webhooks
+  - aid: open-financial:payment-pages
+    name: Open Zwitch Payment Pages API
+    description: >-
+      No-code hosted payment pages and payment links that small businesses
+      can share over email, SMS, or WhatsApp to collect one-time or recurring
+      payments without writing integration code. Server APIs let platforms
+      generate pages programmatically and listen for paid-event webhooks.
+    humanURL: https://developers.zwitch.io/reference/payment-pages
+    baseURL: https://api.zwitch.io/v1
+    tags:
+      - Payment Pages
+      - Payment Links
+      - No-Code
+      - Collections
+    properties:
+      - type: Documentation
+        url: https://developers.zwitch.io/reference/payment-pages
+  - aid: open-financial:connected-banking
+    name: Open Connected Banking Platform
+    description: >-
+      Open's flagship SMB neobanking application. Connects one or more
+      partner-bank current accounts (ICICI, SBI, Axis Bank, Yes Bank, and
+      others) and layers on bill and invoice management, vendor payments,
+      automated reconciliation, GST-compliant invoicing, accounts payable and
+      receivable automation, and two-way sync with Tally, Zoho Books, Oracle
+      NetSuite, and Microsoft Dynamics. Available via web and mobile apps;
+      programmatic access is delivered through the Zwitch / BankingStack APIs
+      above.
+    humanURL: https://open.money/developers
+    baseURL: https://open.money/developers
+    tags:
+      - Connected Banking
+      - Neobank
+      - SMB
+      - Accounting
+      - Reconciliation
+    properties:
+      - type: Documentation
+        url: https://open.money/developers
+      - type: Portal
+        url: https://open.money/
+common:
+  - type: Website
+    url: https://open.money/
+  - type: Website
+    url: https://www.zwitch.io/
+  - type: Documentation
+    url: https://developers.zwitch.io/
+  - type: Documentation
+    url: https://docs.bankopen.com/
+  - type: GettingStarted
+    url: https://developers.zwitch.io/reference/introduction
+  - type: Authentication
+    url: https://developers.zwitch.io/reference/authorization
+  - type: Console
+    url: https://app.zwitch.io/
+  - type: SignUp
+    url: https://app.zwitch.io/
+  - type: GitHub
+    url: https://github.com/bankopen
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/bankopen
+  - type: X
+    url: https://x.com/bankopen
+  - type: Blog
+    url: https://open.money/blog
+  - type: Blog
+    url: https://www.zwitch.io/blog
+  - type: Pricing
+    url: https://open.money/pricing
+  - type: Pricing
+    url: https://www.zwitch.io/pricing
+  - type: TermsOfService
+    url: https://open.money/terms
+  - type: PrivacyPolicy
+    url: https://open.money/privacy
+maintainers:
+  - FN: API Evangelist
+    url: https://apievangelist.com
