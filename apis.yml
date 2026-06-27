@@ -137,16 +137,16 @@ apis:
         url: https://developers.zwitch.io/docs/layer
       - type: Documentation
         url: https://docs.bankopen.com/reference/payment-request
-      - type: SDK
+      - type: SDKs
         url: https://github.com/bankopen/Layer-PHP-SDK
         name: Layer PHP SDK
-      - type: SDK
+      - type: SDKs
         url: https://github.com/bankopen/layer-java-sdk
         name: Layer Java SDK
-      - type: SDK
+      - type: SDKs
         url: https://github.com/bankopen/layer-nodejs-sdk
         name: Layer Node.js SDK
-      - type: SDK
+      - type: SDKs
         url: https://github.com/bankopen/open-payment-iOS-framework
         name: Open Payment iOS Framework
   - aid: open-financial:verification
@@ -254,7 +254,7 @@ common:
     url: https://developers.zwitch.io/reference/authorization
   - type: Console
     url: https://app.zwitch.io/
-  - type: SignUp
+  - type: Signup
     url: https://app.zwitch.io/
   - type: GitHub
     url: https://github.com/bankopen
