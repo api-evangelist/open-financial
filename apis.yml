@@ -240,6 +240,8 @@ apis:
       - type: Portal
         url: https://open.money/
 common:
+  - type: DomainSecurity
+    url: security/open-financial-domain-security.yml
   - type: Website
     url: https://open.money/
   - type: Website
