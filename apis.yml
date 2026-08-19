@@ -50,7 +50,7 @@ tags:
   - Fintech
 url: >-
   https://raw.githubusercontent.com/api-evangelist/open-financial/refs/heads/main/apis.yml
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 apis:
   - aid: open-financial:virtual-accounts
     name: Open Zwitch Virtual Accounts API
