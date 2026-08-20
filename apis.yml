@@ -66,6 +66,10 @@ apis:
     baseURL: https://api.zwitch.io/v1
     tags:
       - Virtual Accounts
+      - Subaccounts
+      - Reconciliation
+    tags_raw:
+      - Virtual Accounts
       - Sub-Accounts
       - Reconciliation
     properties:
@@ -188,6 +192,10 @@ apis:
     humanURL: https://developers.zwitch.io/reference/settlements
     baseURL: https://api.zwitch.io/v1
     tags:
+      - Settlement
+      - Split Payments
+      - Marketplaces
+    tags_raw:
       - Settlements
       - Split Payments
       - Marketplaces
@@ -203,6 +211,10 @@ apis:
     humanURL: https://developers.zwitch.io/reference/webhooks
     baseURL: https://api.zwitch.io/v1
     tags:
+      - Webhook
+      - Event
+      - Notification
+    tags_raw:
       - Webhooks
       - Events
       - Notifications
@@ -219,6 +231,11 @@ apis:
     humanURL: https://developers.zwitch.io/reference/payment-pages
     baseURL: https://api.zwitch.io/v1
     tags:
+      - Payment Pages
+      - Payment Links
+      - No-Code
+      - Collection
+    tags_raw:
       - Payment Pages
       - Payment Links
       - No-Code
