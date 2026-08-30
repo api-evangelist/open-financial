@@ -77,7 +77,7 @@ apis:
     baseURL: https://api.zwitch.io/v1
     tags:
       - Virtual Accounts
-      - Subaccounts
+      - Sub-Accounts
       - Reconciliation
     tags_raw:
       - Virtual Accounts
