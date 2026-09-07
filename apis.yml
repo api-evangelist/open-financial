@@ -318,3 +318,5 @@ common:
 maintainers:
   - FN: API Evangelist
     url: https://apievangelist.com
+x-parent: open
+x-relationship: product
