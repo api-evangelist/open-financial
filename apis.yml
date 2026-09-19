@@ -205,7 +205,7 @@ apis:
     tags:
       - Settlement
       - Split Payments
-      - Marketplaces
+      - Marketplace
     tags_raw:
       - Settlements
       - Split Payments
