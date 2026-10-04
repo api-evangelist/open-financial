@@ -48,6 +48,20 @@ modified: '2026-05-24'
 tags:
   - Connected Banking
   - Neobank
+  - Small Business
+  - Embedded Finance
+  - Banking as a Service
+  - Payments
+  - Payouts
+  - UPI
+  - Accounting
+  - Payroll
+  - Expense Management
+  - India
+  - Fintech
+tags_raw:
+  - Connected Banking
+  - Neobank
   - SMB
   - Embedded Finance
   - Banking as a Service
@@ -268,6 +282,12 @@ apis:
     humanURL: https://open.money/developers
     baseURL: https://open.money/developers
     tags:
+      - Connected Banking
+      - Neobank
+      - Small Business
+      - Accounting
+      - Reconciliation
+    tags_raw:
       - Connected Banking
       - Neobank
       - SMB
