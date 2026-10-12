@@ -1,0 +1,18 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/open-financial/integrations
+- https://zapier.com/apps/open-open-money/integrations
+- https://n8n.io/integrations/open-financial/
+- https://composio.dev/toolkits/open-financial
+- https://monid.ai/tools/open-financial
+checked:
+- https://composio.dev/toolkits/open-financial
+- https://monid.ai/tools/open-financial
+- https://n8n.io/integrations/open-financial/
+- https://zapier.com/apps/open-financial/integrations
+- https://zapier.com/apps/open-open-money/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
