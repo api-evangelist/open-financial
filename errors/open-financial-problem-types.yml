@@ -1,0 +1,46 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/open-financial-1-openapi.yml
+- openapi/open-financial-2-openapi.yml
+- openapi/open-financial-4-openapi.yml
+- openapi/open-financial-5-openapi.yml
+- openapi/open-financial-6-openapi.yml
+- openapi/open-financial-8-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: null
+coverage:
+  operations: 39
+  statuses_declared: 4
+problems:
+- status: 400
+  title: Bad Request
+  description: '400'
+  operations: 6
+  media_types:
+  - application/json
+  schema: null
+- status: 401
+  title: Unauthorized
+  description: '401'
+  operations: 30
+  media_types:
+  - application/json
+  schema: null
+- status: 403
+  title: Forbidden
+  description: '403'
+  operations: 3
+  media_types:
+  - application/json
+  schema: null
+- status: 422
+  title: Unprocessable Content
+  description: '422'
+  operations: 28
+  media_types:
+  - application/json
+  schema: null

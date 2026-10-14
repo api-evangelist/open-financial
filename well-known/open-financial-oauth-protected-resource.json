@@ -1,0 +1,23 @@
+{
+  "resource": "https://open.money",
+  "authorization_servers": [
+    "https://app.open.money"
+  ],
+  "scopes_supported": [
+    "openid",
+    "profile",
+    "email",
+    "accounts.read",
+    "transactions.read",
+    "payments.write",
+    "agents.act"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ],
+  "resource_signing_alg_values_supported": [
+    "RS256",
+    "ES256"
+  ],
+  "resource_documentation": "https://help.open.money/support/home"
+}

@@ -1,0 +1,25 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://app.open.money",
+      "service-desc": [
+        {
+          "href": "https://app.open.money/openapi.yaml",
+          "type": "application/yaml"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://help.open.money/support/home",
+          "type": "text/html"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://status.open.money",
+          "type": "text/html"
+        }
+      ]
+    }
+  ]
+}

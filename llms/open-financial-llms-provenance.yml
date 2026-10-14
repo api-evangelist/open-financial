@@ -1,0 +1,6 @@
+generated: '2026-10-14'
+method: probed
+generator: harvest-llms.py
+source: https://open.money/llms.txt
+bytes: 12268
+note: saved verbatim; the provider's own document

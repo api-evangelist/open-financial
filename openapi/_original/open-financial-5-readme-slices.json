@@ -1,0 +1,236 @@
+[
+ {
+  "page": "https://developers.zwitch.io/reference/sub-account-onboarding-api.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "5",
+    "version": "1"
+   },
+   "servers": [
+    {
+     "url": "https://api.zwitch.io"
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "x-bearer-format": "bearer",
+      "x-default": ""
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/pg_settlements/sub_accounts": {
+     "post": {
+      "summary": "Sub Account Onboarding API",
+      "description": "Use this API to create the subaccount",
+      "operationId": "sub-account-onboarding-api",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "recepient_name",
+           "email_id",
+           "mobile_number",
+           "bene_account_number",
+           "ifsc_code",
+           "branch_name",
+           "bank_name"
+          ],
+          "properties": {
+           "recepient_name": {
+            "type": "string",
+            "description": "Name of the sub-account"
+           },
+           "email_id": {
+            "type": "string",
+            "description": "Email address of the sub-account"
+           },
+           "mobile_number": {
+            "type": "string",
+            "description": "Mobile number of the sub-account"
+           },
+           "bene_account_number": {
+            "type": "string",
+            "description": "Account Number of the sub-account"
+           },
+           "ifsc_code": {
+            "type": "string",
+            "description": "IFSC code for the account"
+           },
+           "branch_name": {
+            "type": "string",
+            "description": "Branch name corresponding to the IFSC provided"
+           },
+           "bank_name": {
+            "type": "string",
+            "description": "Bank name of the sub-account's account number"
+           }
+          }
+         },
+         "examples": {
+          "Request Example": {
+           "value": [
+            {
+             "recepient_name": "John Doe",
+             "email_id": "john.doe@gmail.co",
+             "mobile_number": "7558042380",
+             "bene_account_number": "9990009991",
+             "branch_name": "HSR",
+             "bank_name": "KOTAK MAHINDRA BANK",
+             "ifsc_code": "KKBK0008072"
+            }
+           ]
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n    \"data\": [\n        {\n            \"sub_accounts_id\": \"sa_da4f9f84ac6d\",\n            \"recepient_name\": \"John Doe\",\n            \"email_id\": \"john.doe@gmail.co\",\n            \"mobile_number\": \"7558042380\",\n            \"bene_account_number\": \"8912067067\",\n            \"ifsc_code\": \"KKBK0008072\",\n            \"bank_name\": \"KOTAK MAHINDRA BANK\",\n            \"branch_name\": \"KOTAK MAHINDRA BANK\",\n            \"status\": \"pending\"\n        }\n    ],\n    \"meta\": {\n        \"pagination\": {\n            \"total\": 1,\n            \"count\": 1,\n            \"per_page\": 15,\n            \"current_page\": 1,\n            \"total_pages\": 1,\n            \"links\": {}\n        }\n    },\n    \"status\": 200\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "data": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "sub_accounts_id": {
+                "type": "string",
+                "example": "sa_da4f9f84ac6d"
+               },
+               "recepient_name": {
+                "type": "string",
+                "example": "John Doe"
+               },
+               "email_id": {
+                "type": "string",
+                "example": "john.doe@gmail.co"
+               },
+               "mobile_number": {
+                "type": "string",
+                "example": "7558042380"
+               },
+               "bene_account_number": {
+                "type": "string",
+                "example": "8912067067"
+               },
+               "ifsc_code": {
+                "type": "string",
+                "example": "KKBK0008072"
+               },
+               "bank_name": {
+                "type": "string",
+                "example": "KOTAK MAHINDRA BANK"
+               },
+               "branch_name": {
+                "type": "string",
+                "example": "KOTAK MAHINDRA BANK"
+               },
+               "status": {
+                "type": "string",
+                "example": "pending"
+               }
+              }
+             }
+            },
+            "meta": {
+             "type": "object",
+             "properties": {
+              "pagination": {
+               "type": "object",
+               "properties": {
+                "total": {
+                 "type": "integer",
+                 "example": 1,
+                 "default": 0
+                },
+                "count": {
+                 "type": "integer",
+                 "example": 1,
+                 "default": 0
+                },
+                "per_page": {
+                 "type": "integer",
+                 "example": 15,
+                 "default": 0
+                },
+                "current_page": {
+                 "type": "integer",
+                 "example": 1,
+                 "default": 0
+                },
+                "total_pages": {
+                 "type": "integer",
+                 "example": 1,
+                 "default": 0
+                },
+                "links": {
+                 "type": "object",
+                 "properties": {}
+                }
+               }
+              }
+             }
+            },
+            "status": {
+             "type": "integer",
+             "example": 200,
+             "default": 0
+            }
+           }
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "400",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {}
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true,
+   "_id": "61dda03cabe5ac005be201e5:6932c674fa2fa7db832f843b"
+  }
+ }
+]

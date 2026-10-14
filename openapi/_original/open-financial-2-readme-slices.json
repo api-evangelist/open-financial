@@ -1,0 +1,411 @@
+[
+ {
+  "page": "https://developers.zwitch.io/reference/accounts-virtual-transfer-wallet-create.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "2",
+    "version": "1"
+   },
+   "servers": [
+    {
+     "url": "https://api.zwitch.io"
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "x-bearer-format": "bearer",
+      "x-default": ""
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/v1/accounts": {
+     "post": {
+      "summary": "Create Virtual Account used as Transfer Wallet",
+      "description": "Use this API to create a virtual account used as a transfer wallet.",
+      "operationId": "accounts-virtual-transfer-wallet-create",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "type",
+           "used_as",
+           "name",
+           "mobile_number",
+           "email"
+          ],
+          "properties": {
+           "type": {
+            "type": "string",
+            "description": "Type of account to be created.<br><br>Accepted value: <ul><li>`virtual`</ul></li>",
+            "default": "virtual"
+           },
+           "used_as": {
+            "type": "string",
+            "description": "Type of virtual account to be created.<br><br>Accepted value: <ul><li>`wallet`</li></ul>",
+            "default": "wallet"
+           },
+           "name": {
+            "type": "string",
+            "description": "Applicant's name.<br><br>Maximum 70 characters.<br><br>Example: `Anil Reddy`<br><br>Supported characters:<ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li><li>`.`</li><li>`/`</li><li>`\\`</li><li>`-`</li><li>`_`</li><li>`,`</li><li>`(`</li><li>`)`</li><li>`'`</li></ul>"
+           },
+           "mobile_number": {
+            "type": "string",
+            "description": "Account holder's mobile number.<br><br>Has to be 10 digits.<br><br>Example: `9876543210`<br><br>Supported characters: <ul><li>`0-9`</ul></li>"
+           },
+           "email": {
+            "type": "string",
+            "description": "Account holder's email address.<br><br>Example: `anil.reddy@example.com`"
+           },
+           "bank_name": {
+            "type": "string",
+            "description": "**To create a transfer wallet, `bank_name` must be `idfc_bank`**.<br><br>Bank where the virtual account used as a transfer wallet needs to be created.<br><br>Accepted values: <ul><li>`idfc_bank`</ul></li>"
+           },
+           "kyc": {
+            "type": "object",
+            "description": "JSON object to pass the account holder's KYC details.",
+            "required": [
+             "city",
+             "postal_code",
+             "state_code",
+             "business_type",
+             "business_category"
+            ],
+            "properties": {
+             "city": {
+              "type": "string",
+              "description": "Account holder's city.<br><br>Example: `bangalore`<br><br>Supported characters:<ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li><li>`space`</li><li>`_`</li><li>`()`</li><li>`.`</li></ul>"
+             },
+             "postal_code": {
+              "type": "string",
+              "description": "Account holder's postal code.<br><br>Example: `560005`"
+             },
+             "state_code": {
+              "type": "string",
+              "description": "Applicant's state code.<br><br>Example: `KA`<br><br>Use the <a href=\"https://developers.zwitch.io/reference/constants-state-codes\" target=\"_blank\">States API</a> to get a list of accepted values."
+             },
+             "business_type": {
+              "type": "string",
+              "description": "Business type for the virtual account.<br><br>Example: `partnership`<br><br>Use the <a href=\"https://developers.zwitch.io/reference/constants-business-types\" target=\"_blank\">Business Type API</a> to get a list of accepted values."
+             },
+             "business_category": {
+              "type": "string",
+              "description": "Business category for the virtual account.<br><br>Example: `garage_owners`<br><br>Use the <a href=\"https://developers.zwitch.io/reference/constants-business-categories\" target=\"_blank\">Business Categories API</a> to get a list of accepted values."
+             },
+             "contact_person": {
+              "type": "string",
+              "description": "Contact person's name for the business<br><br>Example: `Anil Reddy`"
+             }
+            }
+           },
+           "metadata": {
+            "type": "object",
+            "description": "Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.</li><li>Maximum 5 key-value pairs.</li></ul>Example: `\"key_1\": \"DD”`",
+            "properties": {
+             "key_1": {
+              "type": "string"
+             },
+             "key_2": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         },
+         "examples": {
+          "Transfer Wallet": {
+           "value": {
+            "type": "virtual",
+            "used_as": "wallet",
+            "name": "Anil Reddy",
+            "mobile_number": "9876543210",
+            "email": "anil.reddy@example.com",
+            "bank_name": "idfc_bank",
+            "kyc": {
+             "city": "Bangalore",
+             "postal_code": "560005",
+             "state_code": "KA",
+             "pan": "AAAPA0000A",
+             "business_type": "partnership",
+             "pan_verification_id": "pan_teJfU3K93LKeUao3alujrW6GP",
+             "business_category": "garage_owners",
+             "contact_person": "Rahul Reddy"
+            },
+            "metadata": {
+             "key_1": "DD",
+             "key_2": "XOF"
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Transfer Wallet": {
+            "value": "{\n    \"id\": \"va_pVYnzIhqjXeOonvMR3Hqg6rDh\",\n    \"object\": \"account.virtual\",\n    \"type\": \"virtual\",\n    \"used_as\": \"wallet\",\n    \"bank_name\": \"idfc_bank\",\n    \"name\": \"Anil Reddy\",\n    \"mobile_number\": \"9896543210\",\n    \"email\": \"anil.reddy+1@example.com\",\n    \"account_number\": \"7979791565883462\",\n    \"ifsc_code\": \"IDFB0040101\",\n    \"vpa\": null,\n    \"additional_vpa\": [],\n    \"whitelisted_remitters\": [],\n    \"whitelisted_beneficiaries\": [],\n    \"kyc\": {\n        \"city\": \"Bangalore\",\n        \"postal_code\": \"560010\",\n        \"state_code\": \"KA\",\n        \"pan\": \"XXXXXX000A\",\n        \"business_type\": \"partnership\",\n        \"business_category\": \"garage_owners\",\n        \"contact_person\": \"Rahul Reddy\",\n        \"pan_verification_id\": null\n    },\n    \"customer\": {\n        \"id\": \"cus_R4WOLrJ3FlO1VwjTmNMuSZgCf\",\n        \"mobile_number\": \"9896543210\"\n    },\n    \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n    },\n    \"kyc_url\": \"https://merchant-onboarding.open.money/login?hash=3230b6b287811383c8b880f17188102d093b270e\",\n    \"status\": \"kyc_pending\",\n    \"created_at\": 1758101005,\n    \"is_sandbox\": false,\n    \"settlement_account_id\": null,\n    \"verified_beneficiaries\": [],\n    \"verified_remitters\": []\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "id": {
+             "type": "string",
+             "example": "va_pVYnzIhqjXeOonvMR3Hqg6rDh"
+            },
+            "object": {
+             "type": "string",
+             "example": "account.virtual"
+            },
+            "type": {
+             "type": "string",
+             "example": "virtual"
+            },
+            "used_as": {
+             "type": "string",
+             "example": "wallet"
+            },
+            "bank_name": {
+             "type": "string",
+             "example": "idfc_bank"
+            },
+            "name": {
+             "type": "string",
+             "example": "Anil Reddy"
+            },
+            "mobile_number": {
+             "type": "string",
+             "example": "9896543210"
+            },
+            "email": {
+             "type": "string",
+             "example": "anil.reddy+1@example.com"
+            },
+            "account_number": {
+             "type": "string",
+             "example": "7979791565883462"
+            },
+            "ifsc_code": {
+             "type": "string",
+             "example": "IDFB0040101"
+            },
+            "vpa": {},
+            "additional_vpa": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {}
+             }
+            },
+            "whitelisted_remitters": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {}
+             }
+            },
+            "whitelisted_beneficiaries": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {}
+             }
+            },
+            "kyc": {
+             "type": "object",
+             "properties": {
+              "city": {
+               "type": "string",
+               "example": "Bangalore"
+              },
+              "postal_code": {
+               "type": "string",
+               "example": "560010"
+              },
+              "state_code": {
+               "type": "string",
+               "example": "KA"
+              },
+              "pan": {
+               "type": "string",
+               "example": "XXXXXX000A"
+              },
+              "business_type": {
+               "type": "string",
+               "example": "partnership"
+              },
+              "business_category": {
+               "type": "string",
+               "example": "garage_owners"
+              },
+              "contact_person": {
+               "type": "string",
+               "example": "Rahul Reddy"
+              },
+              "pan_verification_id": {}
+             }
+            },
+            "customer": {
+             "type": "object",
+             "properties": {
+              "id": {
+               "type": "string",
+               "example": "cus_R4WOLrJ3FlO1VwjTmNMuSZgCf"
+              },
+              "mobile_number": {
+               "type": "string",
+               "example": "9896543210"
+              }
+             }
+            },
+            "metadata": {
+             "type": "object",
+             "properties": {
+              "key_1": {
+               "type": "string",
+               "example": "DD"
+              },
+              "key_2": {
+               "type": "string",
+               "example": "XOF"
+              }
+             }
+            },
+            "kyc_url": {
+             "type": "string",
+             "example": "https://merchant-onboarding.open.money/login?hash=3230b6b287811383c8b880f17188102d093b270e"
+            },
+            "status": {
+             "type": "string",
+             "example": "kyc_pending"
+            },
+            "created_at": {
+             "type": "integer",
+             "example": 1758101005,
+             "default": 0
+            },
+            "is_sandbox": {
+             "type": "boolean",
+             "example": false,
+             "default": true
+            },
+            "settlement_account_id": {},
+            "verified_beneficiaries": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {}
+             }
+            },
+            "verified_remitters": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {}
+             }
+            }
+           }
+          }
+         }
+        }
+       },
+       "401": {
+        "description": "401",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "error": {
+             "type": "object",
+             "properties": {
+              "type": {
+               "type": "string",
+               "example": "authentication_error"
+              },
+              "message": {
+               "type": "string",
+               "example": "Invalid secret key."
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       },
+       "422": {
+        "description": "422",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"parameter_missing\",\n    \"message\": \"The pan field is required\",\n    \"param\": \"kyc.pan\"\n  }\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "error": {
+             "type": "object",
+             "properties": {
+              "type": {
+               "type": "string",
+               "example": "invalid_request_error"
+              },
+              "code": {
+               "type": "string",
+               "example": "parameter_missing"
+              },
+              "message": {
+               "type": "string",
+               "example": "The pan field is required"
+              },
+              "param": {
+               "type": "string",
+               "example": "kyc.pan"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true,
+   "_id": "61dd9fb8553153066bb92364:65cdb9c4d2c0dd0023f5d123"
+  }
+ }
+]

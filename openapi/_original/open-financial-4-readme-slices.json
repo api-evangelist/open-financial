@@ -1,0 +1,276 @@
+[
+ {
+  "page": "https://developers.zwitch.io/reference/verifications-pan-vs-account-verification-create.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "4",
+    "version": "1"
+   },
+   "servers": [
+    {
+     "url": "https://api.zwitch.io"
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "x-bearer-format": "bearer",
+      "x-default": ""
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/v1/kycs/name-match": {
+     "post": {
+      "summary": "Name Verification - PAN vs Account Verification",
+      "description": "Use this API to verify the PAN name with their existing Bank account name.",
+      "operationId": "verifications-pan-vs-account-verification-create",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "type",
+           "pan_verification_id",
+           "account_verification_id",
+           "minimum_match_score"
+          ],
+          "properties": {
+           "type": {
+            "type": "string",
+            "description": "The inputs you want to use to compare the individual's name.<br><br>Accepted value: `pan_vs_account_verification`"
+           },
+           "pan_verification_id": {
+            "type": "string",
+            "description": "Unique identifier obtained when the applicant's PAN is digitally verified.<br><br>Use the <a href=\"https://developers.zwitch.io/reference/verifications-pan\" target=\"_blank\">PAN Verification API</a> to digitally verify the applicant's PAN.<br><br>Has to be 29 characters.<br><br>Example: `pan_SYkpuiAbXC9ZHUmf2YuYFvGW1`<br><br>Supported characters: <ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li></ul>"
+           },
+           "account_verification_id": {
+            "type": "string",
+            "description": "Unique identifier of the account verification request in the ZWITCH database.<br><br>Use our <a href=\"https://developers.zwitch.io/reference/verifications-bank-account-create\" target=\"_block\">Bank Account Verification API</a> to verify your applicant's account and get the unique identifier.<br><br>Has to be 32 characters.<br><br>Example: `accver_T7tf1mHC4Cgd544uQhuoLNDd5`<br><br>Supported characters: <ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li></ul>"
+           },
+           "minimum_match_score": {
+            "type": "number",
+            "description": "The minimum acceptable match score set by you.<ul><li>Minimum value: `60`</li><li>Maximum score: `100`</li><li>Whole numbers only</li></ul>Example: `75`",
+            "format": "float"
+           },
+           "metadata": {
+            "type": "object",
+            "description": "Key-value pair that can be used to store additional information about the entity. <ul><li>Each pair cannot exceed 256 characters. <li>Maximum 5 key-value pairs.</ul></li>Example: `\"key_1\": \"Zwitch to the moon.”`",
+            "properties": {
+             "Key_1": {
+              "type": "string"
+             },
+             "Key_2": {
+              "type": "string"
+             }
+            }
+           }
+          }
+         },
+         "examples": {
+          "Name Match Account vs Verification": {
+           "value": {
+            "type": "pan_vs_account_verification",
+            "pan_verification_id": "pan_vTQ7sBPRAApHORmN5PfT3Uk3N",
+            "account_verification_id": "accver_wIEhmszz13go8eiUSbYDZlBKu",
+            "minimum_match_score": 60.5,
+            "metadata": {
+             "key_1": "DD",
+             "key_2": "XOF"
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"id\": \"nm_BbDMJHOVydaXraXQuSWPPquoZ\",\n  \"type\": \"pan_vs_account_verification\",\n  \"object\": \"name_match.pan_vs_account_verification\",\n  \"minimum_match_score\": 60.5,\n  \"status\": \"success\",\n  \"name_as_per_pan\": \"Anil Reddy\",\n  \"pan_verification_id\": \"pan_vTQ7sBPRAApHORmN5PfT3Uk3N\",\n  \"account_verification_id\": \"accver_wIEhmszz13go8eiUSbYDZlBKu\",\n  \"name_as_per_verification\": \"Anil Reddy\",\n  \"match_score\": 70.83,\n  \"message\": \"success\",\n  \"review_needed\": false,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"created_at\": 1704868805,\n  \"updated_at\": 1704868805,\n  \"is_sandbox\": true\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "id": {
+             "type": "string",
+             "example": "nm_BbDMJHOVydaXraXQuSWPPquoZ"
+            },
+            "type": {
+             "type": "string",
+             "example": "pan_vs_account_verification"
+            },
+            "object": {
+             "type": "string",
+             "example": "name_match.pan_vs_account_verification"
+            },
+            "minimum_match_score": {
+             "type": "number",
+             "example": 60.5,
+             "default": 0
+            },
+            "status": {
+             "type": "string",
+             "example": "success"
+            },
+            "name_as_per_pan": {
+             "type": "string",
+             "example": "Anil Reddy"
+            },
+            "pan_verification_id": {
+             "type": "string",
+             "example": "pan_vTQ7sBPRAApHORmN5PfT3Uk3N"
+            },
+            "account_verification_id": {
+             "type": "string",
+             "example": "accver_wIEhmszz13go8eiUSbYDZlBKu"
+            },
+            "name_as_per_verification": {
+             "type": "string",
+             "example": "Anil Reddy"
+            },
+            "match_score": {
+             "type": "number",
+             "example": 70.83,
+             "default": 0
+            },
+            "message": {
+             "type": "string",
+             "example": "success"
+            },
+            "review_needed": {
+             "type": "boolean",
+             "example": false,
+             "default": true
+            },
+            "metadata": {
+             "type": "object",
+             "properties": {
+              "key_1": {
+               "type": "string",
+               "example": "DD"
+              },
+              "key_2": {
+               "type": "string",
+               "example": "XOF"
+              }
+             }
+            },
+            "created_at": {
+             "type": "integer",
+             "example": 1704868805,
+             "default": 0
+            },
+            "updated_at": {
+             "type": "integer",
+             "example": 1704868805,
+             "default": 0
+            },
+            "is_sandbox": {
+             "type": "boolean",
+             "example": true,
+             "default": true
+            }
+           }
+          }
+         }
+        }
+       },
+       "401": {
+        "description": "401",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "error": {
+             "type": "object",
+             "properties": {
+              "type": {
+               "type": "string",
+               "example": "authentication_error"
+              },
+              "message": {
+               "type": "string",
+               "example": "Invalid secret key."
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       },
+       "422": {
+        "description": "422",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such account_id: pan_vTQ7sBPRAApHORmN5PfT3Uk3N\",\n    \"param\": \"pan_verification_id\"\n  }\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "error": {
+             "type": "object",
+             "properties": {
+              "type": {
+               "type": "string",
+               "example": "invalid_request_error"
+              },
+              "code": {
+               "type": "string",
+               "example": "resource_missing"
+              },
+              "message": {
+               "type": "string",
+               "example": "No such account_id: pan_vTQ7sBPRAApHORmN5PfT3Uk3N"
+              },
+              "param": {
+               "type": "string",
+               "example": "pan_verification_id"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true,
+   "_id": "61dda028755abf01a538e3d7:6440d2a5683b6e00176001e6"
+  }
+ }
+]

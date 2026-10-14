@@ -1,0 +1,213 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/open-financial-1-openapi.yml
+- openapi/open-financial-2-openapi.yml
+- openapi/open-financial-4-openapi.yml
+- openapi/open-financial-5-openapi.yml
+- openapi/open-financial-6-openapi.yml
+- openapi/open-financial-8-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 39 operation(s) in the provider's own
+  OpenAPI (39 listed); they describe what a server WOULD expose, not one that exists.
+tools:
+- name: upi_qr_intent_string
+  operationId: upi-qr-intent-string
+  method: POST
+  path: /icp/upi/intent
+  description: UPI QR & Intent String
+- name: accounts_virtual_transfer_wallet_create
+  operationId: accounts-virtual-transfer-wallet-create
+  method: POST
+  path: /v1/accounts
+  description: Create Virtual Account used as Transfer Wallet
+- name: verifications_pan_vs_account_verification_create
+  operationId: verifications-pan-vs-account-verification-create
+  method: POST
+  path: /v1/kycs/name-match
+  description: Name Verification - PAN vs Account Verification
+- name: sub_account_onboarding_api
+  operationId: sub-account-onboarding-api
+  method: POST
+  path: /pg_settlements/sub_accounts
+  description: Sub Account Onboarding API
+- name: accounts_virtual_collection_tool_create
+  operationId: accounts-virtual-collection-tool-create
+  method: POST
+  path: /v1/accounts
+  description: Create Virtual Account used as Collection Tool
+- name: accounts_virtual_collection_wallet_create
+  operationId: accounts-virtual-collection-wallet-create
+  method: POST
+  path: /v1/accounts
+  description: Create Virtual Account used as Collection Wallet
+- name: update_sub_account
+  operationId: update-sub-account
+  method: PUT
+  path: /pg_settlements/sub_accounts
+  description: Update Sub Account
+- name: get_all_sub_accounts
+  operationId: get-all-sub-accounts
+  method: GET
+  path: /pg_settlements/sub_accounts
+  description: Get All Sub-Accounts
+- name: get_sub_account_by_id
+  operationId: get-sub-account-by-id
+  method: GET
+  path: /pg_settlements/sub_accounts/{{sub_account_ref_id}}
+  description: Get Sub Account By ID
+- name: batch_refund_api
+  operationId: batch-refund-api
+  method: POST
+  path: /refund/batch
+  description: Batch Refund API
+- name: requery_batch_refund
+  operationId: requery-batch-refund
+  method: GET
+  path: /refund/batch/requery
+  description: Requery Batch Refund
+- name: accounts_get_all
+  operationId: accounts-get-all
+  method: GET
+  path: /v1/accounts
+  description: Get All Accounts
+- name: beneficiaries_get_by_id
+  operationId: beneficiaries-get-by-id
+  method: GET
+  path: /v1/accounts/beneficiaries/{beneficiary_id}
+  description: Get Beneficiary by ID
+- name: beneficiaries_update
+  operationId: beneficiaries-update
+  method: POST
+  path: /v1/accounts/beneficiaries/{beneficiary_id}
+  description: Update Beneficiary
+- name: beneficiaries_delete
+  operationId: beneficiaries-delete
+  method: DELETE
+  path: /v1/accounts/beneficiaries/{beneficiary_id}
+  description: Delete Beneficiary
+- name: accounts_get_by_id
+  operationId: accounts-get-by-id
+  method: GET
+  path: /v1/accounts/{account_id}
+  description: Get Account by ID
+- name: accounts_get_balance
+  operationId: accounts-get-balance
+  method: GET
+  path: /v1/accounts/{account_id}/balance
+  description: Get Account Balance
+- name: beneficiaries_bank_account_create
+  operationId: beneficiaries-bank-account-create
+  method: POST
+  path: /v1/accounts/{account_id}/beneficiaries
+  description: Create Bank Account Beneficiary
+- name: beneficiaries_get_all
+  operationId: beneficiaries-get-all
+  method: GET
+  path: /v1/accounts/{account_id}/beneficiaries
+  description: Get All Beneficiaries
+- name: accounts_virtual_deactivate
+  operationId: accounts-virtual-deactivate
+  method: POST
+  path: /v1/accounts/{account_id}/deactivate
+  description: Deactivate Virtual Account
+- name: accounts_get_statement
+  operationId: accounts-get-statement
+  method: GET
+  path: /v1/accounts/{account_id}/statements
+  description: Get Account Statement
+- name: accounts_virtual_test_balance
+  operationId: accounts-virtual-test-balance
+  method: POST
+  path: /v1/accounts/{account_id}/test-balance
+  description: '[Sandbox Only] Add Test Balance'
+- name: constants_business_categories
+  operationId: constants-business-categories
+  method: GET
+  path: /v1/constants/business-categories
+  description: Business Categories
+- name: constants_business_types
+  operationId: constants-business-types
+  method: GET
+  path: /v1/constants/business-types
+  description: Business Types
+- name: constants_ifsc
+  operationId: constants-ifsc
+  method: GET
+  path: /v1/constants/ifsc-codes
+  description: Bank IFSC
+- name: constants_state_codes
+  operationId: constants-state-codes
+  method: GET
+  path: /v1/constants/states
+  description: State Codes
+- name: webhooks_get_all_events
+  operationId: webhooks-get-all-events
+  method: GET
+  path: /v1/events
+  description: Get All Webhook Events
+- name: verifications_name_create
+  operationId: verifications-name-create
+  method: POST
+  path: /v1/kycs/name-match
+  description: Name Verification
+- name: verifications_pan_create
+  operationId: verifications-pan-create
+  method: POST
+  path: /v1/kycs/pan
+  description: PAN Verification
+- name: bank_account_verification_copy_1
+  operationId: bank-account-verification-copy-1
+  method: POST
+  path: /v1/kycs/verifications/bank-account/pennyless
+  description: Bank Account Verification Pennyless
+- name: verifications_vpa_create
+  operationId: verifications-vpa-create
+  method: POST
+  path: /v1/kycs/verifications/vpa
+  description: VPA (UPI ID) Verification
+- name: create_payment_token
+  operationId: create-payment-token
+  method: POST
+  path: /v1/pg/sandbox/payment_token
+  description: Create Payment Token
+- name: status_check_api_with_payment_token
+  operationId: status-check-api-with-payment_token
+  method: GET
+  path: /v1/pg/sandbox/payment_token/{tokenvalue}/payment
+  description: Status check API with payment_token
+- name: transfers_virtual_accounts_create_to_account_beneficiary
+  operationId: transfers-virtual-accounts-create-to-account-beneficiary
+  method: POST
+  path: /v1/transfers
+  description: Create Transfer - Account Beneficiary
+- name: transfers_bulk_get_all
+  operationId: transfers-bulk-get-all
+  method: GET
+  path: /v1/transfers
+  description: Get All Transfer by Bulk Reference ID
+- name: transfers_bulk_by_id
+  operationId: transfers-bulk-by-id
+  method: GET
+  path: /v1/transfers/bulk/{bulk_transfer_id}
+  description: Get Bulk Transfer by ID
+- name: transfers_get_by_id
+  operationId: transfers-get-by-id
+  method: GET
+  path: /v1/transfers/{transfer_id}
+  description: Get Transfer by ID
+- name: verifications_bank_account_create
+  operationId: verifications-bank-account-create
+  method: POST
+  path: /v1/verifications/bank-account
+  description: Bank Account Verification
+- name: transfers_bulk_create
+  operationId: transfers-bulk-create
+  method: POST
+  path: /v2/transfers/bulk
+  description: Create Bulk Transfer

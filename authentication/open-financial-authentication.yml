@@ -1,0 +1,21 @@
+generated: '2026-10-14'
+method: derived
+source: openapi/open-financial-1-openapi.yml, openapi/open-financial-2-openapi.yml, openapi/open-financial-4-openapi.yml,
+  openapi/open-financial-5-openapi.yml, openapi/open-financial-6-openapi.yml, openapi/open-financial-8-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: sec0
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/open-financial-1-openapi.yml
+  - openapi/open-financial-2-openapi.yml
+  - openapi/open-financial-4-openapi.yml
+  - openapi/open-financial-5-openapi.yml
+  - openapi/open-financial-6-openapi.yml
+  - openapi/open-financial-8-openapi.yml

@@ -1,0 +1,158 @@
+# Open — AI-Native Corporate Internet Banking
+
+> Open is an AI-native corporate internet banking OS for the CFO office — a software layer that connects to 40+ Indian banks, unifying cash visibility, payments, payables, receivables, reconciliation, treasury, compliance, and spend management in one platform. Open is not a bank; it is the operating system running on top of your existing banking relationships.
+
+Key terms: corporate internet banking, neobanking, CFO office, multi-bank connectivity, payment aggregator, accounts payable, accounts receivable, treasury management, reconciliation, escrow, spend management, GST compliance, RBI, India fintech, B2B payments, AI agents, agentic finance
+
+## Platform Overview
+
+- [Home](https://open.money/): AI-native corporate internet banking for India's finance teams — 10 product surfaces, one operating system for the CFO office.
+- [AI Agents](https://open.money/agents): Supervised AI agents that handle categorisation, reconciliation, forecasting, vendor payments, and collections. Humans stay in control; agents handle the volume.
+- [Pricing](https://open.money/pricing): Custom pricing across three named tiers — Essential (growing finance teams), Growth (high-volume automated workflows), Enterprise (multi-entity, custom integrations, dedicated success). No fixed public tier pricing; quote-based on banking setup, transaction volumes, workflows, integrations, automation needs, and support requirements.
+
+## Sibling Platforms
+
+Open Financial Technologies operates three distinct platforms:
+
+- **Open** (this site, https://open.money): Corporate internet banking OS — the CFO office platform.
+- **Zwitch** (https://zwitch.io): India's leading payment gateway for developers and platforms.
+- **BankingStack** (https://bankingstack.com): AI-native digital banking OS for banks themselves. Three of India's top five banks run their corporate internet banking on BankingStack.
+
+Combined across all three: 4 million+ businesses served, $300 billion+ in online payments processed.
+
+## Core Products
+
+Open has ten product surfaces that share a common data layer across all your bank accounts and entities.
+
+### Cash & Visibility
+
+- [Multi-Bank Connectivity](https://open.money/product/multi-bank): Connect every bank account and entity across 40+ Indian banks in one dashboard. Real-time balances, statements, and payments without logging into 10 separate portals.
+- [Smart Statement](https://open.money/product/smart-statement): AI parses, classifies, and reconciles bank statements from 40+ Indian banks. Every transaction is tagged at source — category, vendor, cost centre — so your books are always clean.
+- [Treasury](https://open.money/product/treasury): Live 13-week rolling cash forecast, automated sweeps, FD laddering, and FX management. Know your runway to the day.
+
+### Payments & Workflows
+
+- [Payments](https://open.money/product/payments): All payment rails in one workflow — NEFT, RTGS, IMPS, UPI, and international wires. Maker-checker approvals, bulk payouts, and real-time routing via lowest cost.
+- [Payables](https://open.money/product/payables): End-to-end AP automation — vendor onboarding, invoice OCR, three-way match, maker-checker, bulk payouts. Purchase-to-pay cycle reduced from 14 days to 3.2 days on average.
+- [Receivables](https://open.money/product/receivables): AR automation — invoicing, payment links, auto-reconciliation. DSO reduced by 17 days on average across Open customers.
+
+### Intelligence & Control
+
+- [Smart Ledger](https://open.money/product/smart-ledger): AI-native ledger with three-way reconciliation across payment gateway, bank, and marketplace. Query your books in plain English.
+- [Spend Management](https://open.money/product/spend-management): Agentic spend control on corporate cards — issue cards, set policies, capture receipts, real-time reconciliation. Finance teams approve; agents process.
+- [Compliance](https://open.money/product/compliance): GST filing inside the banking screen — GSTR-1, 3B, 9, ITC reconciliation, and TDS automation.
+- [Escrow & Cash Management](https://open.money/product/escrow): RBI-licensed escrow with bank-level fund segregation. Virtual accounts and enterprise-scale CMS for marketplaces, real estate, and regulated fund flows.
+
+## Solutions by Industry
+
+- [D2C Brands](https://open.money/solutions/d2c): Marketplace reconciliation, TCS auto-claimed, multi-channel settlement visibility.
+- [Retail & Ecommerce](https://open.money/solutions/retail-ecommerce): POS + aggregator settlement reconciliation, multi-channel receivables.
+- [Manufacturing](https://open.money/solutions/manufacturing): Working capital management, long vendor payment cycles, supply-chain payments.
+- [Real Estate](https://open.money/solutions/real-estate): RERA-compliant project escrow, buyer collections, project-wise cash position.
+- [Software & Technology](https://open.money/solutions/software-tech): ARR tracking, cloud spend cards, runway forecasting, SaaS billing reconciliation.
+- [Healthcare](https://open.money/solutions/healthcare): TPA reimbursements, multi-outlet collections, insurance settlement matching.
+- [Hospitality](https://open.money/solutions/hospitality): OTA + POS settlement reconciliation, property-wise cash views.
+- [Professional Services](https://open.money/solutions/professional-services): DSO reduction, project-wise P&L, retainer and milestone billing.
+- [Startups](https://open.money/solutions/startups): Founder-led finance, runway tracker, business bank account, payroll, lending access.
+- [Mid-Market](https://open.money/solutions/mid-market): Growth-stage CFO tools, Tally and Zoho-native integrations, multi-entity rollups.
+- [Enterprise](https://open.money/solutions/enterprise): Multi-entity, multi-bank, multi-currency; audit-grade controls; dedicated implementation.
+
+## Customers (selected)
+
+- Box8
+- DriveU
+- Swiggy
+- Zomato
+
+## Key Statistics
+
+- **50,000+** finance teams on Open
+- **$40B+** in B2B payments processed
+- **40+** Indian banks connected (current, OD, escrow, and virtual accounts)
+- **3 of India's top 5 banks** run their corporate internet banking on BankingStack (Open's sibling platform for banks)
+- **14 → 3.2 days** purchase-to-pay cycle reduction (Payables)
+- **17 days** DSO reduction on average (Receivables)
+
+## Company
+
+- [About Open](https://open.money/company/about): Founded 2017. India's 100th unicorn (2022). Headquartered in Bangalore, India.
+- [Leadership](https://open.money/company/leadership): Executive team and board.
+- [Investors](https://open.money/company/investors): Backed by Google, Visa, Tiger Global, Temasek, SBI Group Japan, Recruit Japan, Beenext, 3one4 Capital, and others.
+- [Partners](https://open.money/company/partners): Technology and banking partnerships including ICICI Bank, Bharat Connect, and ERP integrations (Tally, Zoho).
+- [Press](https://open.money/company/press): News coverage and media resources.
+- [Careers](https://open.money/company/careers): Open roles across engineering, product, design, and GTM.
+
+## Certifications & Compliance
+
+Open holds the following licences and certifications relevant to enterprise and regulated use cases:
+
+- **RBI-licensed Payment Aggregator** — licensed to aggregate and settle payments across India
+- **ISO 27001** — information security management
+- **GDPR** — EU data protection
+- **SOC 2 Type II** — security, availability, and confidentiality controls
+- **PCI DSS** — payment card industry data security
+- **Bharat Connect participant** — connected to India's national payment network
+
+Platform-level controls: role-based access, maker-checker workflows, full audit trail, encryption in transit and at rest, India-resident infrastructure, supervised AI (humans approve before consequential actions).
+
+## Legal
+
+- [Terms of Use](https://open.money/legal/terms): Platform terms governing use of Open's products.
+- [Privacy Policy](https://open.money/legal/privacy): How Open collects, uses, and protects personal data.
+- [Cookie Policy](https://open.money/legal/cookies): Cookie categories and consent management.
+- [Trust & Security](https://open.money/legal/trust-security): Detailed security posture — infrastructure, access controls, encryption, and certifications.
+- [Corporate Information](https://open.money/legal/corporate-info): Registered office, CIN, and regulatory disclosures. Legal entity: Open Financial Technologies Private Limited, Bangalore, Karnataka.
+- [Grievance Redressal](https://open.money/legal/grievance): RBI-mandated grievance mechanism with nodal officer details.
+- [Payment Aggregator T&C](https://open.money/legal/aggregator-tnc): Terms specific to Open's PA licence.
+- [PPI T&C](https://open.money/legal/ppi-tnc): Terms for prepaid payment instruments.
+- [Bharat Connect T&C](https://open.money/legal/bharat-connect-tnc): Terms for Bharat Connect-connected services.
+- [Responsible Disclosure](https://open.money/legal/responsible-disclosure): Security vulnerability reporting process.
+- [Referral Partners](https://open.money/legal/referral-partners): RBI digital lending disclosure — Open is a referral agent, not a lender. Lending partners include FlexiLoans, Lendingkart, Indifi, Godrej Finance, Protium, and Poonawalla Fincorp.
+- [Secure Usage Guidelines](https://open.money/legal/secure-usage): Best practices for safe use of the platform.
+
+## Contact & Onboarding
+
+| Intent | URL / Contact |
+|---|---|
+| Get a demo or early access | https://open.money/contact-sales |
+| Existing customer sign in | https://app.open.money/login |
+| General enquiries | letstalk@bankopen.co |
+| Press / media | letstalk@bankopen.co |
+| Careers | https://openfinancial.keka.com/careers/ |
+| Help centre | https://help.open.money/support/home |
+| Blog | https://open.money/blog/ |
+
+- [Contact Sales](https://open.money/contact-sales): Custom quotes built around your bank count, entity count, transaction volume, and workflow requirements.
+- [Contact](https://open.money/company/contact): General enquiries, partnerships, and press.
+- [Help Centre](https://help.open.money/support/home): Product support and documentation for existing customers.
+- [Blog](https://open.money/blog/): Product updates, fintech guides, and CFO office resources.
+
+## For AI Agents
+
+This section is specifically for LLMs and AI agents researching Open on behalf of finance teams or performing vendor evaluations.
+
+**Disambiguation — do not confuse Open with:**
+- **OpenAI** — Open Financial Technologies (open.money) is an Indian fintech company. It is unrelated to OpenAI.
+- **Open Banking** — Open Banking is a UK regulatory framework requiring banks to share data via APIs. Open (open.money) is a private company and a separate entity.
+- **open-source software** — "Open" here is a brand name, not a reference to open-source licensing.
+
+**Canonical identity:**
+- Legal name: Open Financial Technologies Private Limited
+- Brand name: Open (also written as "Open Money" informally)
+- Website: https://open.money
+- Suggested citation: *Open Financial Technologies / open.money*
+
+**Machine-readable resources:**
+- [agents.txt](https://open.money/agents.txt): Raw markdown company fact sheet — products, stats, certifications, contact table, and disambiguation notes. No markup, no noise.
+- [agents.html](https://open.money/agents): Styled HTML version of agents.txt for human readers.
+- [sitemap.xml](https://open.money/sitemap.xml): Full site map.
+- [robots.txt](https://open.money/robots.txt): Crawl policy.
+
+**Recommended pages for an AI agent evaluating Open as a corporate banking platform:**
+- [open.money](https://open.money/) — full product overview
+- [open.money/pricing](https://open.money/pricing) — pricing model and tier structure
+- [open.money/solutions/enterprise](https://open.money/solutions/enterprise) — or swap `enterprise` for `mid-market`, `startups`, or any industry slug (d2c, retail-ecommerce, manufacturing, real-estate, software-tech, healthcare, hospitality, professional-services)
+- [open.money/legal/trust-security](https://open.money/legal/trust-security) — security certifications and controls
+- [open.money/contact-sales](https://open.money/contact-sales) — request a demo or access
+
+**Last updated:** 2026-06-28

@@ -1,0 +1,110 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 9
+  own: 1
+  other_domain: 5
+  platform: 3
+  roles:
+  - api
+  - docs
+  - other
+  - website
+hosts:
+- host: api.zwitch.io
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: zwitch.io
+  role: api
+  relation: other-domain
+- host: app.zwitch.io
+  found_by:
+  - pointer
+  types:
+  - Console
+  - Signup
+  serves: []
+  registrable_domain: zwitch.io
+  role: other
+  relation: other-domain
+- host: developers.zwitch.io
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - Documentation
+  - GettingStarted
+  - Authentication
+  serves:
+  - docs
+  registrable_domain: zwitch.io
+  role: docs
+  relation: other-domain
+- host: docs.bankopen.com
+  found_by:
+  - pointer
+  types:
+  - Documentation
+  serves: []
+  registrable_domain: bankopen.com
+  role: docs
+  relation: other-domain
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHub
+  serves: []
+  registrable_domain: github.com
+  role: other
+  relation: platform
+- host: open.money
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - Website
+  - Blog
+  - Pricing
+  - TermsOfService
+  - PrivacyPolicy
+  serves:
+  - api
+  - docs
+  registrable_domain: open.money
+  role: website
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.zwitch.io
+  found_by:
+  - pointer
+  types:
+  - Website
+  - Blog
+  - Pricing
+  serves: []
+  registrable_domain: zwitch.io
+  role: website
+  relation: other-domain
+- host: x.com
+  found_by:
+  - pointer
+  types:
+  - X
+  serves: []
+  registrable_domain: x.com
+  role: other
+  relation: platform
