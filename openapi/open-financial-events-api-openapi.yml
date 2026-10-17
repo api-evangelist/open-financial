@@ -1,0 +1,246 @@
+openapi: 3.2.0
+info:
+  title: 1 Events API
+  version: '1'
+servers:
+- url: https://api.zwitch.io
+security:
+- sec0: []
+tags:
+- name: Events
+paths:
+  /v1/events:
+    get:
+      summary: Get All Webhook Events
+      description: Use this API to get a list of all webhook events triggered by you.
+      operationId: webhooks-get-all-events
+      parameters:
+      - name: delivery_status
+        in: query
+        description: Enter the delivery status for which you want to get webhook events.<br><br>Possible values:<ul><li>`success`</li><li>`failed`
+        schema:
+          type: string
+      - name: start_before
+        in: query
+        description: 'Enter the `event_id` before which you want to retrieve events.<br><br>Use this in combination with the `results_per_page` parameter for pagination.<br><br>Example: `evl_nCm4Qstg76LGtY7IyF86DdMAG`'
+        schema:
+          type: string
+      - name: start_after
+        in: query
+        description: 'Enter the `event_id` after which you want to retrieve events.<br><br>Use this in combination with the `results_per_page` parameter for pagination.<br><br>Example: `evl_nCm4Qstg76LGtY7IyF86DdCAG`'
+        schema:
+          type: string
+      - name: results_per_page
+        in: query
+        description: 'Number of  events you want to retrieve.<br><br>Use this in combination with the `start_before` or `start_after` parameter for pagination.<br><ul><li>Default value 10.</li><li>Maximum value 100.</ul></li>Example: `15`'
+        schema:
+          type: string
+          default: '10'
+      - name: from_date
+        in: query
+        description: '**Has to be used with `to_date`**.<br><br>The UNIX timestamp after which details should be returned.<br><br>Use this with the `results_per_page`, `start_after`, and `start_before` for pagination.<br><br>Example: `1651052818`'
+        schema:
+          type: string
+      - name: to_date
+        in: query
+        description: '**Has to be used with `from_date`**.<br><br>The UNIX timestamp before which details should be returned.<br><br>Use this with the `results_per_page`, `start_after`, and `start_before` for pagination.<br><br>Example: `1651052818`'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"object\": \"list\",\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"evl_nCm4Qstg76LGtY7IyF86DdMAG\",\n      \"object\": \"event\",\n      \"name\": \"transfers.created\",\n      \"delivery_status\": \"success\",\n      \"is_sandbox\": true,\n      \"data\": {\n        \"object\": {\n          \"id\": \"tr_lPOze2peSBhh7iBrh09NCv9ki\",\n          \"object\": \"transfer\",\n          \"type\": \"wallet\",\n          \"amount\": 1.01,\n          \"debit_account_id\": \"va_Q6USeYXbx38cKa3NbBpoHDViW\",\n          \"credit_account_id\": \"va_MDOShxKdcWpm7vEr2yDVb88EP\",\n          \"status\": \"success\",\n          \"currency_code\": \"inr\",\n          \"payment_remark\": \"Haircut and beard styling\",\n          \"paid_to\": \"36363651429896978\",\n          \"metadata\": {\n            \"key_1\": \"DD\",\n            \"key_2\": \"XOF\"\n          },\n          \"merchant_reference_id\": \"1409614085\",\n          \"transacted_at\": 1641823944,\n          \"created_at\": 1641823944\n        }\n      }\n    },\n    {\n      \"id\": \"evl_ptCj45O8VO2ZyusRmoUINr0h4\",\n      \"object\": \"event\",\n      \"name\": \"transfers.created\",\n      \"delivery_status\": \"success\",\n      \"is_sandbox\": true,\n      \"data\": {\n        \"object\": {\n          \"id\": \"tr_Jq8EUThLjWFlW7aOe2wD9dcei\",\n          \"object\": \"transfer\",\n          \"type\": \"vpa\",\n          \"amount\": 1.01,\n          \"status\": \"pending\",\n          \"bank_reference_number\": \"133210595390575\",\n          \"bank_error_code\": \"bad_timeout_at_bank\",\n          \"currency_code\": \"inr\",\n          \"message\": \"Gateway Timeout\",\n          \"reason_for_error\": \"An upstream service times out\",\n          \"error_type\": \"technical\",\n          \"recommended_action\": \"Do get status after 30 Minutes and act basis the response\",\n          \"payment_mode\": \"upi\",\n          \"payment_remark\": \"Haircut and beard styling\",\n          \"paid_to\": \"9999999999@ybl\",\n          \"metadata\": {\n            \"key_1\": \"DD\",\n            \"key_2\": \"XOF\"\n          },\n          \"merchant_reference_id\": \"1409614085\",\n          \"transacted_at\": 1641823866,\n          \"created_at\": 1641823866\n        }\n      }\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: true
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: evl_nCm4Qstg76LGtY7IyF86DdMAG
+                        object:
+                          type: string
+                          example: event
+                        name:
+                          type: string
+                          example: transfers.created
+                        delivery_status:
+                          type: string
+                          example: success
+                        is_sandbox:
+                          type: boolean
+                          example: true
+                          default: true
+                        data:
+                          type: object
+                          properties:
+                            object:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: tr_lPOze2peSBhh7iBrh09NCv9ki
+                                object:
+                                  type: string
+                                  example: transfer
+                                type:
+                                  type: string
+                                  example: wallet
+                                amount:
+                                  type: number
+                                  example: 1.01
+                                  default: 0
+                                debit_account_id:
+                                  type: string
+                                  example: va_Q6USeYXbx38cKa3NbBpoHDViW
+                                credit_account_id:
+                                  type: string
+                                  example: va_MDOShxKdcWpm7vEr2yDVb88EP
+                                status:
+                                  type: string
+                                  example: success
+                                currency_code:
+                                  type: string
+                                  example: inr
+                                payment_remark:
+                                  type: string
+                                  example: Haircut and beard styling
+                                paid_to:
+                                  type: string
+                                  example: '36363651429896978'
+                                metadata:
+                                  type: object
+                                  properties:
+                                    key_1:
+                                      type: string
+                                      example: DD
+                                    key_2:
+                                      type: string
+                                      example: XOF
+                                merchant_reference_id:
+                                  type: string
+                                  example: '1409614085'
+                                transacted_at:
+                                  type: integer
+                                  example: 1641823944
+                                  default: 0
+                                created_at:
+                                  type: integer
+                                  example: 1641823944
+                                  default: 0
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"The results_per_page field must be numeric value between 1 and 100\",\n    \"param\": \"results_per_page\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: The results_per_page field must be numeric value between 1 and 100
+                      param:
+                        type: string
+                        example: results_per_page
+      deprecated: false
+      tags:
+      - Events
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-bearer-format: bearer
+      x-default: ''
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developers.zwitch.io/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.zwitch.io/reference/accounts-get-all.md
+  - https://developers.zwitch.io/reference/accounts-get-balance.md
+  - https://developers.zwitch.io/reference/accounts-get-by-id.md
+  - https://developers.zwitch.io/reference/accounts-get-statement.md
+  - https://developers.zwitch.io/reference/accounts-virtual-deactivate.md
+  - https://developers.zwitch.io/reference/accounts-virtual-test-balance.md
+  - https://developers.zwitch.io/reference/bank-account-verification-copy-1.md
+  - https://developers.zwitch.io/reference/batch-refund-api.md
+  - https://developers.zwitch.io/reference/beneficiaries-bank-account-create.md
+  - https://developers.zwitch.io/reference/beneficiaries-delete.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-all.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-by-id.md
+  - https://developers.zwitch.io/reference/beneficiaries-update.md
+  - https://developers.zwitch.io/reference/constants-business-categories.md
+  - https://developers.zwitch.io/reference/constants-business-types.md
+  - https://developers.zwitch.io/reference/constants-ifsc.md
+  - https://developers.zwitch.io/reference/constants-state-codes.md
+  - https://developers.zwitch.io/reference/create-payment-token.md
+  - https://developers.zwitch.io/reference/get-all-sub-accounts.md
+  - https://developers.zwitch.io/reference/get-sub-account-by-id.md
+  - https://developers.zwitch.io/reference/requery-batch-refund.md
+  - https://developers.zwitch.io/reference/status-check-api-with-payment_token.md
+  - https://developers.zwitch.io/reference/transfers-bulk-by-id.md
+  - https://developers.zwitch.io/reference/transfers-bulk-create.md
+  - https://developers.zwitch.io/reference/transfers-bulk-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-by-id.md
+  - https://developers.zwitch.io/reference/transfers-virtual-accounts-create-to-account-beneficiary.md
+  - https://developers.zwitch.io/reference/update-sub-account.md
+  - https://developers.zwitch.io/reference/upi-qr-intent-string.md
+  - https://developers.zwitch.io/reference/verifications-bank-account-create.md
+  - https://developers.zwitch.io/reference/verifications-name-create.md
+  - https://developers.zwitch.io/reference/verifications-pan-create.md
+  - https://developers.zwitch.io/reference/verifications-vpa-create.md
+  - https://developers.zwitch.io/reference/webhooks-get-all-events.md
+  merge:
+    pages: 35
+    deduped: 34
+    conflicts_kept_first: 1

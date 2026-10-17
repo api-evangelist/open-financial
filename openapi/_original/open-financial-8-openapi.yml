@@ -1,6 +1,8 @@
+# x-archived-from: open-financial-8-openapi.yml
+# x-archived-on: 2026-10-17
 openapi: 3.1.0
 info:
-  title: '6'
+  title: '8'
   version: '1'
 servers:
 - url: https://api.zwitch.io
@@ -10,9 +12,9 @@ x-readme-fauxas: true
 paths:
   /v1/accounts:
     post:
-      summary: Create Virtual Account used as Collection Tool
-      description: Use this API to create a virtual account used as a collection tool.
-      operationId: accounts-virtual-collection-tool-create
+      summary: Create Virtual Account used as Collection Wallet
+      description: Use this API to create a virtual account used as a collection wallet.
+      operationId: accounts-virtual-collection-wallet-create
       requestBody:
         content:
           application/json:
@@ -24,6 +26,7 @@ paths:
               - name
               - mobile_number
               - email
+              - kyc
               properties:
                 type:
                   type: string
@@ -31,47 +34,47 @@ paths:
                   default: virtual
                 used_as:
                   type: string
-                  description: 'Type of virtual account to be created.<br><br>Accepted value: <ul><li>`collection_tool`</ul></li>'
-                  default: collection_tool
+                  description: 'Type of virtual account to be created.<br><br>Accepted value: <ul><li>`wallet`</li></ul>'
+                  default: wallet
                 name:
                   type: string
                   description: 'Applicant''s name.<br><br>Maximum 70 characters.<br><br>Example: `Anil Reddy`<br><br>Supported characters:<ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li><li>`.`</li><li>`/`</li><li>`\`</li><li>`-`</li><li>`_`</li><li>`,`</li><li>`(`</li><li>`)`</li><li>`''`</li></ul>'
                 mobile_number:
                   type: string
-                  description: 'Account holder''s mobile number.<br><br>Has to be 10 digits.<br><br>Example: `9876543210`<br><br>Supported characters:<ul><li>`0-9`</ul></li>'
+                  description: 'Account holder''s mobile number.<br><br>Has to be 10 digits.<br><br>Example: `9876543210`<br><br>Supported characters: <ul><li>`0-9`</ul></li>'
                 email:
                   type: string
                   description: 'Account holder''s email address.<br><br>Example: `anil.reddy@example.com`'
                 bank_name:
                   type: string
-                  description: 'Bank where the virtual account used as a collection tool needs to be created.<br><br>Accepted value: <ul><li>`yes_bank`</ul></li>'
+                  description: '**To create a collection wallet, `bank_name` must be `yes_bank`**.<br><br>Bank where the virtual account used as a collection wallet needs to be created.<br><br>Accepted value: <ul><li>`yes_bank`</ul></li>'
                 create_vpa:
                   type: boolean
-                  description: 'Accepted values: <ul><li>`true`: Create a VPA and bank account.</li><li>`false` (default): Create bank account only.</li></ul>'
+                  description: 'Accepted values for virtual account used as a collection wallet: <ul><li>`true`: Generate VPA, account number, and IFSC.</li><li>`false` (default): Generate account number and IFSC only.</li></ul>'
                   default: false
+                vpa:
+                  type: string
+                  description: '**On-demand feature for virtual account used as a collection wallet**.<br><br> **Prerequisites: `create_vpa` parameter must be `true`**.<br><br>Custom VPA handle that you want to assign to the virtual account used as a collection wallet.<br><br>Contact our <a href="mailto:zwitch-integrations@bankopen.co" target="_blank">Integrations Team</a> for more details.'
                 kyc:
                   type: object
-                  description: '**Mandatory if `create_vpa` is true**.<br><br>JSON object to pass the account holder''s KYC details.'
+                  description: JSON object to pass the account holder's KYC details.
                   required:
-                  - pan
-                  - state_code
                   - city
                   - postal_code
+                  - state_code
                   - business_type
                   - business_category
+                  - pan
                   properties:
-                    pan:
-                      type: string
-                      description: 'Account holder''s 10-digit PAN.<br><br>Example: `ABCDE0000Z`'
-                    state_code:
-                      type: string
-                      description: 'Account holder''s state code according to their KYC document.<br><br>Example: `KA`<br><br>Use the <a href="https://developers.zwitch.io/reference/constants-state-codes" target="_blank">States API</a> to get a list of accepted values.'
                     city:
                       type: string
-                      description: 'Account holder''s city according to their KYC document.<br><br>Example: `bangalore`<br><br>Supported characters:<ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li><li>`space`</li><li>`_`</li><li>`()`</li><li>`.`</li></ul>'
+                      description: 'Account holder''s city.<br><br>Example: `bangalore`<br><br>Supported characters:<ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li><li>`space`</li><li>`_`</li><li>`()`</li><li>`.`</li></ul>'
                     postal_code:
                       type: string
-                      description: 'Account holder''s pincode according to their KYC document.<br><br>Example: `560005`'
+                      description: 'Account holder''s postal code.<br><br>Example: `560005`'
+                    state_code:
+                      type: string
+                      description: 'Applicant''s state code.<br><br>Example: `KA`<br><br>Use the <a href="https://developers.zwitch.io/reference/constants-state-codes" target="_blank">States API</a> to get a list of accepted values.'
                     business_type:
                       type: string
                       description: 'Business type for the virtual account.<br><br>Example: `partnership`<br><br>Use the <a href="https://developers.zwitch.io/reference/constants-business-types" target="_blank">Business Type API</a> to get a list of accepted values.'
@@ -81,6 +84,9 @@ paths:
                     contact_person:
                       type: string
                       description: 'Contact person''s name for the business<br><br>Example: `Anil Reddy`'
+                    pan:
+                      type: string
+                      description: 'Account holder''s 10-digit PAN.  Example: ABCDE0000Z'
                 metadata:
                   type: object
                   description: 'Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.</li><li>Maximum 5 key-value pairs.</li></ul>Example: `"key_1": "DD”`'
@@ -90,25 +96,28 @@ paths:
                     key_2:
                       type: string
             examples:
-              Collection Tool:
+              Collection Wallet:
                 value:
                   type: virtual
-                  used_as: collection_tool
+                  used_as: wallet
                   name: Anil Reddy
                   mobile_number: '9876543210'
                   email: anil.reddy@example.com
                   bank_name: yes_bank
-                  create_vpa: true
-                  additional_vpa: []
+                  create_vpa: false
+                  vpa: null
                   kyc:
                     city: Bangalore
-                    postal_code: '560010'
+                    postal_code: '560005'
                     state_code: KA
                     pan: AAAPA0000A
                     business_type: partnership
+                    pan_verification_id: pan_teJfU3K93LKeUao3alujrW6GP
                     business_category: garage_owners
-                    pan_verification_id: ''
                     contact_person: Rahul Reddy
+                  verified_beneficiaries:
+                  - account_verification_id: accver_6CvEoAbsjTHW0WGS8zNYechGh
+                    name_match_id: nm_A8riptxJqooAypvJoqhIRshw7
                   metadata:
                     key_1: DD
                     key_2: XOF
@@ -118,15 +127,15 @@ paths:
           content:
             application/json:
               examples:
-                Collection Tool:
-                  value: "{\n    \"id\": \"va_gsXD5cMqH8XyrfTe3HelnFe43\",\n    \"object\": \"account.virtual\",\n    \"type\": \"virtual\",\n    \"used_as\": \"collection_tool\",\n    \"bank_name\": \"yes_bank\",\n    \"name\": \"Lush Adobe\",\n    \"mobile_number\": \"9876543210\",\n    \"email\": \"anil.reddy@example.com\",\n    \"account_number\": \"3636365909131910\",\n    \"ifsc_code\": \"YESB0CMSNOC\",\n    \"vpa\": \"zwch1688454450@yesbank\",\n    \"additional_vpa\": [],\n    \"whitelisted_remitters\": [],\n    \"whitelisted_beneficiaries\": [],\n    \"kyc\": {\n        \"city\": \"Bangalore\",\n        \"postal_code\": \"560010\",\n        \"state_code\": \"KA\",\n        \"pan\": \"XXXXXX905H\",\n        \"business_type\": \"partnership\",\n        \"business_category\": \"garage_owners\",\n        \"contact_person\": \"Rahul Reddy\",\n        \"pan_verification_id\": null\n    },\n    \"customer\": {\n        \"id\": \"cus_LuCej8PYu2A3AXD2VSsRFqNob\",\n        \"mobile_number\"\
-                    : \"9876543210\"\n    },\n    \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n    },\n    \"kyc_url\": null,\n    \"status\": \"active\",\n    \"created_at\": 1758100959,\n    \"is_sandbox\": false,\n    \"settlement_account_id\": null,\n    \"verified_beneficiaries\": [],\n    \"verified_remitters\": []\n}"
+                Wallet:
+                  value: "{\n    \"id\": \"va_PgyGbxaovxEX1e4jALIx4fCG3\",\n    \"object\": \"account.virtual\",\n    \"type\": \"virtual\",\n    \"used_as\": \"wallet\",\n    \"bank_name\": \"yes_bank\",\n    \"name\": \"Anil Reddy\",\n    \"mobile_number\": \"9876543210\",\n    \"email\": \"anil.reddy@example.com\",\n    \"account_number\": \"36363651291980890\",\n    \"ifsc_code\": \"YESB0CMSNOC\",\n    \"vpa\": null,\n    \"additional_vpa\": [],\n    \"whitelisted_remitters\": [],\n    \"whitelisted_beneficiaries\": [],\n    \"kyc\": {\n        \"city\": \"Bangalore\",\n        \"postal_code\": \"560010\",\n        \"state_code\": \"KA\",\n        \"pan\": \"XXXXXX000A\",\n        \"business_type\": \"partnership\",\n        \"business_category\": \"garage_owners\",\n        \"contact_person\": \"Rahul Reddy\",\n        \"pan_verification_id\": null\n    },\n    \"customer\": {\n        \"id\": \"cus_LuCej8PYu2A3AXD2VSsRFqNob\",\n        \"mobile_number\": \"9876543210\"\n    },\n  \
+                    \  \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n    },\n    \"kyc_url\": null,\n    \"status\": \"kyc_pending\",\n    \"created_at\": 1758100930,\n    \"is_sandbox\": false,\n    \"settlement_account_id\": null,\n    \"verified_beneficiaries\": [],\n    \"verified_remitters\": []\n}"
               schema:
                 type: object
                 properties:
                   id:
                     type: string
-                    example: va_gsXD5cMqH8XyrfTe3HelnFe43
+                    example: va_PgyGbxaovxEX1e4jALIx4fCG3
                   object:
                     type: string
                     example: account.virtual
@@ -135,13 +144,13 @@ paths:
                     example: virtual
                   used_as:
                     type: string
-                    example: collection_tool
+                    example: wallet
                   bank_name:
                     type: string
                     example: yes_bank
                   name:
                     type: string
-                    example: Lush Adobe
+                    example: Anil Reddy
                   mobile_number:
                     type: string
                     example: '9876543210'
@@ -150,13 +159,11 @@ paths:
                     example: anil.reddy@example.com
                   account_number:
                     type: string
-                    example: '3636365909131910'
+                    example: '36363651291980890'
                   ifsc_code:
                     type: string
                     example: YESB0CMSNOC
-                  vpa:
-                    type: string
-                    example: zwch1688454450@yesbank
+                  vpa: {}
                   additional_vpa:
                     type: array
                     items:
@@ -186,7 +193,7 @@ paths:
                         example: KA
                       pan:
                         type: string
-                        example: XXXXXX905H
+                        example: XXXXXX000A
                       business_type:
                         type: string
                         example: partnership
@@ -218,10 +225,10 @@ paths:
                   kyc_url: {}
                   status:
                     type: string
-                    example: active
+                    example: kyc_pending
                   created_at:
                     type: integer
-                    example: 1758100959
+                    example: 1758100930
                     default: 0
                   is_sandbox:
                     type: boolean
@@ -297,7 +304,7 @@ x-provenance:
   tool: harvest-readme-openapi.py
   note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
   assembled_from:
-  - https://developers.zwitch.io/reference/accounts-virtual-collection-tool-create.md
+  - https://developers.zwitch.io/reference/accounts-virtual-collection-wallet-create.md
   merge:
     pages: 1
     deduped: 0

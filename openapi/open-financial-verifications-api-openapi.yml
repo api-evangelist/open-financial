@@ -1,0 +1,286 @@
+openapi: 3.2.0
+info:
+  title: 1 Verifications API
+  version: '1'
+servers:
+- url: https://api.zwitch.io
+security:
+- sec0: []
+tags:
+- name: Verifications
+paths:
+  /v1/verifications/bank-account:
+    post:
+      summary: Bank Account Verification
+      description: Use this API to verify the ownership and validity of a bank account.
+      operationId: verifications-bank-account-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - bank_account_number
+              - bank_ifsc_code
+              - merchant_reference_id
+              properties:
+                bank_account_number:
+                  type: string
+                  description: 'The bank account number you want to verify.<br><br>Example: `56733281905`'
+                bank_ifsc_code:
+                  type: string
+                  description: 'IFSC of the bank you want to verify.<br><br>Example: `HDFC0000123`'
+                force_penny_drop:
+                  type: boolean
+                  description: 'Use this parameter only when verifying a bank account.<br><br>Possible values:<br>- `true`: The penny drop is done even if penny drop verification was done before.<br>- `false` (default): Penny drop is done only if penny drop verification was not done before.'
+                  default: false
+                force_penny_drop_amount:
+                  type: number
+                  description: 'Use this parameter only when verifying a bank account.<br><br>The penny drop amount you want to transfer to the account. The `force_penny_drop_amount` must be between 1 and 2<br><br>Example: `1`'
+                  format: float
+                merchant_reference_id:
+                  type: string
+                  description: 'Unique identifier entered when creating the verification request.<br><ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 7 characters.</li><li>Maximum: 40 characters.</li></ul>Example: `1409614085`'
+            examples:
+              Verify Bank Account:
+                value:
+                  bank_account_number: '10000000000875'
+                  bank_ifsc_code: HDFC0000123
+                  force_penny_drop: true
+                  force_penny_drop_amount: 1
+                  merchant_reference_id: '1000875'
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Success:
+                  value: "{\n  \"id\": \"accver_BhOM01sUb3tXprWwTGBLlKZVG\",\n  \"object\": \"bank_account_verification\",\n  \"bank_account_number\": \"10000000000165\",\n  \"bank_ifsc_code\": \"AAAA0001618\",\n  \"name_as_per_bank\": \"Ganga Reddy\",\n  \"force_penny_drop\": true,\n  \"force_penny_drop_amount\": 1,\n  \"status\": \"success\",\n  \"message\": \"Transaction Successful\",\n  \"last_verified_at\": \"2021-12-31\",\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1409614085\",\n  \"created_at\": 1648030636,\n  \"is_sandbox\": true\n}"
+                Failed:
+                  value: "{\n  \"id\": \"accver_BhOM01sUb3tXprWwTGBLlKZVG\",\n  \"object\": \"bank_account_verification\",\n  \"bank_account_number\": \"10000000000165\",\n  \"bank_ifsc_code\": \"AAAA0001618\",\n  \"name_as_per_bank\": null,\n  \"force_penny_drop\": true,\n  \"force_penny_drop_amount\": 1,\n  \"status\": \"failed\",\n  \"message\": \"Invalid account number of IFSC.\",\n  \"last_verified_at\": null,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1409614085\",\n  \"created_at\": 1648030636,\n  \"is_sandbox\": true\n}"
+              schema:
+                oneOf:
+                - title: Success
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: accver_BhOM01sUb3tXprWwTGBLlKZVG
+                    object:
+                      type: string
+                      example: bank_account_verification
+                    bank_account_number:
+                      type: string
+                      example: '10000000000165'
+                    bank_ifsc_code:
+                      type: string
+                      example: AAAA0001618
+                    name_as_per_bank:
+                      type: string
+                      example: Ganga Reddy
+                    force_penny_drop:
+                      type: boolean
+                      example: true
+                      default: true
+                    force_penny_drop_amount:
+                      type: integer
+                      example: 1
+                      default: 0
+                    status:
+                      type: string
+                      example: success
+                    message:
+                      type: string
+                      example: Transaction Successful
+                    last_verified_at:
+                      type: string
+                      example: '2021-12-31'
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1409614085'
+                    created_at:
+                      type: integer
+                      example: 1648030636
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: true
+                      default: true
+                - title: Failed
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: accver_BhOM01sUb3tXprWwTGBLlKZVG
+                    object:
+                      type: string
+                      example: bank_account_verification
+                    bank_account_number:
+                      type: string
+                      example: '10000000000165'
+                    bank_ifsc_code:
+                      type: string
+                      example: AAAA0001618
+                    name_as_per_bank: {}
+                    force_penny_drop:
+                      type: boolean
+                      example: true
+                      default: true
+                    force_penny_drop_amount:
+                      type: integer
+                      example: 1
+                      default: 0
+                    status:
+                      type: string
+                      example: failed
+                    message:
+                      type: string
+                      example: Invalid account number of IFSC.
+                    last_verified_at: {}
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1409614085'
+                    created_at:
+                      type: integer
+                      example: 1648030636
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: true
+                      default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"Beneficiary was verified recently. Please re-try after 10 minutes\"\n  }\n}"
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: invalid_request_error
+                        code:
+                          type: string
+                          example: parameter_missing
+                        message:
+                          type: string
+                          example: The bank_ifsc_code field format is invalid
+                        param:
+                          type: string
+                          example: bank_ifsc_code
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: invalid_request_error
+                        message:
+                          type: string
+                          example: Beneficiary was verified recently. Please re-try after 10 minutes
+      deprecated: false
+      tags:
+      - Verifications
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-bearer-format: bearer
+      x-default: ''
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developers.zwitch.io/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.zwitch.io/reference/accounts-get-all.md
+  - https://developers.zwitch.io/reference/accounts-get-balance.md
+  - https://developers.zwitch.io/reference/accounts-get-by-id.md
+  - https://developers.zwitch.io/reference/accounts-get-statement.md
+  - https://developers.zwitch.io/reference/accounts-virtual-deactivate.md
+  - https://developers.zwitch.io/reference/accounts-virtual-test-balance.md
+  - https://developers.zwitch.io/reference/bank-account-verification-copy-1.md
+  - https://developers.zwitch.io/reference/batch-refund-api.md
+  - https://developers.zwitch.io/reference/beneficiaries-bank-account-create.md
+  - https://developers.zwitch.io/reference/beneficiaries-delete.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-all.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-by-id.md
+  - https://developers.zwitch.io/reference/beneficiaries-update.md
+  - https://developers.zwitch.io/reference/constants-business-categories.md
+  - https://developers.zwitch.io/reference/constants-business-types.md
+  - https://developers.zwitch.io/reference/constants-ifsc.md
+  - https://developers.zwitch.io/reference/constants-state-codes.md
+  - https://developers.zwitch.io/reference/create-payment-token.md
+  - https://developers.zwitch.io/reference/get-all-sub-accounts.md
+  - https://developers.zwitch.io/reference/get-sub-account-by-id.md
+  - https://developers.zwitch.io/reference/requery-batch-refund.md
+  - https://developers.zwitch.io/reference/status-check-api-with-payment_token.md
+  - https://developers.zwitch.io/reference/transfers-bulk-by-id.md
+  - https://developers.zwitch.io/reference/transfers-bulk-create.md
+  - https://developers.zwitch.io/reference/transfers-bulk-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-by-id.md
+  - https://developers.zwitch.io/reference/transfers-virtual-accounts-create-to-account-beneficiary.md
+  - https://developers.zwitch.io/reference/update-sub-account.md
+  - https://developers.zwitch.io/reference/upi-qr-intent-string.md
+  - https://developers.zwitch.io/reference/verifications-bank-account-create.md
+  - https://developers.zwitch.io/reference/verifications-name-create.md
+  - https://developers.zwitch.io/reference/verifications-pan-create.md
+  - https://developers.zwitch.io/reference/verifications-vpa-create.md
+  - https://developers.zwitch.io/reference/webhooks-get-all-events.md
+  merge:
+    pages: 35
+    deduped: 34
+    conflicts_kept_first: 1

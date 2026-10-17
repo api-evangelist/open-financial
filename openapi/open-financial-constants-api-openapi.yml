@@ -1,0 +1,389 @@
+openapi: 3.2.0
+info:
+  title: 1 Constants API
+  version: '1'
+servers:
+- url: https://api.zwitch.io
+security:
+- sec0: []
+tags:
+- name: Constants
+paths:
+  /v1/constants/business-categories:
+    get:
+      summary: Business Categories
+      description: Use this API to get a list of business categories used by ZWITCH APIs.
+      operationId: constants-business-categories
+      parameters:
+      - name: start_after
+        in: query
+        description: 'The business category after which you want to get details.<br> Use this with the `results_per_page` for pagination.<br><br>Example: `defence`'
+        schema:
+          type: string
+      - name: start_before
+        in: query
+        description: 'The business category before which you want to get details.<br> Use this with the `results_per_page` for pagination.<br><br>Example: `defence`'
+        schema:
+          type: string
+      - name: results_per_page
+        in: query
+        description: 'The number of results you want to get per API call.<br>Use this with the `start_before` or `start_after` parameters for pagination.<ul><li>Defaul.t value 10.<li>Maximum value 100.</ul></li>Example: 15'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"object\": \"list\",\n    \"has_more\": true,\n    \"data\": [\n        {\n            \"ID\": \"agri_business\",\n            \"Name\": \"Agri Business\"\n        },\n        {\n            \"ID\": \"banking_or_financial_services\",\n            \"Name\": \"Banking / Financial Services\"\n        },\n        {\n            \"ID\": \"healthcare_firm\",\n            \"Name\": \"Healthcare Firm\"\n        },\n        {\n            \"ID\": \"food_and_beverages\",\n            \"Name\": \"Food and Beverages\"\n        },\n        {\n            \"ID\": \"textile\",\n            \"Name\": \"Textile\"\n        },\n        {\n            \"ID\": \"manufacturing\",\n            \"Name\": \"Manufacturing\"\n        },\n        {\n            \"ID\": \"telecom_and_telecom_equipment\",\n            \"Name\": \"Telecom and Telecom Equipment\"\n        },\n        {\n            \"ID\": \"realty_and_infrastructure\",\n            \"Name\": \"Realty and Infrastructure\"\n        },\n        {\n            \"ID\": \"broking_firm\",\n            \"Name\": \"Broking Firm\"\n        },\n        {\n            \"ID\": \"exporters_or_importers\",\n            \"Name\": \"Exporters / Importers\"\n        },\n        {\n            \"ID\": \"retail_merchants\",\n            \"Name\": \"Retail Merchants\"\n        },\n        {\n            \"ID\": \"logistics\",\n            \"Name\": \"Logistics\"\n        },\n        {\n            \"ID\": \"others\",\n            \"Name\": \"Others\"\n        },\n        {\n            \"ID\": \"arms_dealer_or_antique_dealer_or_art_dealer\",\n            \"Name\": \"Arms Dealer/Antique Dealer/Art Dealer\"\n        },\n        {\n            \"ID\": \"money_changer\",\n            \"Name\": \"Money Changer\"\n        },\n        {\n            \"ID\": \"gems_and_jewellery\",\n            \"Name\": \"Gems and Jewellery\"\n        },\n        {\n            \"ID\": \"real_estate_agents_or_construction\",\n            \"Name\": \"Real Estate Agents/Construction\"\n        },\n        {\n            \"ID\": \"hospitality\",\n            \"Name\": \"Hospitality\"\n        },\n        {\n            \"ID\": \"it_or_ites\",\n            \"Name\": \"IT / ITeS\"\n        },\n        {\n            \"ID\": \"brokers\",\n            \"Name\": \"Brokers\"\n        },\n        {\n            \"ID\": \"media_or_lifestyle_or_sports_or_advertmt_or_entertmt\",\n            \"Name\": \"Media/Lifestyle/Sports/Advertmt/Entertmt\"\n        },\n        {\n            \"ID\": \"associations\",\n            \"Name\": \"Associations\"\n        },\n        {\n            \"ID\": \"societies\",\n            \"Name\": \"Societies\"\n        },\n        {\n            \"ID\": \"clubs\",\n            \"Name\": \"Clubs\"\n        },\n        {\n            \"ID\": \"educational_institutions\",\n            \"Name\": \"Educational Institutions\"\n        },\n        {\n            \"ID\": \"defense\",\n            \"Name\": \"Defense\"\n        },\n        {\n            \"ID\": \"travel_and_tourism\",\n            \"Name\": \"Travel and Tourism\"\n        },\n        {\n            \"ID\": \"ca_firm\",\n            \"Name\": \"CA Firm\"\n        },\n        {\n            \"ID\": \"consultancy_firm\",\n            \"Name\": \"Consultancy Firm\"\n        },\n        {\n            \"ID\": \"multilevel_marketing_firm\",\n            \"Name\": \"Multilevel Marketing Firm\"\n        },\n        {\n            \"ID\": \"other_infrastructure\",\n            \"Name\": \"Other Infrastructure\"\n        },\n        {\n            \"ID\": \"cement\",\n            \"Name\": \"Cement\"\n        },\n        {\n            \"ID\": \"auto_and_auto_ancillaries\",\n            \"Name\": \"Auto and Auto Ancillaries\"\n        },\n        {\n            \"ID\": \"chemicals_dyes_and_paints\",\n            \"Name\": \"Chemicals, Dyes and Paints\"\n        },\n        {\n            \"ID\": \"pharmaceuticals\",\n            \"Name\": \"Pharmaceuticals\"\n        },\n        {\n            \"ID\": \"petroleum_oil_and_gas\",\n            \"Name\": \"Petroleum, Oil and Gas\"\n        },\n        {\n            \"ID\": \"power_and_power_distribution\",\n            \"Name\": \"Power and Power Distribution\"\n        },\n        {\n            \"ID\": \"shipping\",\n            \"Name\": \"Shipping\"\n        },\n        {\n            \"ID\": \"airlines\",\n            \"Name\": \"Airlines\"\n        },\n        {\n            \"ID\": \"consumer_durables\",\n            \"Name\": \"Consumer Durables\"\n        },\n        {\n            \"ID\": \"electronics_and_equipment\",\n            \"Name\": \"Electronics and Equipment\"\n        },\n        {\n            \"ID\": \"retailing\",\n            \"Name\": \"Retailing\"\n        },\n        {\n            \"ID\": \"real_estate\",\n            \"Name\": \"Real Estate\"\n        },\n        {\n            \"ID\": \"airports\",\n            \"Name\": \"Airports\"\n        },\n        {\n            \"ID\": \"shipyards\",\n            \"Name\": \"Shipyards\"\n        },\n        {\n            \"ID\": \"roads_and_ports\",\n            \"Name\": \"Roads and Ports\"\n        },\n        {\n            \"ID\": \"healthcare\",\n            \"Name\": \"Healthcare\"\n        },\n        {\n            \"ID\": \"epc\",\n            \"Name\": \"EPC\"\n        },\n        {\n            \"ID\": \"electrical_components\",\n            \"Name\": \"Electrical Components\"\n        },\n        {\n            \"ID\": \"sugar\",\n            \"Name\": \"Sugar\"\n        },\n        {\n            \"ID\": \"tea\",\n            \"Name\": \"Tea\"\n        },\n        {\n            \"ID\": \"paper_and_paper_products\",\n            \"Name\": \"Paper and Paper Products\"\n        },\n        {\n            \"ID\": \"rubber_and_rubber_products\",\n            \"Name\": \"Rubber and Rubber Products\"\n        },\n        {\n            \"ID\": \"iron_and_steel\",\n            \"Name\": \"Iron and Steel\"\n        },\n        {\n            \"ID\": \"other_metal_and_metal_products\",\n            \"Name\": \"Other Metal and Metal Products\"\n        },\n        {\n            \"ID\": \"coal\",\n            \"Name\": \"Coal\"\n        },\n        {\n            \"ID\": \"mining\",\n            \"Name\": \"Mining\"\n        },\n        {\n            \"ID\": \"petrochemicals\",\n            \"Name\": \"Petrochemicals\"\n        },\n        {\n            \"ID\": \"fertilizers\",\n            \"Name\": \"Fertilizers\"\n        },\n        {\n            \"ID\": \"financial_intermediaries\",\n            \"Name\": \"Financial Intermediaries\"\n        },\n        {\n            \"ID\": \"nbfc\",\n            \"Name\": \"NBFC\"\n        },\n        {\n            \"ID\": \"services\",\n            \"Name\": \"Services\"\n        },\n        {\n            \"ID\": \"computer_software\",\n            \"Name\": \"Computer Software\"\n        },\n        {\n            \"ID\": \"defence_establishments\",\n            \"Name\": \"Defence Establishments\"\n        },\n        {\n            \"ID\": \"housing_societies\",\n            \"Name\": \"Housing Societies\"\n        },\n        {\n            \"ID\": \"daily_wage\",\n            \"Name\": \"Daily Wage\"\n        },\n        {\n            \"ID\": \"financial_services\",\n            \"Name\": \"Financial Services\"\n        },\n        {\n            \"ID\": \"fashion_designing\",\n            \"Name\": \"Fashion Designing\"\n        },\n        {\n            \"ID\": \"ngo_or_npo\",\n            \"Name\": \"NGO/NPO\"\n        },\n        {\n            \"ID\": \"govertment_bodies\",\n            \"Name\": \"Government Bodies\"\n        },\n        {\n            \"ID\": \"bullion_dealers\",\n            \"Name\": \"Bullion Dealers\"\n        },\n        {\n            \"ID\": \"venture_capital_companies\",\n            \"Name\": \"Venture Capital Companies\"\n        },\n        {\n            \"ID\": \"embassy_or_consulates\",\n            \"Name\": \"Embassy / Consulates\"\n        },\n        {\n            \"ID\": \"firms_with_sleeping_partners\",\n            \"Name\": \"Firms with Sleeping Partners\"\n        },\n        {\n            \"ID\": \"tailoring_business\",\n            \"Name\": \"Tailoring Business\"\n        },\n        {\n            \"ID\": \"hardware\",\n            \"Name\": \"Hardware\"\n        },\n        {\n            \"ID\": \"electronic_or_electrical_accessories_shop\",\n            \"Name\": \"Electronic / Electrical Accessories Shop\"\n        },\n        {\n            \"ID\": \"provision_stores\",\n            \"Name\": \"Provision Stores\"\n        },\n        {\n            \"ID\": \"petty_shop\",\n            \"Name\": \"Petty Shop\"\n        },\n        {\n            \"ID\": \"eateries\",\n            \"Name\": \"Eateries\"\n        },\n        {\n            \"ID\": \"flower_vendor\",\n            \"Name\": \"Flower Vendor\"\n        },\n        {\n            \"ID\": \"fruit_vendor\",\n            \"Name\": \"Fruit Vendor\"\n        },\n        {\n            \"ID\": \"veg_vendor\",\n            \"Name\": \"Veg Vendor\"\n        },\n        {\n            \"ID\": \"proprietor\",\n            \"Name\": \"Proprietor\"\n        },\n        {\n            \"ID\": \"dtp_or_xerox\",\n            \"Name\": \"DTP/Xerox\"\n        },\n        {\n            \"ID\": \"trader\",\n            \"Name\": \"Trader\"\n        },\n        {\n            \"ID\": \"garage_owners\",\n            \"Name\": \"Garage Owners\"\n        },\n        {\n            \"ID\": \"hairdressers\",\n            \"Name\": \"Hairdressers\"\n        },\n        {\n            \"ID\": \"purohit_or_astrolger\",\n            \"Name\": \"Purohit / Astrologer\"\n        },\n        {\n            \"ID\": \"builder_or_contractor\",\n            \"Name\": \"Builder / Contractor\"\n        },\n        {\n            \"ID\": \"beauty_parlours\",\n            \"Name\": \"Beauty Parlours\"\n        },\n        {\n            \"ID\": \"sales_or_services\",\n            \"Name\": \"Sales / Services\"\n        },\n        {\n            \"ID\": \"agent\",\n            \"Name\": \"Agent\"\n        },\n        {\n            \"ID\": \"contractor\",\n            \"Name\": \"Contractor\"\n        },\n        {\n            \"ID\": \"shop_keeper\",\n            \"Name\": \"Shop Keeper\"\n        },\n        {\n            \"ID\": \"travels_transports\",\n            \"Name\": \"Travels / Transports\"\n        },\n        {\n            \"ID\": \"hotels_or_tea_shops_or_bakery_or_mess\",\n            \"Name\": \"Hotels / Tea Shops / Bakery / Mess\"\n        },\n        {\n            \"ID\": \"doctors\",\n            \"Name\": \"Doctors\"\n        },\n        {\n            \"ID\": \"photo_studio_or_album_making\",\n            \"Name\": \"Photo Studio / Album Making\"\n        },\n        {\n            \"ID\": \"electrician_or_plumber_or_carpenters\",\n            \"Name\": \"Electrician / Plumber / Carpenters\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: true
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ID:
+                          type: string
+                          example: agri_business
+                        Name:
+                          type: string
+                          example: Agri Business
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+      deprecated: false
+      tags:
+      - Constants
+  /v1/constants/business-types:
+    get:
+      summary: Business Types
+      description: Use this API to get a list of business types used by ZWITCH APIs.
+      operationId: constants-business-types
+      parameters:
+      - name: start_after
+        in: query
+        description: 'The business type after which you want to get details.<br> Use this with the `results_per_page` for pagination.<br><br>Example: `individual`'
+        schema:
+          type: string
+      - name: start_before
+        in: query
+        description: 'The business type before which you want to get details.<br> Use this with the `results_per_page` for pagination.<br><br>Example: `individual`'
+        schema:
+          type: string
+      - name: results_per_page
+        in: query
+        description: 'The number of results you want to get per API call.<br>Use this with the `start_before` or `start_after` parameters for pagination.<ul><li>Default value 10.<li>Maximum value 100.</ul></li>Example: 15'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"object\": \"list\",\n    \"has_more\": false,\n    \"data\": [\n        {\n            \"ID\": \"individual\",\n            \"Name\": \"Individual\"\n        },\n        {\n            \"ID\": \"proprietership-or-huf\",\n            \"Name\": \"Sole Proprietership/HUF\"\n        },\n        {\n            \"ID\": \"partnership\",\n            \"Name\": \"Partnership\"\n        },\n        {\n            \"ID\": \"private-limited\",\n            \"Name\": \"Private Limited\"\n        },\n        {\n            \"ID\": \"trust-or-societies\",\n            \"Name\": \"Trust/Societies\"\n        },\n        {\n            \"ID\": \"llp\",\n            \"Name\": \"LLP\"\n        },\n        {\n            \"ID\": \"others\",\n            \"Name\": \"Others\"\n        },\n        {\n            \"ID\": \"unregistered-business\",\n            \"Name\": \"Unregistred Business\"\n        },\n        {\n            \"ID\": \"public-limited\",\n            \"Name\": \"Public Limited\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: false
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ID:
+                          type: string
+                          example: individual
+                        Name:
+                          type: string
+                          example: Individual
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+      deprecated: false
+      tags:
+      - Constants
+  /v1/constants/ifsc-codes:
+    get:
+      summary: Bank IFSC
+      description: Use this API to get a list of bank IFSCs used by ZWITCH APIs.
+      operationId: constants-ifsc
+      parameters:
+      - name: start_after
+        in: query
+        description: 'The `ID` after which you want to get details.<br> Use this with the `results_per_page` for pagination.<br><br>Example: `if_GfmeVccbAkV4uEK47T48`'
+        schema:
+          type: string
+      - name: start_before
+        in: query
+        description: 'The `ID` before which you want to get details.<br> Use this with the `results_per_page` for pagination.<br><br>Example: `if_GlvUn3FWir2YirsFFw1y`'
+        schema:
+          type: string
+      - name: results_per_page
+        in: query
+        description: 'The number of results you want to get per API call.<br>Use this with the `start_before` or `start_after` parameters for pagination.<ul><li>Default value 10.<li>Maximum value 100.</ul></li>Example: 15'
+        schema:
+          type: string
+      - name: ifsc_code
+        in: query
+        description: 'The IFSC code for which you want to get details.<br><br>Example: `ABHY0000004`'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"object\": \"list\",\n    \"has_more\": true,\n    \"data\": [\n        {\n            \"ID\": \"if_cQpjLWAwdncXgq6t54KQ\",\n            \"ifsc_code\": \"ABHY0065001\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"Abhyudaya Co-operative Bank IMPS\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_FUk7maNpcLcFNGU1LGbQ\",\n            \"ifsc_code\": \"ABHY0065002\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"ABHYUDAYA NAGAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_5AO43IfuPi1wEl70sLlg\",\n            \"ifsc_code\": \"ABHY0065003\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"BAIL BAZAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_GlvUn3FWir2YirsFFw1y\",\n            \"ifsc_code\": \"ABHY0065004\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"BHANDUP\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_GfmeVccbAkV4uEK47T48\",\n            \"ifsc_code\": \"ABHY0065005\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DARUKHANA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_QLnAEoY6yPkCGm3VO6jM\",\n            \"ifsc_code\": \"ABHY0065006\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"FORT\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_sKFemV33ARWxWO3IYV4z\",\n            \"ifsc_code\": \"ABHY0065007\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"GHATKOPAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_eL8x7eWFmkSf1mWH4XgI\",\n            \"ifsc_code\": \"ABHY0065008\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KANJUR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_UmIquA3yoioFCIG6Js7P\",\n            \"ifsc_code\": \"ABHY0065009\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NEHRU NAGAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_8J9eyEz4JuatFPR4Emny\",\n            \"ifsc_code\": \"ABHY0065010\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"PAREL\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_HsREXUUq20eiCYo5Pbv5\",\n            \"ifsc_code\": \"ABHY0065011\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"SEWRI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_3N3aIdGu59IcGhfGBUWL\",\n            \"ifsc_code\": \"ABHY0065012\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"WADALA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_4VIYEGzYLnnj9Zidr6Ne\",\n            \"ifsc_code\": \"ABHY0065013\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"WORLI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_p3GJJxETiOCqcA3ub0mu\",\n            \"ifsc_code\": \"ABHY0065014\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"MUMBRA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_mSi71PlPjNe5GTzPGoHS\",\n            \"ifsc_code\": \"ABHY0065015\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"TURBHE\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_129RA7RuJqPHKZVqwIeB\",\n            \"ifsc_code\": \"ABHY0065016\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"VASHI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_d1QtfGjd0n9uary4YvWn\",\n            \"ifsc_code\": \"ABHY0065017\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"MOBILE BANK\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_M9WzrL0zRaJOya2TDByR\",\n            \"ifsc_code\": \"ABHY0065018\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NEW PANVEL\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_MKa9vrjCixl1q4cGfuuH\",\n            \"ifsc_code\": \"ABHY0065019\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KALAMBOLI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_fxMaFDDj4F4xyP7dDz9c\",\n            \"ifsc_code\": \"ABHY0065020\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DHARAVI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_z4GKUQpILsvYDdA9BRVZ\",\n            \"ifsc_code\": \"ABHY0065021\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"MALAD EAST\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_uc9U7GWAG7iGhYEenutK\",\n            \"ifsc_code\": \"ABHY0065022\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"CBD BELAPUR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_89CrWE5eOksOFCZcoQx4\",\n            \"ifsc_code\": \"ABHY0065023\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"BHIWANDI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_SmuY6C7unzKRL4s3B5si\",\n            \"ifsc_code\": \"ABHY0065024\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"BORIVALI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_B3FHh9L0s5IDP08aFHlQ\",\n            \"ifsc_code\": \"ABHY0065025\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"HILL ROAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_mwobIFRdj64BqqJhpah0\",\n            \"ifsc_code\": \"ABHY0065026\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KHER NAGAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_FYnLchs0fFYhuDEV4rd2\",\n            \"ifsc_code\": \"ABHY0065027\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KANDIVLI-EAST\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_neTh8PQ5uPrl9rcE8jt8\",\n            \"ifsc_code\": \"ABHY0065028\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"SHERLY RAJAN\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_ELzOlTKvB64d2uYLMDHq\",\n            \"ifsc_code\": \"ABHY0065029\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"GANESH NAGAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_JLhzn2wP0YlHSYLn8qQD\",\n            \"ifsc_code\": \"ABHY0065030\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"MALAD WEST\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_280ZXVta9WdkgHnEhuT3\",\n            \"ifsc_code\": \"ABHY0065031\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NERUL\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_o8bkxUSPltgf19uxPMpF\",\n            \"ifsc_code\": \"ABHY0065032\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"AIROLI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_LzST0myF1dLeSYNeHsQT\",\n            \"ifsc_code\": \"ABHY0065034\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"ANDHERI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_xcg7eHMzWCxDilWghtMj\",\n            \"ifsc_code\": \"ABHY0065035\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NHAVA SHEVA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_jnzQx2tUCgH12k02ujQx\",\n            \"ifsc_code\": \"ABHY0065036\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"BANKING COMPLEX\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_TjtXjU5lhCxFjPCWRuiM\",\n            \"ifsc_code\": \"ABHY0065037\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KOPARKHAIRNE\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_aT7xCVpMSp5fJsmW7H9J\",\n            \"ifsc_code\": \"ABHY0065038\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DADAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_p2Mld8xFAdHfMlbwf86l\",\n            \"ifsc_code\": \"ABHY0065039\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"MULUND\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_7tH6oXWxGg5gZxRnhKSs\",\n            \"ifsc_code\": \"ABHY0065040\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"CHARAI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_Xkib5LN0x1DmlAECK3O5\",\n            \"ifsc_code\": \"ABHY0065041\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"LOKMANYA NAGAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_iF6YUbVj1f7Y493bFSCK\",\n            \"ifsc_code\": \"ABHY0065042\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KHARGHAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_R6Cn04mOkC23qn79XFlS\",\n            \"ifsc_code\": \"ABHY0065043\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"VASAI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_xLylz6TSB5nnqK3DzO0z\",\n            \"ifsc_code\": \"ABHY0065044\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"GHANSOLI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_Uv58VRhXWCAQSJqslJkw\",\n            \"ifsc_code\": \"ABHY0065045\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KAMOTHE\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_h0aUDkwL9t9iQ5vHeCse\",\n            \"ifsc_code\": \"ABHY0065046\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"BHAYANDAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_RQuU0l7164GTeVZ4E43v\",\n            \"ifsc_code\": \"ABHY0065047\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DAHISAR EAST\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_SPWfJvEpTU24sAmKEZ0D\",\n            \"ifsc_code\": \"ABHY0065048\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KALYAN-WEST\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_2wyX1OxHdgCxT1R3GnGN\",\n            \"ifsc_code\": \"ABHY0065049\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DOMBIVLI EAST\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_PboEx6JqvJJGj1dyk7SO\",\n            \"ifsc_code\": \"ABHY0065050\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"OLD PANVEL\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_SjUpXkn33CZ4o6ZBa2kh\",\n            \"ifsc_code\": \"ABHY0065051\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KANDIVALI (WEST)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_pZvCI4JWiSKxjMRE4QkF\",\n            \"ifsc_code\": \"ABHY0065052\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"MIRA ROAD (EAST)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_3AxJvuc85fFJ1GuwM7Op\",\n            \"ifsc_code\": \"ABHY0065053\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"BADLAPUR (EAST)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_flGBScMPqkRCdwHNuUnI\",\n            \"ifsc_code\": \"ABHY0065054\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"CHEMBUR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_n9JAWcObvD9B13smRY7u\",\n            \"ifsc_code\": \"ABHY0065055\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"VIRAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_xHV1Nwh8Nc9uVXGH03zC\",\n            \"ifsc_code\": \"ABHY0065056\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"SEAWOOD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_cDB9BGKpqbTl5WkJ89nM\",\n            \"ifsc_code\": \"ABHY0065057\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"GHODBUNDER ROAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_z0jc7B8SxsPYUWZy0JlD\",\n            \"ifsc_code\": \"ABHY0065058\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"ANTOP HILL\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_v8aMp2Tf4kHKbmx2HlXZ\",\n            \"ifsc_code\": \"ABHY0065059\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NALLASOPARA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_En3FvbVN8CABbApCtWrf\",\n            \"ifsc_code\": \"ABHY0065060\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DIVALE CBD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_1nW37n7t4vCRHqjVuRQN\",\n            \"ifsc_code\": \"ABHY0065061\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KHANDA COLONY\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_CE475JLN93msrpc6z2Bl\",\n            \"ifsc_code\": \"ABHY0065062\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KALWA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_Wb8IRlhm478eSnINZ8wM\",\n            \"ifsc_code\": \"ABHY0065063\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DOMBIVLI (WEST)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_jof1OZ2n20oHeVtF7kXk\",\n            \"ifsc_code\": \"ABHY0065064\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"GOREGAON WEST\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_Mbhi3MmYXv3voyrkl7Ix\",\n            \"ifsc_code\": \"ABHY0065065\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"JOGESHWARI (E)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_7iMi13f9z26a4CMBLs1F\",\n            \"ifsc_code\": \"ABHY0065066\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KALYAN (E)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_O0zMjM68SGr1UNKoW6Od\",\n            \"ifsc_code\": \"ABHY0065067\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DIVA (E)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_2GLTwPTwCWaTghILCWgR\",\n            \"ifsc_code\": \"ABHY0065068\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"ANJUR PHATA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_ghrSt6lK3W333MeBrvjp\",\n            \"ifsc_code\": \"ABHY0065069\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"MARVE LINK ROAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_i6sow0hqN3v0t4yYDI89\",\n            \"ifsc_code\": \"ABHY0065070\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"LOWER PAREL\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_naKIYTQB7do1tlLhuyvA\",\n            \"ifsc_code\": \"ABHY0065071\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"LALBAUG\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_ybAcz64gEohyS1NGJcvV\",\n            \"ifsc_code\": \"ABHY0065072\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"VIKHROLI (EAST)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_madxpp4VX46jdIpO9aND\",\n            \"ifsc_code\": \"ABHY0065073\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"VIKHROLI W\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_b4lI0D4F2OkQd2SkpMyC\",\n            \"ifsc_code\": \"ABHY0065074\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KAUSA MUMBRA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_22NG9SsNBsEjVwI6zw04\",\n            \"ifsc_code\": \"ABHY0065075\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"ULWE\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_qsaz4Uo3s3lmBaE5SE4H\",\n            \"ifsc_code\": \"ABHY0065076\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KURLA (W)\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_BS6B4GKZKHUrHba7wQxg\",\n            \"ifsc_code\": \"ABHY0065077\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"PEN\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_3I4zz524AS6CvAdMezm4\",\n            \"ifsc_code\": \"ABHY0065102\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NANA PETH\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_Cx82Dtu1e7b4PsSzWhZ5\",\n            \"ifsc_code\": \"ABHY0065103\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"LAXMI ROAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_vf7u3pLvx2cl2k2au2dS\",\n            \"ifsc_code\": \"ABHY0065104\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"YERWADA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_qFEGOhR0qDeS9jYvth7v\",\n            \"ifsc_code\": \"ABHY0065105\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"PIMPRI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_GJdA5WQrZJr2vVbUTy2u\",\n            \"ifsc_code\": \"ABHY0065106\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"PAUD PHATA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_oBVb6w6Pa7KcYwrU3KUb\",\n            \"ifsc_code\": \"ABHY0065107\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"BANER ROAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_nko5VO7ugU7yF9BcvP3L\",\n            \"ifsc_code\": \"ABHY0065108\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DHANKAWADI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_FMzYbpNh5AjF9zjU29l1\",\n            \"ifsc_code\": \"ABHY0065109\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"WAGHOLI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_dwVoyUVIaieGTLq7oSdZ\",\n            \"ifsc_code\": \"ABHY0065110\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"SINHAGAD ROAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_TPIcaFqSa8S6xwpfTQsl\",\n            \"ifsc_code\": \"ABHY0065111\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DECCAN GYMKHANA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_s1ymkFU44TXre40USirU\",\n            \"ifsc_code\": \"ABHY0065112\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NAGPUR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_33CYCJQBJdq1ocSdVayD\",\n            \"ifsc_code\": \"ABHY0065113\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"AURANGABAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_qEU8FWfa1RqBThFFtE8s\",\n            \"ifsc_code\": \"ABHY0065114\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"KANKAVLI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_nR0Q0MGX16AfhYBcPALa\",\n            \"ifsc_code\": \"ABHY0065115\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NASHIK\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_gLTm3oFnIoMQCfhzje98\",\n            \"ifsc_code\": \"ABHY0065116\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"CHAKAN BRANCH\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_5XJibQYDgQ7iGpgKcNRT\",\n            \"ifsc_code\": \"ABHY0065117\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"AMBAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_Se30JJeSqss2giuPmLkE\",\n            \"ifsc_code\": \"ABHY0065118\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"NASHIK ROAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_0Smj7Oarb6y4SCqXuOi2\",\n            \"ifsc_code\": \"ABHY0065119\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"GARKHEDA\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_UvVzo8EPJIouBRfiKfr0\",\n            \"ifsc_code\": \"ABHY0065120\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"ASHOK NAGAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_3jVG9IkyVbeKGviQw4hF\",\n            \"ifsc_code\": \"ABHY0065121\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"C.A. ROAD\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_37VFDABocvB54AZTBClX\",\n            \"ifsc_code\": \"ABHY0065122\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"DABHADE TALEGAON\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_ZzJR4mAIy7H6maFrOcMA\",\n            \"ifsc_code\": \"ABHY0065123\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"SAMRAT NAGAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_T54QH4MilNRmCwLoDCny\",\n            \"ifsc_code\": \"ABHY0065124\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"INDIRA NAGAR\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        },\n        {\n            \"ID\": \"if_cozbNLVF2Zlc6T5muKRe\",\n            \"ifsc_code\": \"ABHY0065125\",\n            \"bank\": \"Abhyudaya Co-operative Bank\",\n            \"branch\": \"PANCHAVATI\",\n            \"imps\": true,\n            \"rtgs\": true,\n            \"neft\": true,\n            \"upi\": true\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: true
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ID:
+                          type: string
+                          example: if_cQpjLWAwdncXgq6t54KQ
+                        ifsc_code:
+                          type: string
+                          example: ABHY0065001
+                        bank:
+                          type: string
+                          example: Abhyudaya Co-operative Bank
+                        branch:
+                          type: string
+                          example: Abhyudaya Co-operative Bank IMPS
+                        imps:
+                          type: boolean
+                          example: true
+                          default: true
+                        rtgs:
+                          type: boolean
+                          example: true
+                          default: true
+                        neft:
+                          type: boolean
+                          example: true
+                          default: true
+                        upi:
+                          type: boolean
+                          example: true
+                          default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+      deprecated: false
+      tags:
+      - Constants
+  /v1/constants/states:
+    get:
+      summary: State Codes
+      description: Use this API to get a list of state codes that you can use in our APIs.
+      operationId: constants-state-codes
+      parameters:
+      - name: start_after
+        in: query
+        description: 'The state code after which you want to get details.<br> Use this with the `results_per_page` for pagination.<br><br>Example: `AP`'
+        schema:
+          type: string
+      - name: start_before
+        in: query
+        description: 'The state code before which you want to get details.<br> Use this with the `results_per_page` for pagination.<br><br>Example: `AP`'
+        schema:
+          type: string
+      - name: results_per_page
+        in: query
+        description: 'The number of results you want to get per API call.<br>Use this with the `start_before` or `start_after` parameters for pagination.<ul><li>Default value 10.<li>Maximum value 100.</ul></li>Example: 15'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"object\": \"list\",\n  \"has_more\": false,\n  \"data\": [\n    {\n      \"ID\": \"AP\",\n      \"Name\": \"Andhra Pradesh\"\n    },\n    {\n      \"ID\": \"AR\",\n      \"Name\": \"Arunachal Pradesh\"\n    },\n    {\n      \"ID\": \"AS\",\n      \"Name\": \"Assam\"\n    },\n    {\n      \"ID\": \"BR\",\n      \"Name\": \"Bihar\"\n    },\n    {\n      \"ID\": \"CT\",\n      \"Name\": \"Chhattisgarh\"\n    },\n    {\n      \"ID\": \"GA\",\n      \"Name\": \"Goa\"\n    },\n    {\n      \"ID\": \"GJ\",\n      \"Name\": \"Gujarat\"\n    },\n    {\n      \"ID\": \"HR\",\n      \"Name\": \"Haryana\"\n    },\n    {\n      \"ID\": \"HP\",\n      \"Name\": \"Himachal Pradesh\"\n    },\n    {\n      \"ID\": \"JK\",\n      \"Name\": \"Jammu and Kashmir\"\n    },\n    {\n      \"ID\": \"JH\",\n      \"Name\": \"Jharkhand\"\n    },\n    {\n      \"ID\": \"KA\",\n      \"Name\": \"Karnataka\"\n    },\n    {\n      \"ID\": \"KL\",\n      \"Name\": \"Kerala\"\n    },\n    {\n      \"ID\": \"MP\",\n      \"Name\": \"Madhya Pradesh\"\n    },\n    {\n      \"ID\": \"MH\",\n      \"Name\": \"Maharashtra\"\n    },\n    {\n      \"ID\": \"MN\",\n      \"Name\": \"Manipur\"\n    },\n    {\n      \"ID\": \"ML\",\n      \"Name\": \"Meghalaya\"\n    },\n    {\n      \"ID\": \"MZ\",\n      \"Name\": \"Mizoram\"\n    },\n    {\n      \"ID\": \"NL\",\n      \"Name\": \"Nagaland\"\n    },\n    {\n      \"ID\": \"OD\",\n      \"Name\": \"Odisha\"\n    },\n    {\n      \"ID\": \"PB\",\n      \"Name\": \"Punjab\"\n    },\n    {\n      \"ID\": \"RJ\",\n      \"Name\": \"Rajasthan\"\n    },\n    {\n      \"ID\": \"SK\",\n      \"Name\": \"Sikkim\"\n    },\n    {\n      \"ID\": \"TN\",\n      \"Name\": \"Tamil Nadu\"\n    },\n    {\n      \"ID\": \"TS\",\n      \"Name\": \"Telangana\"\n    },\n    {\n      \"ID\": \"TR\",\n      \"Name\": \"Tripura\"\n    },\n    {\n      \"ID\": \"UK\",\n      \"Name\": \"Uttarakhand\"\n    },\n    {\n      \"ID\": \"UP\",\n      \"Name\": \"Uttar Pradesh\"\n    },\n    {\n      \"ID\": \"WB\",\n      \"Name\": \"West Bengal\"\n    },\n    {\n      \"ID\": \"AN\",\n      \"Name\": \"Andaman and Nicobar Islands\"\n    },\n    {\n      \"ID\": \"CH\",\n      \"Name\": \"Chandigarh\"\n    },\n    {\n      \"ID\": \"DN\",\n      \"Name\": \"Dadra and Nagar Haveli\"\n    },\n    {\n      \"ID\": \"DH\",\n      \"Name\": \"Daman and Diu\"\n    },\n    {\n      \"ID\": \"DL\",\n      \"Name\": \"Delhi\"\n    },\n    {\n      \"ID\": \"LD\",\n      \"Name\": \"Lakshadweep\"\n    },\n    {\n      \"ID\": \"PY\",\n      \"Name\": \"Puducherry\"\n    },\n    {\n      \"ID\": \"AD\",\n      \"Name\": \"Andhra Pradesh\"\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: false
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ID:
+                          type: string
+                          example: AP
+                        Name:
+                          type: string
+                          example: Andhra Pradesh
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"error\": {\n        \"type\": \"authentication_error\",\n        \"message\": \"Invalid access/secret key.\"\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid access/secret key.
+      deprecated: false
+      tags:
+      - Constants
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-bearer-format: bearer
+      x-default: ''
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developers.zwitch.io/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.zwitch.io/reference/accounts-get-all.md
+  - https://developers.zwitch.io/reference/accounts-get-balance.md
+  - https://developers.zwitch.io/reference/accounts-get-by-id.md
+  - https://developers.zwitch.io/reference/accounts-get-statement.md
+  - https://developers.zwitch.io/reference/accounts-virtual-deactivate.md
+  - https://developers.zwitch.io/reference/accounts-virtual-test-balance.md
+  - https://developers.zwitch.io/reference/bank-account-verification-copy-1.md
+  - https://developers.zwitch.io/reference/batch-refund-api.md
+  - https://developers.zwitch.io/reference/beneficiaries-bank-account-create.md
+  - https://developers.zwitch.io/reference/beneficiaries-delete.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-all.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-by-id.md
+  - https://developers.zwitch.io/reference/beneficiaries-update.md
+  - https://developers.zwitch.io/reference/constants-business-categories.md
+  - https://developers.zwitch.io/reference/constants-business-types.md
+  - https://developers.zwitch.io/reference/constants-ifsc.md
+  - https://developers.zwitch.io/reference/constants-state-codes.md
+  - https://developers.zwitch.io/reference/create-payment-token.md
+  - https://developers.zwitch.io/reference/get-all-sub-accounts.md
+  - https://developers.zwitch.io/reference/get-sub-account-by-id.md
+  - https://developers.zwitch.io/reference/requery-batch-refund.md
+  - https://developers.zwitch.io/reference/status-check-api-with-payment_token.md
+  - https://developers.zwitch.io/reference/transfers-bulk-by-id.md
+  - https://developers.zwitch.io/reference/transfers-bulk-create.md
+  - https://developers.zwitch.io/reference/transfers-bulk-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-by-id.md
+  - https://developers.zwitch.io/reference/transfers-virtual-accounts-create-to-account-beneficiary.md
+  - https://developers.zwitch.io/reference/update-sub-account.md
+  - https://developers.zwitch.io/reference/upi-qr-intent-string.md
+  - https://developers.zwitch.io/reference/verifications-bank-account-create.md
+  - https://developers.zwitch.io/reference/verifications-name-create.md
+  - https://developers.zwitch.io/reference/verifications-pan-create.md
+  - https://developers.zwitch.io/reference/verifications-vpa-create.md
+  - https://developers.zwitch.io/reference/webhooks-get-all-events.md
+  merge:
+    pages: 35
+    deduped: 34
+    conflicts_kept_first: 1

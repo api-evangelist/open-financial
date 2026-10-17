@@ -1,0 +1,321 @@
+openapi: 3.2.0
+info:
+  title: 1 Pg API
+  version: '1'
+servers:
+- url: https://api.zwitch.io
+security:
+- sec0: []
+tags:
+- name: Pg
+paths:
+  /v1/pg/sandbox/payment_token:
+    post:
+      summary: Create Payment Token
+      description: Create Token API will give the token in the response which will be used in .js function.
+      operationId: create-payment-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - amount
+              - contact_number
+              - email_id
+              - currency
+              - mtx
+              properties:
+                amount:
+                  type: number
+                  description: The amount of transaction
+                  format: float
+                udf:
+                  type: object
+                  description: 'Merchant can pass extra parameters in the request which they require in the response. Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.</li><li>Maximum 5 key-value pairs.</li></ul>Example: `"key_1": "DD”`'
+                  properties:
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+                contact_number:
+                  type: string
+                  description: Mobile number of the customer. Please make sure you are passing actual customer mobile number. If you pass a hardcoded value, if the customer doesn't change the mobile number from layer the transaction will  appear with hardcoded mobile number and name associated with it.
+                email_id:
+                  type: string
+                  description: Email Id of the customer
+                currency:
+                  type: string
+                  description: INR
+                mtx:
+                  type: string
+                  description: Reference id for the transaction. This should be unique for each transaction.
+                sub_accounts_id:
+                  type: string
+                  description: Mandatory Only in case of Split settlement use-case
+            examples:
+              Request Example:
+                value:
+                  amount: 10
+                  contact_number: '7356697492'
+                  sub_accounts_id: sa_da4f9f84ac6d
+                  email_id: john.doe@bankopen.co
+                  currency: INR
+                  mtx: test1234
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"amount\": \"10.00\",\n    \"currency\": \"INR\",\n    \"mtx\": \"1764931973\",\n    \"attempts\": 0,\n    \"sub_accounts_id\": \"sa_da4f9f84ac6d\",\n    \"users_id\": 366411705,\n    \"created_at\": \"2025-12-05 16:22:52\",\n    \"id\": \"pt_676932b984f1203\",\n    \"entity\": \"payment_token\",\n    \"status\": \"created\",\n    \"customer\": {\n        \"contact_number\": \"7356697492\",\n        \"email_id\": \"john.doe@bankopen.co\",\n        \"id\": \"cs_d86932b740dfDa6\",\n        \"entity\": \"customer\"\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: string
+                    example: '10.00'
+                  currency:
+                    type: string
+                    example: INR
+                  mtx:
+                    type: string
+                    example: '1764931973'
+                  attempts:
+                    type: integer
+                    example: 0
+                    default: 0
+                  sub_accounts_id:
+                    type: string
+                    example: sa_da4f9f84ac6d
+                  users_id:
+                    type: integer
+                    example: 366411705
+                    default: 0
+                  created_at:
+                    type: string
+                    example: '2025-12-05 16:22:52'
+                  id:
+                    type: string
+                    example: pt_676932b984f1203
+                  entity:
+                    type: string
+                    example: payment_token
+                  status:
+                    type: string
+                    example: created
+                  customer:
+                    type: object
+                    properties:
+                      contact_number:
+                        type: string
+                        example: '7356697492'
+                      email_id:
+                        type: string
+                        example: john.doe@bankopen.co
+                      id:
+                        type: string
+                        example: cs_d86932b740dfDa6
+                      entity:
+                        type: string
+                        example: customer
+        '403':
+          description: '403'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"message\": \"Signature mis-match\",\n   \"status\": 403\n}"
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Signature mis-match
+                  status:
+                    type: integer
+                    example: 403
+                    default: 0
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"message\": \"Validation Error\",\n   \"errors\": {\n       \"amount\": [\n           \"The amount field is required in request payload and it should not be empty.\"\n       ]\n   },\n   \"status\": 422\n   }\n}"
+      deprecated: false
+      tags:
+      - Pg
+  /v1/pg/sandbox/payment_token/{tokenvalue}/payment:
+    get:
+      summary: Status check API with payment_token
+      description: Using payment Token Id, status check API will return the payment status parameters.
+      operationId: status-check-api-with-payment_token
+      parameters:
+      - name: tokenvalue
+        in: path
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"amount\": \"50.00\",\n    \"currency\": \"INR\",\n    \"id\": \"py_BRUhvi4vKnM4I1p\",\n    \"entity\": \"payment\",\n    \"status\": \"created\",\n    \"payment_instrument\": null,\n    \"customer\": {\n        \"contact_number\": \"8682008771\",\n        \"email_id\": \"jithinpv007@gmail.com\",\n        \"id\": \"cs_xH4IU9FRPDtoX\",\n        \"entity\": \"customer\"\n    },\n    \"payment_token\": {\n        \"amount\": \"50.00\",\n        \"currency\": \"INR\",\n        \"mtx\": null,\n        \"payment_instruments\": false,\n        \"payment_instrument_types\": false,\n        \"attempts\": 11,\n        \"id\": \"pt_BROsipkgxYSuvKQ\",\n        \"entity\": \"payment_token\",\n        \"status\": \"attempted\",\n        \"udf\": {\n            \"one\": \"one\"\n        }\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: string
+                    example: '50.00'
+                  currency:
+                    type: string
+                    example: INR
+                  id:
+                    type: string
+                    example: py_BRUhvi4vKnM4I1p
+                  entity:
+                    type: string
+                    example: payment
+                  status:
+                    type: string
+                    example: created
+                  payment_instrument: {}
+                  customer:
+                    type: object
+                    properties:
+                      contact_number:
+                        type: string
+                        example: '8682008771'
+                      email_id:
+                        type: string
+                        example: jithinpv007@gmail.com
+                      id:
+                        type: string
+                        example: cs_xH4IU9FRPDtoX
+                      entity:
+                        type: string
+                        example: customer
+                  payment_token:
+                    type: object
+                    properties:
+                      amount:
+                        type: string
+                        example: '50.00'
+                      currency:
+                        type: string
+                        example: INR
+                      mtx: {}
+                      payment_instruments:
+                        type: boolean
+                        example: false
+                        default: true
+                      payment_instrument_types:
+                        type: boolean
+                        example: false
+                        default: true
+                      attempts:
+                        type: integer
+                        example: 11
+                        default: 0
+                      id:
+                        type: string
+                        example: pt_BROsipkgxYSuvKQ
+                      entity:
+                        type: string
+                        example: payment_token
+                      status:
+                        type: string
+                        example: attempted
+                      udf:
+                        type: object
+                        properties:
+                          one:
+                            type: string
+                            example: one
+        '403':
+          description: '403'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"message\": \"Signature mis-match\",\n   \"status\": 403\n}"
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Signature mis-match
+                  status:
+                    type: integer
+                    example: 403
+                    default: 0
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"message\": \"Validation Error\",\n   \"errors\": {\n       \"amount\": [\n           \"The amount field is required in request payload and it should not be empty.\"\n       ]\n   },\n   \"status\": 422\n   }\n}"
+      deprecated: false
+      tags:
+      - Pg
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-bearer-format: bearer
+      x-default: ''
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developers.zwitch.io/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.zwitch.io/reference/accounts-get-all.md
+  - https://developers.zwitch.io/reference/accounts-get-balance.md
+  - https://developers.zwitch.io/reference/accounts-get-by-id.md
+  - https://developers.zwitch.io/reference/accounts-get-statement.md
+  - https://developers.zwitch.io/reference/accounts-virtual-deactivate.md
+  - https://developers.zwitch.io/reference/accounts-virtual-test-balance.md
+  - https://developers.zwitch.io/reference/bank-account-verification-copy-1.md
+  - https://developers.zwitch.io/reference/batch-refund-api.md
+  - https://developers.zwitch.io/reference/beneficiaries-bank-account-create.md
+  - https://developers.zwitch.io/reference/beneficiaries-delete.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-all.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-by-id.md
+  - https://developers.zwitch.io/reference/beneficiaries-update.md
+  - https://developers.zwitch.io/reference/constants-business-categories.md
+  - https://developers.zwitch.io/reference/constants-business-types.md
+  - https://developers.zwitch.io/reference/constants-ifsc.md
+  - https://developers.zwitch.io/reference/constants-state-codes.md
+  - https://developers.zwitch.io/reference/create-payment-token.md
+  - https://developers.zwitch.io/reference/get-all-sub-accounts.md
+  - https://developers.zwitch.io/reference/get-sub-account-by-id.md
+  - https://developers.zwitch.io/reference/requery-batch-refund.md
+  - https://developers.zwitch.io/reference/status-check-api-with-payment_token.md
+  - https://developers.zwitch.io/reference/transfers-bulk-by-id.md
+  - https://developers.zwitch.io/reference/transfers-bulk-create.md
+  - https://developers.zwitch.io/reference/transfers-bulk-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-by-id.md
+  - https://developers.zwitch.io/reference/transfers-virtual-accounts-create-to-account-beneficiary.md
+  - https://developers.zwitch.io/reference/update-sub-account.md
+  - https://developers.zwitch.io/reference/upi-qr-intent-string.md
+  - https://developers.zwitch.io/reference/verifications-bank-account-create.md
+  - https://developers.zwitch.io/reference/verifications-name-create.md
+  - https://developers.zwitch.io/reference/verifications-pan-create.md
+  - https://developers.zwitch.io/reference/verifications-vpa-create.md
+  - https://developers.zwitch.io/reference/webhooks-get-all-events.md
+  merge:
+    pages: 35
+    deduped: 34
+    conflicts_kept_first: 1

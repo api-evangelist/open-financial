@@ -1,0 +1,1132 @@
+openapi: 3.2.0
+info:
+  title: 1 Transfers API
+  version: '1'
+servers:
+- url: https://api.zwitch.io
+security:
+- sec0: []
+tags:
+- name: Transfers
+paths:
+  /v1/transfers:
+    post:
+      summary: Create Transfer - Account Beneficiary
+      description: Use this API to transfer money from a virtual account to an account number beneficiary.
+      operationId: transfers-virtual-accounts-create-to-account-beneficiary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - debit_account_id
+              - beneficiary_id
+              - amount
+              - currency_code
+              - payment_mode
+              - merchant_reference_id
+              properties:
+                type:
+                  type: string
+                  description: 'The account type to which you want to make the transfer. <br><br>Possible value: `account_number`'
+                  default: account_number
+                debit_account_id:
+                  type: string
+                  description: 'The `account_id` from which money should be debited.<br><br>Example: `va_Q6USeYXbx38cKa3NbBpoHDViW`'
+                beneficiary_id:
+                  type: string
+                  description: 'The `account_id` to which money should be credited.<br><br>Example: `vab_ZPdnNajZkGlu5xrNDVjZNrb3d`'
+                amount:
+                  type: number
+                  description: 'Amount you want to transfer in rupees.<br><br>Example: `369.71`'
+                  format: float
+                currency_code:
+                  type: string
+                  description: 'ISO code of the currency in which you want to make the transfer.<br>Currently, only `inr` is allowed.<br><br>Example: `inr`'
+                  default: inr
+                payment_mode:
+                  type: string
+                  description: The mode you want to use to make the transfer.<br>Possible values:<ul><li>`neft`<li>`imps` <li>`rtgs`</ul></li>
+                async:
+                  type: boolean
+                  description: 'Helps improve success rate when creating multiple transfers in a short duration.<br><br>Possible values:<ul><li>`true`: The transfer is added to a queue and sent to the bank asynchronously. <li>`false` (default): The transfer request is sent to the bank immediately.</ul></li>'
+                  default: false
+                merchant_reference_id:
+                  type: string
+                  description: 'Unique identifier entered when creating the transfer.<br><ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 7 characters.</li><li>Maximum: 40 characters.</li></ul>Example: `1409614085`'
+                payment_remark:
+                  type: string
+                  description: 'Remark for the transfer. This is shown in the bank statement.<ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 1 character.</li><li>Maximum: 40 characters.</li></ul>Example: `Transfer via ZWITCH.`'
+                metadata:
+                  type: object
+                  description: 'Key-value pair that can be used to store additional information about the entity.<br><br>Note:<ul><li>Maximum 5 key-value pairs. </li><li>Maximum 256 characters in the `metadata` object.</li><li>You cannot pass a URL.</li><li>You cannot use `\`.</li></ul>Example: `"key_1": "DD"`'
+                  properties:
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+            examples:
+              Account Number:
+                value:
+                  type: account_number
+                  debit_account_id: va_2BNgFqGdz0AqUDtKMgZgRfjG6
+                  beneficiary_id: vab_z1ZkY3JrRWOwoDlc7T55CD2M1
+                  amount: 2
+                  currency_code: inr
+                  payment_mode: neft
+                  async: false
+                  merchant_reference_id: '1000868'
+                  payment_remark: Lego Death Star
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Success:
+                  value: "{\n  \"id\": \"tr_aTKJAon8uLYqyk7wpP3kFAaYs\",\n  \"object\": \"transfer\",\n  \"type\": \"account_number\",\n  \"amount\": 1,\n  \"debit_account_id\": \"va_3Zk64YDxnBtyvkzWoIVUOIWHu\",\n  \"beneficiary_id\": \"vab_KT8z4g7wlXNbef9gU5IR48PCF\",\n  \"status\": \"success\",\n  \"bank_reference_number\": \"214516704238\",\n  \"currency_code\": \"inr\",\n  \"payment_mode\": \"imps\",\n  \"payment_remark\": \"Lego Death Star\",\n  \"paid_to\": \"54055602160\",\n  \"beneficiary_name\": \"Sunil Reddy\",\n  \"beneficiary_ifsc\": \"HDFC0000123\",\n  \"otp_attempts\": 0,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1000077\",\n  \"transacted_at\": 1653476654,\n  \"is_sandbox\": false,\n  \"created_at\": 1653476653\n}"
+                Pending:
+                  value: "{\n  \"id\": \"tr_RR66dJIg95bhPP7YUHA6hBMVx\",\n  \"object\": \"transfer\",\n  \"type\": \"account_number\",\n  \"amount\": 1,\n  \"debit_account_id\": \"va_0S2gghUY2wZqayy4Mw95M8zzQ\",\n  \"beneficiary_id\": \"vab_vHLdkuH3juBnumAyVaXTLSvwa\",\n  \"status\": \"pending\",\n  \"bank_reference_number\": \"N179221309296093\",\n  \"bank_error_code\": \"sent_to_beneficiary\",\n  \"currency_code\": \"inr\",\n  \"reason_for_error\": \"IMPS: Transaction accepted by NPCI but no response received from beneficiary bank within the time limit set NEFT: Transaction has been accepted by RBI but the acknowledgement has not yet been received\",\n  \"error_type\": \"business\",\n  \"recommended_action\": \"IMPS: Check status after 1 hour. Transaction status expected to clear to COMPLETED/ FAILED after 2 working days in most cases. NEFT: Check status after 3 hours in NEFT working window. If transaction has been posted after NEFT Cut off time then check the status on next working day\",\n  \"payment_mode\": \"neft\",\n  \"payment_remark\": \"Lego Death Star\",\n  \"paid_to\": \"5010001010101\",\n  \"beneficiary_name\": \"Sunil Reddy\",\n  \"beneficiary_ifsc\": \"HDFC0000123\",\n  \"otp_attempts\": 0,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1000122\",\n  \"transacted_at\": 1656412283,\n  \"is_sandbox\": false,\n  \"created_at\": 1656412281\n}"
+                Failed:
+                  value: "{\n  \"id\": \"tr_XXiQhVSG22ls9tmYZoYIOlRQO\",\n  \"object\": \"transfer\",\n  \"type\": \"account_number\",\n  \"amount\": 1,\n  \"debit_account_id\": \"va_3Zk64YDxnBtyvkzWoIVUOIWHu\",\n  \"beneficiary_id\": \"vab_a77BIN1KID2HDctgI38j9r3SM\",\n  \"status\": \"failed\",\n  \"bank_reference_number\": \"N145221230932867\",\n  \"bank_error_code\": \"returned_from_beneficiary\",\n  \"currency_code\": \"inr\",\n  \"reason_for_error\": \"Transaction accepted by RBI but beneficiary bank rejected it\",\n  \"error_type\": \"business\",\n  \"recommended_action\": \"Check if the bank account number & ifsc code is valid\",\n  \"payment_mode\": \"neft\",\n  \"payment_remark\": \"Lego Death Star\",\n  \"paid_to\": \"54055602160\",\n  \"beneficiary_name\": \"Sunil Reddy\",\n  \"beneficiary_ifsc\": \"HDFC0000123\",\n  \"otp_attempts\": 0,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1000065\",\n  \"transacted_at\": 1653477148,\n  \"is_sandbox\": false,\n  \"created_at\": 1653473541\n}"
+              schema:
+                oneOf:
+                - title: Success
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: tr_aTKJAon8uLYqyk7wpP3kFAaYs
+                    object:
+                      type: string
+                      example: transfer
+                    type:
+                      type: string
+                      example: account_number
+                    amount:
+                      type: integer
+                      example: 1
+                      default: 0
+                    debit_account_id:
+                      type: string
+                      example: va_3Zk64YDxnBtyvkzWoIVUOIWHu
+                    beneficiary_id:
+                      type: string
+                      example: vab_KT8z4g7wlXNbef9gU5IR48PCF
+                    status:
+                      type: string
+                      example: success
+                    bank_reference_number:
+                      type: string
+                      example: '214516704238'
+                    currency_code:
+                      type: string
+                      example: inr
+                    payment_mode:
+                      type: string
+                      example: imps
+                    payment_remark:
+                      type: string
+                      example: Lego Death Star
+                    paid_to:
+                      type: string
+                      example: '54055602160'
+                    beneficiary_name:
+                      type: string
+                      example: Sunil Reddy
+                    beneficiary_ifsc:
+                      type: string
+                      example: HDFC0000123
+                    otp_attempts:
+                      type: integer
+                      example: 0
+                      default: 0
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1000077'
+                    transacted_at:
+                      type: integer
+                      example: 1653476654
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: false
+                      default: true
+                    created_at:
+                      type: integer
+                      example: 1653476653
+                      default: 0
+                - title: Pending
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: tr_RR66dJIg95bhPP7YUHA6hBMVx
+                    object:
+                      type: string
+                      example: transfer
+                    type:
+                      type: string
+                      example: account_number
+                    amount:
+                      type: integer
+                      example: 1
+                      default: 0
+                    debit_account_id:
+                      type: string
+                      example: va_0S2gghUY2wZqayy4Mw95M8zzQ
+                    beneficiary_id:
+                      type: string
+                      example: vab_vHLdkuH3juBnumAyVaXTLSvwa
+                    status:
+                      type: string
+                      example: pending
+                    bank_reference_number:
+                      type: string
+                      example: N179221309296093
+                    bank_error_code:
+                      type: string
+                      example: sent_to_beneficiary
+                    currency_code:
+                      type: string
+                      example: inr
+                    reason_for_error:
+                      type: string
+                      example: 'IMPS: Transaction accepted by NPCI but no response received from beneficiary bank within the time limit set NEFT: Transaction has been accepted by RBI but the acknowledgement has not yet been received'
+                    error_type:
+                      type: string
+                      example: business
+                    recommended_action:
+                      type: string
+                      example: 'IMPS: Check status after 1 hour. Transaction status expected to clear to COMPLETED/ FAILED after 2 working days in most cases. NEFT: Check status after 3 hours in NEFT working window. If transaction has been posted after NEFT Cut off time then check the status on next working day'
+                    payment_mode:
+                      type: string
+                      example: neft
+                    payment_remark:
+                      type: string
+                      example: Lego Death Star
+                    paid_to:
+                      type: string
+                      example: '5010001010101'
+                    beneficiary_name:
+                      type: string
+                      example: Sunil Reddy
+                    beneficiary_ifsc:
+                      type: string
+                      example: HDFC0000123
+                    otp_attempts:
+                      type: integer
+                      example: 0
+                      default: 0
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1000122'
+                    transacted_at:
+                      type: integer
+                      example: 1656412283
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: false
+                      default: true
+                    created_at:
+                      type: integer
+                      example: 1656412281
+                      default: 0
+                - title: Failed
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: tr_XXiQhVSG22ls9tmYZoYIOlRQO
+                    object:
+                      type: string
+                      example: transfer
+                    type:
+                      type: string
+                      example: account_number
+                    amount:
+                      type: integer
+                      example: 1
+                      default: 0
+                    debit_account_id:
+                      type: string
+                      example: va_3Zk64YDxnBtyvkzWoIVUOIWHu
+                    beneficiary_id:
+                      type: string
+                      example: vab_a77BIN1KID2HDctgI38j9r3SM
+                    status:
+                      type: string
+                      example: failed
+                    bank_reference_number:
+                      type: string
+                      example: N145221230932867
+                    bank_error_code:
+                      type: string
+                      example: returned_from_beneficiary
+                    currency_code:
+                      type: string
+                      example: inr
+                    reason_for_error:
+                      type: string
+                      example: Transaction accepted by RBI but beneficiary bank rejected it
+                    error_type:
+                      type: string
+                      example: business
+                    recommended_action:
+                      type: string
+                      example: Check if the bank account number & ifsc code is valid
+                    payment_mode:
+                      type: string
+                      example: neft
+                    payment_remark:
+                      type: string
+                      example: Lego Death Star
+                    paid_to:
+                      type: string
+                      example: '54055602160'
+                    beneficiary_name:
+                      type: string
+                      example: Sunil Reddy
+                    beneficiary_ifsc:
+                      type: string
+                      example: HDFC0000123
+                    otp_attempts:
+                      type: integer
+                      example: 0
+                      default: 0
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1000065'
+                    transacted_at:
+                      type: integer
+                      example: 1653477148
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: false
+                      default: true
+                    created_at:
+                      type: integer
+                      example: 1653473541
+                      default: 0
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such beneficiary account : vab_bj7y4CkSxKWRqCDq7ACBfwah\",\n    \"param\": \"beneficiary_id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such beneficiary account : vab_bj7y4CkSxKWRqCDq7ACBfwah'
+                      param:
+                        type: string
+                        example: beneficiary_id
+      deprecated: false
+      tags:
+      - Transfers
+    get:
+      summary: Get All Transfer by Bulk Reference ID
+      description: Use the this API to fetch all individual transfers associated with a bulk request.
+      operationId: transfers-bulk-get-all
+      parameters:
+      - name: bulk_reference_id
+        in: query
+        description: 'Unique reference entered by the user when creating the bulk transfer request.<br><br>Example: `1234567890123`'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Account Number:
+                  value: "{\n  \"object\": \"list\",\n  \"has_more\": false,\n  \"data\": [\n    {\n      \"id\": \"tr_ULEQP1iAtMBsEDuL2d3K3jmrj\",\n      \"object\": \"transfer\",\n      \"type\": \"account_number\",\n      \"amount\": 1,\n      \"debit_account_id\": \"va_Zpo4BFKhHIfDijxPP9vzVF6Id\",\n      \"beneficiary_id\": \"vab_F55ddzMlmZzLWupwNAa0qFCR6\",\n      \"status\": \"pending\",\n      \"currency_code\": \"inr\",\n      \"payment_mode\": \"imps\",\n      \"payment_remark\": \"test\",\n      \"paid_to\": \"414000000012\",\n      \"beneficiary_name\": \"Anil Reddy\",\n      \"beneficiary_ifsc\": \"ICIC0004140\",\n      \"bulk_transfer_id\": \"butr_WbudbAXT9HV3S52cz3Oy1MIVK\",\n      \"otp_attempts\": 0,\n      \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XoF\"\n      },\n      \"merchant_reference_id\": \"1710930495\",\n      \"transacted_at\": 1710930495,\n      \"is_sandbox\": true,\n      \"created_at\": 1710930495\n    },\n    {\n      \"id\": \"tr_djthyd8bttY1gKSHoT2deVuxA\",\n      \"object\": \"transfer\",\n      \"type\": \"account_number\",\n      \"amount\": 1,\n      \"debit_account_id\": \"va_Zpo4BFKhHIfDijxPP9vzVF6Id\",\n      \"beneficiary_id\": \"vab_v1kQE5Zkdn8RKj9wm4U8YzEb8\",\n      \"status\": \"pending\",\n      \"currency_code\": \"inr\",\n      \"payment_mode\": \"imps\",\n      \"payment_remark\": \"test\",\n      \"paid_to\": \"50100000000013\",\n      \"beneficiary_name\": \"Rahul Reddy\",\n      \"beneficiary_ifsc\": \"HDFC0000832\",\n      \"bulk_transfer_id\": \"butr_WbudbAXT9HV3S52cz3Oy1MIVK\",\n      \"otp_attempts\": 0,\n      \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XoF\"\n      },\n      \"merchant_reference_id\": \"1710930494\",\n      \"transacted_at\": 1710930495,\n      \"is_sandbox\": true,\n      \"created_at\": 1710930495\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: false
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: tr_ULEQP1iAtMBsEDuL2d3K3jmrj
+                        object:
+                          type: string
+                          example: transfer
+                        type:
+                          type: string
+                          example: account_number
+                        amount:
+                          type: integer
+                          example: 1
+                          default: 0
+                        debit_account_id:
+                          type: string
+                          example: va_Zpo4BFKhHIfDijxPP9vzVF6Id
+                        beneficiary_id:
+                          type: string
+                          example: vab_F55ddzMlmZzLWupwNAa0qFCR6
+                        status:
+                          type: string
+                          example: pending
+                        currency_code:
+                          type: string
+                          example: inr
+                        payment_mode:
+                          type: string
+                          example: imps
+                        payment_remark:
+                          type: string
+                          example: test
+                        paid_to:
+                          type: string
+                          example: '414000000012'
+                        beneficiary_name:
+                          type: string
+                          example: Anil Reddy
+                        beneficiary_ifsc:
+                          type: string
+                          example: ICIC0004140
+                        bulk_transfer_id:
+                          type: string
+                          example: butr_WbudbAXT9HV3S52cz3Oy1MIVK
+                        otp_attempts:
+                          type: integer
+                          example: 0
+                          default: 0
+                        metadata:
+                          type: object
+                          properties:
+                            key_1:
+                              type: string
+                              example: DD
+                            key_2:
+                              type: string
+                              example: XoF
+                        merchant_reference_id:
+                          type: string
+                          example: '1710930495'
+                        transacted_at:
+                          type: integer
+                          example: 1710930495
+                          default: 0
+                        is_sandbox:
+                          type: boolean
+                          example: true
+                          default: true
+                        created_at:
+                          type: integer
+                          example: 1710930495
+                          default: 0
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such id: 12345678901\",\n    \"param\": \"bulk_reference_id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such id: 12345678901'
+                      param:
+                        type: string
+                        example: bulk_reference_id
+      deprecated: false
+      tags:
+      - Transfers
+  /v1/transfers/bulk/{bulk_transfer_id}:
+    get:
+      summary: Get Bulk Transfer by ID
+      description: Use this API to get details of the specified bulk transfer.
+      operationId: transfers-bulk-by-id
+      parameters:
+      - name: bulk_transfer_id
+        in: path
+        description: 'Enter the `bulk_transfer_id` for which you want to get details.<br><br>Example: `butr_ijTRz6APGV3vEZGwlQE32flb3`'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Account Number:
+                  value: "{\n  \"id\": \"butr_n6kbQ4UPg2D0hN9Vo3x8gDkDK\",\n  \"object\": \"bulk_transfer\",\n  \"type\": \"account_number\",\n  \"status\": \"queued\",\n  \"debit_account_details\": {\n    \"name\": \"Anil Reddy\",\n    \"account_number\": \"797979267664205\",\n    \"ifsc\": \"IDFB0040101\"\n  },\n  \"total_individual_transfers\": 2,\n  \"total_transfer_amount\": 2,\n  \"bulk_reference_id\": \"1004224\",\n  \"updated_at\": 1677239064,\n  \"is_sandbox\": true,\n  \"created_at\": 1677239064\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: butr_n6kbQ4UPg2D0hN9Vo3x8gDkDK
+                  object:
+                    type: string
+                    example: bulk_transfer
+                  type:
+                    type: string
+                    example: account_number
+                  status:
+                    type: string
+                    example: queued
+                  debit_account_details:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Anil Reddy
+                      account_number:
+                        type: string
+                        example: '797979267664205'
+                      ifsc:
+                        type: string
+                        example: IDFB0040101
+                  total_individual_transfers:
+                    type: integer
+                    example: 2
+                    default: 0
+                  total_transfer_amount:
+                    type: integer
+                    example: 2
+                    default: 0
+                  bulk_reference_id:
+                    type: string
+                    example: '1004224'
+                  updated_at:
+                    type: integer
+                    example: 1677239064
+                    default: 0
+                  is_sandbox:
+                    type: boolean
+                    example: true
+                    default: true
+                  created_at:
+                    type: integer
+                    example: 1677239064
+                    default: 0
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such id: butr_ijTRz6APGV3vEZGwlQE32flb6\",\n    \"param\": \"bulk_transfer_id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such id: butr_ijTRz6APGV3vEZGwlQE32flb6'
+                      param:
+                        type: string
+                        example: bulk_transfer_id
+      deprecated: false
+      tags:
+      - Transfers
+  /v1/transfers/{transfer_id}:
+    get:
+      summary: Get Transfer by ID
+      description: Use this API to get details of the specified transfer.
+      operationId: transfers-get-by-id
+      parameters:
+      - name: transfer_id
+        in: path
+        description: 'Enter the `transfer_id` for which you want to get details.<br><br>Example: `tr_X0lD4s71zxWLTII2qnpcD4ryY`'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Account Number:
+                  value: "{\n  \"id\": \"tr_aTKJAon8uLYqyk7wpP3kFAaYs\",\n  \"object\": \"transfer\",\n  \"type\": \"account_number\",\n  \"amount\": 1,\n  \"debit_account_id\": \"va_3Zk64YDxnBtyvkzWoIVUOIWHu\",\n  \"beneficiary_id\": \"vab_KT8z4g7wlXNbef9gU5IR48PCF\",\n  \"status\": \"success\",\n  \"bank_reference_number\": \"214516704238\",\n  \"currency_code\": \"inr\",\n  \"payment_mode\": \"imps\",\n  \"payment_remark\": \"Lego Death Star\",\n  \"paid_to\": \"54055602160\",\n  \"beneficiary_name\": \"Sunil Reddy\",\n  \"beneficiary_ifsc\": \"HDFC0000123\",\n  \"otp_attempts\": 0,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1000077\",\n  \"transacted_at\": 1653476654,\n  \"is_sandbox\": false,\n  \"created_at\": 1653476653\n}"
+                VPA:
+                  value: "{\n  \"id\": \"tr_pE33t80XLanGc14F017rRQi6w\",\n  \"object\": \"transfer\",\n  \"type\": \"vpa\",\n  \"amount\": 1,\n  \"debit_account_id\": \"va_3Zk64YDxnBtyvkzWoIVUOIWHu\",\n  \"beneficiary_id\": \"vab_g4U5sHgLA2awuLUBoXvhTp8TR\",\n  \"status\": \"success\",\n  \"bank_reference_number\": \"214568825005\",\n  \"currency_code\": \"inr\",\n  \"message\": \"Transaction success\",\n  \"payment_mode\": \"upi\",\n  \"payment_remark\": \"Lego Death Star\",\n  \"paid_to\": \"afrodog-hdfc@axisbank\",\n  \"beneficiary_name\": \"Sunil Reddy\",\n  \"otp_attempts\": 0,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1000057\",\n  \"transacted_at\": 1653472639,\n  \"is_sandbox\": false,\n  \"created_at\": 1653472637\n}"
+              schema:
+                oneOf:
+                - title: Account Number
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: tr_aTKJAon8uLYqyk7wpP3kFAaYs
+                    object:
+                      type: string
+                      example: transfer
+                    type:
+                      type: string
+                      example: account_number
+                    amount:
+                      type: integer
+                      example: 1
+                      default: 0
+                    debit_account_id:
+                      type: string
+                      example: va_3Zk64YDxnBtyvkzWoIVUOIWHu
+                    beneficiary_id:
+                      type: string
+                      example: vab_KT8z4g7wlXNbef9gU5IR48PCF
+                    status:
+                      type: string
+                      example: success
+                    bank_reference_number:
+                      type: string
+                      example: '214516704238'
+                    currency_code:
+                      type: string
+                      example: inr
+                    payment_mode:
+                      type: string
+                      example: imps
+                    payment_remark:
+                      type: string
+                      example: Lego Death Star
+                    paid_to:
+                      type: string
+                      example: '54055602160'
+                    beneficiary_name:
+                      type: string
+                      example: Sunil Reddy
+                    beneficiary_ifsc:
+                      type: string
+                      example: HDFC0000123
+                    otp_attempts:
+                      type: integer
+                      example: 0
+                      default: 0
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1000077'
+                    transacted_at:
+                      type: integer
+                      example: 1653476654
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: false
+                      default: true
+                    created_at:
+                      type: integer
+                      example: 1653476653
+                      default: 0
+                - title: VPA
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: tr_pE33t80XLanGc14F017rRQi6w
+                    object:
+                      type: string
+                      example: transfer
+                    type:
+                      type: string
+                      example: vpa
+                    amount:
+                      type: integer
+                      example: 1
+                      default: 0
+                    debit_account_id:
+                      type: string
+                      example: va_3Zk64YDxnBtyvkzWoIVUOIWHu
+                    beneficiary_id:
+                      type: string
+                      example: vab_g4U5sHgLA2awuLUBoXvhTp8TR
+                    status:
+                      type: string
+                      example: success
+                    bank_reference_number:
+                      type: string
+                      example: '214568825005'
+                    currency_code:
+                      type: string
+                      example: inr
+                    message:
+                      type: string
+                      example: Transaction success
+                    payment_mode:
+                      type: string
+                      example: upi
+                    payment_remark:
+                      type: string
+                      example: Lego Death Star
+                    paid_to:
+                      type: string
+                      example: afrodog-hdfc@axisbank
+                    beneficiary_name:
+                      type: string
+                      example: Sunil Reddy
+                    otp_attempts:
+                      type: integer
+                      example: 0
+                      default: 0
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1000057'
+                    transacted_at:
+                      type: integer
+                      example: 1653472639
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: false
+                      default: true
+                    created_at:
+                      type: integer
+                      example: 1653472637
+                      default: 0
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"error\": {\n        \"type\": \"invalid_request_error\",\n        \"message\": \"insufficient balance in account\"\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      message:
+                        type: string
+                        example: insufficient balance in account
+      deprecated: false
+      tags:
+      - Transfers
+  /v2/transfers/bulk:
+    post:
+      summary: Create Bulk Transfer
+      description: Use this API to create a bulk transfer.
+      operationId: transfers-bulk-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - debit_account_id
+              - transfers
+              - bulk_reference_id
+              properties:
+                type:
+                  type: string
+                  description: 'Type of bulk transfer you want to create.<br><br>Possible values: <ul><li>`account_number`</li>'
+                debit_account_id:
+                  type: string
+                  description: 'The `account_id` from which money should be debited.<br><br>**Note**: Currently, you can only use a virtual account used as a transfer wallet as a debit account.<br><br>Example: `va_thdScysrIYcT7R5X1NuMhbRNH`'
+                transfers:
+                  type: array
+                  description: Array of objects that contains the details of the individual transfers you want to perform.
+                  items:
+                    properties:
+                      beneficiary_details:
+                        type: object
+                        description: An object that contains the beneficiary details.
+                        required:
+                        - name_of_account_holder
+                        - bank_account_number
+                        - bank_ifsc_code
+                        - vpa
+                        properties:
+                          name_of_account_holder:
+                            type: string
+                            description: 'Beneficiary''s name.<br><br>Supported characters: <ul><li>`a-z`</li><li>`A-Z`</li><li>`0-9`</li><li>`space`</li><li>`’`</li><li>`-`</li><li>`_`</li><li>`/`</li><li>`(`</li><li>`)`</li><li>`.`</li><li>`&`</li><li>`#`</li><li>`$`</li><li>`@`</ul></li>Example: `Anil Reddy`'
+                          bank_account_number:
+                            type: string
+                            description: 'Beneficiary''s bank account number.<br><br>Example: `98765432101234`'
+                          bank_ifsc_code:
+                            type: string
+                            description: 'Beneficiary''s bank IFSC.<br><br>Example: `HDFC0000123`'
+                          vpa:
+                            type: string
+                            description: Required when type is vpa
+                      amount:
+                        type: number
+                        description: 'The amount you want to transfer in Rs.<br><br>Example: `369.61`'
+                        format: float
+                      payment_mode:
+                        type: string
+                        description: The mode to be used to make the transfer.<br><br>Possible values:<ul><li>`neft`<li>`imps` <li>`rtgs`</li><li>`upi`</li></ul>
+                      currency_code:
+                        type: string
+                        description: 'ISO code of the currency in which you want to make the transfer.<br><br>Has to be 3 letters.<br><br>Currently, only `inr` is allowed.<br><br>Example: `inr`'
+                      payment_remark:
+                        type: string
+                        description: 'Enter a remark for the transfer. This is shown in the bank statement.<br><ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 1 character.</li><li>Maximum: 40 characters.</li></ul>Example: `Payment using Zwitch.`'
+                      merchant_reference_id:
+                        type: string
+                        description: 'Unique identifier entered when creating the individual transfer.<br><ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 7 characters.</li><li>Maximum: 40 characters.</li></ul>Example: `1409614085`<br><br>**Note**: This ID should be unique for each transfer of the bulk request.'
+                      metadata:
+                        type: object
+                        description: 'Key-value pair that can be used to store additional information about the entity.<br><br>Note:<ul><li>Maximum 5 key-value pairs. </li><li>Maximum 256 characters in the `metadata` object.</li><li>You cannot pass a URL.</li><li>You cannot use `\`.</li></ul>Example: `"key_1": "DD"`'
+                        properties:
+                          key_1:
+                            type: string
+                          key_2:
+                            type: string
+                    required:
+                    - amount
+                    - payment_mode
+                    - merchant_reference_id
+                    type: object
+                bulk_reference_id:
+                  type: string
+                  description: 'Unique reference for the bulk transfer request set by you. <ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 7 characters.</li><li>Maximum: 40 characters.</li></ul>Example: `1234567890123`'
+            examples:
+              Bulk Transfer:
+                value:
+                  type: account_number
+                  debit_account_id: va_Zpo4BFKhHIfDijxPP9vzVF6Id
+                  transfers:
+                  - beneficiary_details:
+                      name_of_account_holder: Anil Reddy
+                      bank_account_number: '414001501942'
+                      bank_ifsc_code: ICIC0004140
+                    amount: 1000
+                    payment_mode: imps
+                    currency_code: inr
+                    payment_remark: Payment using Zwitch
+                    merchant_reference_id: d7edb0e6-c329-44bb-8d8d-5671424e5f6808b
+                    metadata:
+                      key_1: DD
+                      key_2: XoF
+                  bulk_reference_id: '1234522442433222243236'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"butr_n6kbQ4UPg2D0hN9Vo3x8gDkDK\",\n  \"object\": \"bulk_transfer\",\n  \"type\": \"account_number\",\n  \"status\": \"queued\",\n  \"debit_account_details\": {\n    \"name\": \"Anil Reddy\",\n    \"account_number\": \"797979267664205\",\n    \"ifsc\": \"IDFB0040101\"\n  },\n  \"total_individual_transfers\": 1,\n  \"total_transfer_amount\": 1000,\n  \"bulk_reference_id\": \"1234522442433222243236\",\n  \"updated_at\": 1677239064,\n  \"is_sandbox\": true,\n  \"created_at\": 1677239064\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: butr_n6kbQ4UPg2D0hN9Vo3x8gDkDK
+                  object:
+                    type: string
+                    example: bulk_transfer
+                  type:
+                    type: string
+                    example: account_number
+                  status:
+                    type: string
+                    example: queued
+                  debit_account_details:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Anil Reddy
+                      account_number:
+                        type: string
+                        example: '797979267664205'
+                      ifsc:
+                        type: string
+                        example: IDFB0040101
+                  total_individual_transfers:
+                    type: integer
+                    example: 1
+                    default: 0
+                  total_transfer_amount:
+                    type: integer
+                    example: 1000
+                    default: 0
+                  bulk_reference_id:
+                    type: string
+                    example: '1234522442433222243236'
+                  updated_at:
+                    type: integer
+                    example: 1677239064
+                    default: 0
+                  is_sandbox:
+                    type: boolean
+                    example: true
+                    default: true
+                  created_at:
+                    type: integer
+                    example: 1677239064
+                    default: 0
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such id: va_thdScysrIYcT7R5X1NuMhbRNR\",\n    \"param\": \"debit_account_id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such id: va_thdScysrIYcT7R5X1NuMhbRNR'
+                      param:
+                        type: string
+                        example: debit_account_id
+      deprecated: false
+      tags:
+      - Transfers
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-bearer-format: bearer
+      x-default: ''
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developers.zwitch.io/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.zwitch.io/reference/accounts-get-all.md
+  - https://developers.zwitch.io/reference/accounts-get-balance.md
+  - https://developers.zwitch.io/reference/accounts-get-by-id.md
+  - https://developers.zwitch.io/reference/accounts-get-statement.md
+  - https://developers.zwitch.io/reference/accounts-virtual-deactivate.md
+  - https://developers.zwitch.io/reference/accounts-virtual-test-balance.md
+  - https://developers.zwitch.io/reference/bank-account-verification-copy-1.md
+  - https://developers.zwitch.io/reference/batch-refund-api.md
+  - https://developers.zwitch.io/reference/beneficiaries-bank-account-create.md
+  - https://developers.zwitch.io/reference/beneficiaries-delete.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-all.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-by-id.md
+  - https://developers.zwitch.io/reference/beneficiaries-update.md
+  - https://developers.zwitch.io/reference/constants-business-categories.md
+  - https://developers.zwitch.io/reference/constants-business-types.md
+  - https://developers.zwitch.io/reference/constants-ifsc.md
+  - https://developers.zwitch.io/reference/constants-state-codes.md
+  - https://developers.zwitch.io/reference/create-payment-token.md
+  - https://developers.zwitch.io/reference/get-all-sub-accounts.md
+  - https://developers.zwitch.io/reference/get-sub-account-by-id.md
+  - https://developers.zwitch.io/reference/requery-batch-refund.md
+  - https://developers.zwitch.io/reference/status-check-api-with-payment_token.md
+  - https://developers.zwitch.io/reference/transfers-bulk-by-id.md
+  - https://developers.zwitch.io/reference/transfers-bulk-create.md
+  - https://developers.zwitch.io/reference/transfers-bulk-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-by-id.md
+  - https://developers.zwitch.io/reference/transfers-virtual-accounts-create-to-account-beneficiary.md
+  - https://developers.zwitch.io/reference/update-sub-account.md
+  - https://developers.zwitch.io/reference/upi-qr-intent-string.md
+  - https://developers.zwitch.io/reference/verifications-bank-account-create.md
+  - https://developers.zwitch.io/reference/verifications-name-create.md
+  - https://developers.zwitch.io/reference/verifications-pan-create.md
+  - https://developers.zwitch.io/reference/verifications-vpa-create.md
+  - https://developers.zwitch.io/reference/webhooks-get-all-events.md
+  merge:
+    pages: 35
+    deduped: 34
+    conflicts_kept_first: 1

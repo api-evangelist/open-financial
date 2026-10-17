@@ -1,0 +1,828 @@
+openapi: 3.2.0
+info:
+  title: Open Financial Kycs API
+  version: '1'
+  description: 'Operations tagged Kycs across 2 of this provider''s published API definitions: open-financial-1-openapi.yml, open-financial-4-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.zwitch.io
+security:
+- sec0: []
+tags:
+- name: Kycs
+paths:
+  /v1/kycs/name-match:
+    post:
+      summary: Name Verification
+      description: Use this API to check if the name of an individual in the Aadhaar database matches their name in the PAN database.
+      operationId: verifications-name-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - aadhaar_verification_id
+              - pan_verification_id
+              - minimum_match_score
+              properties:
+                type:
+                  type: string
+                  description: 'The inputs you want to use to compare the individual''s name.<br><br>Possible value: `pan_vs_aadhaar`'
+                  default: pan_vs_aadhaar
+                aadhaar_verification_id:
+                  type: string
+                  description: 'Unique identifier of the Aadhaar verification request in the ZWITCH database.<br><br>Example: `adh_SQMGqA448nF7VhzYhpnPt0qNl`<br><br>Use our <a href="https://developers.zwitch.io/reference/verifications-aadhaar-otp" target="_blank">Aadhaar Verification via OTP APIs</a> to verify the individual''s Aadhaar and get the unique identifier.'
+                pan_verification_id:
+                  type: string
+                  description: 'Unique identifier of the PAN verification request in the ZWITCH database.<br><br>Example: `pan_WlJeh06EkPUIJWsV63TI0sEii`<br><br>Use our <a href="https://developers.zwitch.io/reference/verifications-pan-create" target="_blank">PAN Verification API</a> to verify the individual''s PAN and get the unique identifier.'
+                minimum_match_score:
+                  type: number
+                  description: 'The minimum acceptable match score set by you.<ul><li>Minimum value: `60`</li><li>Maximum score: `100`</li></ul>Example: `75`'
+                  format: float
+                metadata:
+                  type: object
+                  description: 'Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.<li>Maximum 5 key-value pairs.</ul></li>Example: `"key_1": "Zwitch to the moon.”`'
+                  properties:
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+            examples:
+              Name Verification:
+                value:
+                  type: pan_vs_aadhaar
+                  aadhaar_verification_id: adh_7s9KK576DBM388bPDH3Di96EA
+                  pan_verification_id: pan_WlJeh06EkPUIJWsV63TI0sEii
+                  minimum_match_score: 75
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"nm_mNSvW8MNF1nmUdY\",\n  \"type\": \"pan_vs_aadhaar\",\n  \"object\": \"name_match.pan_vs_aadhaar\",\n  \"minimum_match_score\": 75,\n  \"status\": \"success\",\n   \"name_as_per_aadhaar\": \"Anil Reddy\",\n  \"name_as_per_pan\": \"Anil S Reddy\",\n  \"aadhaar_verification_id\": \"adh_7s9KK576DBM388bPDH3Di96EA\",\n  \"pan_verification_id\": \"pan_WlJeh06EkPUIJWsV63TI0sEii\",\n  \"match_score\": 70.83,\n  \"message\": \"success\",\n  \"review_needed\": true,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"created_at\": 1660025733,\n  \"updated_at\": 1660025733,\n  \"is_sandbox\": true\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: nm_mNSvW8MNF1nmUdY
+                  type:
+                    type: string
+                    example: pan_vs_aadhaar
+                  object:
+                    type: string
+                    example: name_match.pan_vs_aadhaar
+                  minimum_match_score:
+                    type: integer
+                    example: 75
+                    default: 0
+                  status:
+                    type: string
+                    example: success
+                  name_as_per_aadhaar:
+                    type: string
+                    example: Anil Reddy
+                  name_as_per_pan:
+                    type: string
+                    example: Anil S Reddy
+                  aadhaar_verification_id:
+                    type: string
+                    example: adh_7s9KK576DBM388bPDH3Di96EA
+                  pan_verification_id:
+                    type: string
+                    example: pan_WlJeh06EkPUIJWsV63TI0sEii
+                  match_score:
+                    type: number
+                    example: 70.83
+                    default: 0
+                  message:
+                    type: string
+                    example: success
+                  review_needed:
+                    type: boolean
+                    example: true
+                    default: true
+                  metadata:
+                    type: object
+                    properties:
+                      key_1:
+                        type: string
+                        example: DD
+                      key_2:
+                        type: string
+                        example: XOF
+                  created_at:
+                    type: integer
+                    example: 1660025733
+                    default: 0
+                  updated_at:
+                    type: integer
+                    example: 1660025733
+                    default: 0
+                  is_sandbox:
+                    type: boolean
+                    example: true
+                    default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such aadhaar_verification_id: adh_7s9KK576DBM388bPDH3Di96EA\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such aadhaar_verification_id: adh_7s9KK576DBM388bPDH3Di96EA'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Kycs
+    servers:
+    - url: https://api.zwitch.io
+  /v1/kycs/pan:
+    post:
+      summary: PAN Verification
+      description: Use the below API to verify an individual's PAN details.
+      operationId: verifications-pan-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - pan
+              - consent
+              - merchant_reference_id
+              properties:
+                pan:
+                  type: string
+                  description: 'PAN to be verified.<br>Example: `ABCDE0000Z`.'
+                consent:
+                  type: boolean
+                  description: 'Consent of the individual to get their details from the PAN database.<br><br>Possible value: `true`'
+                  default: true
+                merchant_reference_id:
+                  type: string
+                  description: 'Unique identifier entered when creating the verification request.<br><ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 7 characters.</li><li>Maximum: 40 characters.</li></ul>Example: `1409614085`'
+                metadata:
+                  type: object
+                  description: 'Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.</li><li>Maximum 5 key-value pairs.</li></ul>Example: `"key_1": "We are using Zwitch.”`'
+                  properties:
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+            examples:
+              Success:
+                value:
+                  pan: AAAAA0000A
+                  consent: true
+                  merchant_reference_id: '1000872'
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+              Failed:
+                value:
+                  pan: AAAAA1234A
+                  consent: true
+                  merchant_reference_id: '1000872'
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Success:
+                  value: "{\n  \"id\": \"pan_c7SBj0omWUGu14kkzNIQuE6IT\",\n  \"object\": \"pan_verification\",\n  \"pan\": \"AAAPA0000A\",\n  \"name_on_pan\": \"Anil Reddy\",\n  \"status\": \"success\",\n  \"merchant_reference_id\": \"1004372\",\n  \"message\": \"PAN verified\",\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"created_at\": 1678372317,\n  \"consent\": true,\n  \"is_sandbox\": true\n}"
+                Failed:
+                  value: "{\n  \"id\": \"pan_HNXk0EA24iFI1mtpNIGDSA35u\",\n  \"object\": \"pan_verification\",\n  \"pan\": \"AAAAA1234A\",\n  \"name_on_pan\": null,\n  \"status\": \"failed\",\n  \"merchant_reference_id\": \"1000631\",\n  \"message\": \"Invalid PAN\",\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"created_at\": 1662033729,\n  \"consent\": true,\n  \"is_sandbox\": false\n}"
+              schema:
+                oneOf:
+                - title: Success
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: pan_c7SBj0omWUGu14kkzNIQuE6IT
+                    object:
+                      type: string
+                      example: pan_verification
+                    pan:
+                      type: string
+                      example: AAAPA0000A
+                    name_on_pan:
+                      type: string
+                      example: Anil Reddy
+                    status:
+                      type: string
+                      example: success
+                    merchant_reference_id:
+                      type: string
+                      example: '1004372'
+                    message:
+                      type: string
+                      example: PAN verified
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    created_at:
+                      type: integer
+                      example: 1678372317
+                      default: 0
+                    consent:
+                      type: boolean
+                      example: true
+                      default: true
+                    is_sandbox:
+                      type: boolean
+                      example: true
+                      default: true
+                - title: Failed
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: pan_HNXk0EA24iFI1mtpNIGDSA35u
+                    object:
+                      type: string
+                      example: pan_verification
+                    pan:
+                      type: string
+                      example: AAAAA1234A
+                    name_on_pan: {}
+                    status:
+                      type: string
+                      example: failed
+                    merchant_reference_id:
+                      type: string
+                      example: '1000631'
+                    message:
+                      type: string
+                      example: Invalid PAN
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    created_at:
+                      type: integer
+                      example: 1662033729
+                      default: 0
+                    consent:
+                      type: boolean
+                      example: true
+                      default: true
+                    is_sandbox:
+                      type: boolean
+                      example: false
+                      default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"parameter_unknown\",\n    \"message\": \"received unknown parameter: pan_number\",\n    \"param\": \"pan_number\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: parameter_unknown
+                      message:
+                        type: string
+                        example: 'received unknown parameter: pan_number'
+                      param:
+                        type: string
+                        example: pan_number
+      deprecated: false
+      tags:
+      - Kycs
+    servers:
+    - url: https://api.zwitch.io
+  /v1/kycs/verifications/bank-account/pennyless:
+    post:
+      summary: Bank Account Verification Pennyless
+      description: Use this API to verify the ownership and validity of a bank account.
+      operationId: bank-account-verification-copy-1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - bank_account_number
+              - bank_ifsc_code
+              - merchant_reference_id
+              properties:
+                bank_account_number:
+                  type: string
+                  description: 'The bank account number you want to verify.<br><br>Example: `56733281905`'
+                bank_ifsc_code:
+                  type: string
+                  description: 'IFSC of the bank you want to verify.<br><br>Example: `HDFC0000123`'
+                merchant_reference_id:
+                  type: string
+                  description: 'Unique identifier entered when creating the verification request.<br><ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 7 characters.</li><li>Maximum: 40 characters.</li></ul>Example: `1409614085`'
+            examples:
+              Verify Bank Account:
+                value:
+                  bank_account_number: '10000000000875'
+                  bank_ifsc_code: HDFC0000123
+                  merchant_reference_id: '1000875'
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Success:
+                  value: "{\n  \"id\": \"accver_BhOM01sUb3tXprWwTGBLlKZVG\",\n  \"object\": \"bank_account_verification\",\n  \"bank_account_number\": \"10000000000165\",\n  \"bank_ifsc_code\": \"AAAA0001618\",\n  \"name_as_per_bank\": \"Ganga Reddy\",\n  \"force_penny_drop\": false,\n  \"force_penny_drop_amount\": 0,\n  \"status\": \"success\",\n  \"message\": \"Transaction Successful\",\n  \"last_verified_at\": \"2021-12-31\",\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1409614085\",\n  \"created_at\": 1648030636,\n  \"is_sandbox\": true\n}"
+                Failed:
+                  value: "{\n  \"id\": \"accver_BhOM01sUb3tXprWwTGBLlKZVG\",\n  \"object\": \"bank_account_verification\",\n  \"bank_account_number\": \"10000000000165\",\n  \"bank_ifsc_code\": \"AAAA0001618\",\n  \"name_as_per_bank\": null,\n  \"force_penny_drop\": false,\n  \"force_penny_drop_amount\": 0,\n  \"status\": \"failed\",\n  \"message\": \"Invalid account number of IFSC.\",\n  \"last_verified_at\": null,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"merchant_reference_id\": \"1409614085\",\n  \"created_at\": 1648030636,\n  \"is_sandbox\": true\n}"
+              schema:
+                oneOf:
+                - title: Success
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: accver_BhOM01sUb3tXprWwTGBLlKZVG
+                    object:
+                      type: string
+                      example: bank_account_verification
+                    bank_account_number:
+                      type: string
+                      example: '10000000000165'
+                    bank_ifsc_code:
+                      type: string
+                      example: AAAA0001618
+                    name_as_per_bank:
+                      type: string
+                      example: Ganga Reddy
+                    force_penny_drop:
+                      type: boolean
+                      example: false
+                      default: true
+                    force_penny_drop_amount:
+                      type: integer
+                      example: 0
+                      default: 0
+                    status:
+                      type: string
+                      example: success
+                    message:
+                      type: string
+                      example: Transaction Successful
+                    last_verified_at:
+                      type: string
+                      example: '2021-12-31'
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1409614085'
+                    created_at:
+                      type: integer
+                      example: 1648030636
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: true
+                      default: true
+                - title: Failed
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: accver_BhOM01sUb3tXprWwTGBLlKZVG
+                    object:
+                      type: string
+                      example: bank_account_verification
+                    bank_account_number:
+                      type: string
+                      example: '10000000000165'
+                    bank_ifsc_code:
+                      type: string
+                      example: AAAA0001618
+                    name_as_per_bank: {}
+                    force_penny_drop:
+                      type: boolean
+                      example: false
+                      default: true
+                    force_penny_drop_amount:
+                      type: integer
+                      example: 0
+                      default: 0
+                    status:
+                      type: string
+                      example: failed
+                    message:
+                      type: string
+                      example: Invalid account number of IFSC.
+                    last_verified_at: {}
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                    merchant_reference_id:
+                      type: string
+                      example: '1409614085'
+                    created_at:
+                      type: integer
+                      example: 1648030636
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: true
+                      default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"Beneficiary was verified recently. Please re-try after 10 minutes\"\n  }\n}"
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: invalid_request_error
+                        code:
+                          type: string
+                          example: parameter_missing
+                        message:
+                          type: string
+                          example: The bank_ifsc_code field format is invalid
+                        param:
+                          type: string
+                          example: bank_ifsc_code
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: invalid_request_error
+                        message:
+                          type: string
+                          example: Beneficiary was verified recently. Please re-try after 10 minutes
+      deprecated: false
+      tags:
+      - Kycs
+    servers:
+    - url: https://api.zwitch.io
+  /v1/kycs/verifications/vpa:
+    post:
+      summary: VPA (UPI ID) Verification
+      description: Use this API to verify the ownership and validity of a VPA handle.
+      operationId: verifications-vpa-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - vpa
+              - merchant_reference_id
+              properties:
+                vpa:
+                  type: string
+                  description: 'The VPA handle you want to verify.<br><br>Example: `anil.reddy@example`'
+                merchant_reference_id:
+                  type: string
+                  description: 'Unique identifier entered when creating the verification request.<br><ul><li>Only alphabets and numbers are allowed.</li><li>Minimum: 7 characters.</li><li>Maximum: 40 characters.</li></ul>Example: `1409614085`'
+            examples:
+              Verify VPA:
+                value:
+                  vpa: anil-reddy@example
+                  merchant_reference_id: '1000876'
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Success:
+                  value: "{\n  \"id\": \"accver_mtBP3HwL4JE6Ywl2oL2wiun09\",\n  \"object\": \"vpa_verification\",\n  \"vpa\": \"anil.reddy@example\",\n  \"merchant_reference_id\": \"1409614085\",\n  \"name_as_per_bank\": \"Anil Reddy\",\n  \"status\": \"success\",\n  \"message\": \"VPA is available for transaction\",\n  \"bank_ifsc_code\": \"ICIC0000296\",\n  \"bank_account_type\": \"savings\",\n  \"created_at\": 1644843861,\n  \"is_sandbox\": true,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  }\n}"
+                Failed:
+                  value: "{\n  \"id\": \"accver_q1EN750lyM4VoGzs1iv4A6WGm\",\n  \"object\": \"vpa_verification\",\n  \"vpa\": \"anil.reddy@example\",\n  \"merchant_reference_id\": \"1001164\",\n  \"name_as_per_bank\": \"\",\n  \"status\": \"failed\",\n  \"message\": \"Payee Virtual Address is not valid\",\n  \"bank_ifsc_code\": null,\n  \"bank_account_type\": null,\n  \"created_at\": 1680599842,\n  \"is_sandbox\": false,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  }\n}"
+              schema:
+                oneOf:
+                - title: Success
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: accver_mtBP3HwL4JE6Ywl2oL2wiun09
+                    object:
+                      type: string
+                      example: vpa_verification
+                    vpa:
+                      type: string
+                      example: anil.reddy@example
+                    merchant_reference_id:
+                      type: string
+                      example: '1409614085'
+                    name_as_per_bank:
+                      type: string
+                      example: Anil Reddy
+                    status:
+                      type: string
+                      example: success
+                    message:
+                      type: string
+                      example: VPA is available for transaction
+                    bank_ifsc_code:
+                      type: string
+                      example: ICIC0000296
+                    bank_account_type:
+                      type: string
+                      example: savings
+                    created_at:
+                      type: integer
+                      example: 1644843861
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: true
+                      default: true
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+                - title: Failed
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: accver_q1EN750lyM4VoGzs1iv4A6WGm
+                    object:
+                      type: string
+                      example: vpa_verification
+                    vpa:
+                      type: string
+                      example: anil.reddy@example
+                    merchant_reference_id:
+                      type: string
+                      example: '1001164'
+                    name_as_per_bank:
+                      type: string
+                      example: ''
+                    status:
+                      type: string
+                      example: failed
+                    message:
+                      type: string
+                      example: Payee Virtual Address is not valid
+                    bank_ifsc_code: {}
+                    bank_account_type: {}
+                    created_at:
+                      type: integer
+                      example: 1680599842
+                      default: 0
+                    is_sandbox:
+                      type: boolean
+                      example: false
+                      default: true
+                    metadata:
+                      type: object
+                      properties:
+                        key_1:
+                          type: string
+                          example: DD
+                        key_2:
+                          type: string
+                          example: XOF
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"parameter_missing\",\n    \"message\": \"The vpa field format is invalid\",\n    \"param\": \"vpa\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: parameter_missing
+                      message:
+                        type: string
+                        example: The vpa field format is invalid
+                      param:
+                        type: string
+                        example: vpa
+      deprecated: false
+      tags:
+      - Kycs
+    servers:
+    - url: https://api.zwitch.io
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-bearer-format: bearer
+      x-default: ''
+x-refined-from:
+- open-financial-1-openapi.yml
+- open-financial-4-openapi.yml
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developers.zwitch.io/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.zwitch.io/reference/accounts-get-all.md
+  - https://developers.zwitch.io/reference/accounts-get-balance.md
+  - https://developers.zwitch.io/reference/accounts-get-by-id.md
+  - https://developers.zwitch.io/reference/accounts-get-statement.md
+  - https://developers.zwitch.io/reference/accounts-virtual-deactivate.md
+  - https://developers.zwitch.io/reference/accounts-virtual-test-balance.md
+  - https://developers.zwitch.io/reference/bank-account-verification-copy-1.md
+  - https://developers.zwitch.io/reference/batch-refund-api.md
+  - https://developers.zwitch.io/reference/beneficiaries-bank-account-create.md
+  - https://developers.zwitch.io/reference/beneficiaries-delete.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-all.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-by-id.md
+  - https://developers.zwitch.io/reference/beneficiaries-update.md
+  - https://developers.zwitch.io/reference/constants-business-categories.md
+  - https://developers.zwitch.io/reference/constants-business-types.md
+  - https://developers.zwitch.io/reference/constants-ifsc.md
+  - https://developers.zwitch.io/reference/constants-state-codes.md
+  - https://developers.zwitch.io/reference/create-payment-token.md
+  - https://developers.zwitch.io/reference/get-all-sub-accounts.md
+  - https://developers.zwitch.io/reference/get-sub-account-by-id.md
+  - https://developers.zwitch.io/reference/requery-batch-refund.md
+  - https://developers.zwitch.io/reference/status-check-api-with-payment_token.md
+  - https://developers.zwitch.io/reference/transfers-bulk-by-id.md
+  - https://developers.zwitch.io/reference/transfers-bulk-create.md
+  - https://developers.zwitch.io/reference/transfers-bulk-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-by-id.md
+  - https://developers.zwitch.io/reference/transfers-virtual-accounts-create-to-account-beneficiary.md
+  - https://developers.zwitch.io/reference/update-sub-account.md
+  - https://developers.zwitch.io/reference/upi-qr-intent-string.md
+  - https://developers.zwitch.io/reference/verifications-bank-account-create.md
+  - https://developers.zwitch.io/reference/verifications-name-create.md
+  - https://developers.zwitch.io/reference/verifications-pan-create.md
+  - https://developers.zwitch.io/reference/verifications-vpa-create.md
+  - https://developers.zwitch.io/reference/webhooks-get-all-events.md
+  merge:
+    pages: 35
+    deduped: 34
+    conflicts_kept_first: 1

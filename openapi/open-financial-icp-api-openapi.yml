@@ -1,0 +1,250 @@
+openapi: 3.2.0
+info:
+  title: 1 Icp API
+  version: '1'
+servers:
+- url: https://api.zwitch.io
+security:
+- sec0: []
+tags:
+- name: Icp
+paths:
+  /icp/upi/intent:
+    post:
+      summary: UPI QR & Intent String
+      description: The **UPI Intent API** enables merchants to generate UPI intent links & QR string using a valid `payment_token_id`.
+      operationId: upi-qr-intent-string
+      parameters:
+      - name: Access-Key
+        in: header
+        description: Provide the PG API Access Key here
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - amount
+              - contact_number
+              - email_id
+              - currency
+              - mtx
+              properties:
+                amount:
+                  type: string
+                  description: The amount of transaction
+                contact_number:
+                  type: string
+                  description: Mobile number of the customer. Please make sure you are passing actual customer mobile number. If you pass a hardcoded value, if the customer doesn't change the mobile number from layer the transaction will  appear with hardcoded mobile number and name associated with it.
+                email_id:
+                  type: string
+                  description: Email Id of the customer
+                currency:
+                  type: string
+                  description: INR
+                mtx:
+                  type: string
+                  description: Reference id for the transaction. This should be unique for each transaction.
+                udf:
+                  type: object
+                  description: 'Merchant can pass extra parameters in the request which they require in the response. Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.</li><li>Maximum 5 key-value pairs.</li></ul>Example: `"key_1": "DD”`'
+                  properties:
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+            examples:
+              UPI Intent Creation:
+                value:
+                  amount: '5.00'
+                  currency: INR
+                  email_id: test@bankopen.co
+                  contact_number: '9000000000'
+                  mtx: test112127
+                  udf:
+                    invoice_id: INV_0001
+                    shipment_track_id: DELHIVERY_523E3256
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"UPI QR Strings generated successfully\",\n    \"data\": {\n        \"transaction_id\": \"pt_Aa68F7844592533\",\n        \"amount\": \"5.00\",\n        \"currency\": \"INR\",\n        \"merchant_id\": \"me_f4063391a9\",\n        \"upi_intent_links\": {\n            \"collect_pay\": {\n                \"instrument_id\": 76,\n                \"amount\": \"5.00\"\n            },\n            \"intent\": {\n                \"instrument_id\": 75,\n                \"qr_string\": \"upi://pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=int_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20Intent%20Transaction&mc=7299\",\n                \"intent_apps\": [\n                    {\n                        \"label\": \"Google Pay\",\n                        \"intent\": \"gpay\",\n                        \"qr_string\": \"gpay://upi/pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=int_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20Intent%20Transaction&mc=7299\"\n                    },\n                    {\n                        \"label\": \"Paytm\",\n                        \"intent\": \"paytmmp\",\n                        \"qr_string\": \"paytmmp://pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=int_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20Intent%20Transaction&mc=7299\"\n                    },\n                    {\n                        \"label\": \"PhonePe\",\n                        \"intent\": \"phonepe\",\n                        \"qr_string\": \"phonepe://pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=int_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20Intent%20Transaction&mc=7299\"\n                    },\n                    {\n                        \"label\": \"Amazon Pay\",\n                        \"intent\": \"amazonpay\",\n                        \"qr_string\": \"amazonpay://upi/pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=int_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20Intent%20Transaction&mc=7299\"\n                    },\n                    {\n                        \"label\": \"CRED\",\n                        \"intent\": \"cred\",\n                        \"qr_string\": \"credpay://upi/pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=int_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20Intent%20Transaction&mc=7299\"\n                    }\n                ]\n            },\n            \"qr\": {\n                \"instrument_id\": 74,\n                \"qr_string\": \"upi://pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=qr_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20QR%20Transaction&mc=7299\"\n            }\n        }\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: UPI QR Strings generated successfully
+                  data:
+                    type: object
+                    properties:
+                      transaction_id:
+                        type: string
+                        example: pt_Aa68F7844592533
+                      amount:
+                        type: string
+                        example: '5.00'
+                      currency:
+                        type: string
+                        example: INR
+                      merchant_id:
+                        type: string
+                        example: me_f4063391a9
+                      upi_intent_links:
+                        type: object
+                        properties:
+                          collect_pay:
+                            type: object
+                            properties:
+                              instrument_id:
+                                type: integer
+                                example: 76
+                                default: 0
+                              amount:
+                                type: string
+                                example: '5.00'
+                          intent:
+                            type: object
+                            properties:
+                              instrument_id:
+                                type: integer
+                                example: 75
+                                default: 0
+                              qr_string:
+                                type: string
+                                example: upi://pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=int_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20Intent%20Transaction&mc=7299
+                              intent_apps:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    label:
+                                      type: string
+                                      example: Google Pay
+                                    intent:
+                                      type: string
+                                      example: gpay
+                                    qr_string:
+                                      type: string
+                                      example: gpay://upi/pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=int_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20Intent%20Transaction&mc=7299
+                          qr:
+                            type: object
+                            properties:
+                              instrument_id:
+                                type: integer
+                                example: 74
+                                default: 0
+                              qr_string:
+                                type: string
+                                example: upi://pay?pa=open9962527334907@yesbank&pn=MFK%20Associates&tr=qr_pt_Aa68F7844592533&am=5.00&cu=INR&tn=UPI%20QR%20Transaction&mc=7299
+        '403':
+          description: '403'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"message\": \"Signature mis-match\",\n   \"status\": 403\n}"
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Signature mis-match
+                  status:
+                    type: integer
+                    example: 403
+                    default: 0
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: " {\n    \"error\": \"unprocessable request\",\n    \"error_code\": \"VAL_ERR\",\n    \"request_id\": \"appreq_f168F78494387e9\",\n    \"error_data\": {\n        \"mtx\": [\n            \"mtx already used\"\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: unprocessable request
+                  error_code:
+                    type: string
+                    example: VAL_ERR
+                  request_id:
+                    type: string
+                    example: appreq_f168F78494387e9
+                  error_data:
+                    type: object
+                    properties:
+                      mtx:
+                        type: array
+                        items:
+                          type: string
+                          example: mtx already used
+      deprecated: false
+      tags:
+      - Icp
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-bearer-format: bearer
+      x-default: ''
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developers.zwitch.io/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.zwitch.io/reference/accounts-get-all.md
+  - https://developers.zwitch.io/reference/accounts-get-balance.md
+  - https://developers.zwitch.io/reference/accounts-get-by-id.md
+  - https://developers.zwitch.io/reference/accounts-get-statement.md
+  - https://developers.zwitch.io/reference/accounts-virtual-deactivate.md
+  - https://developers.zwitch.io/reference/accounts-virtual-test-balance.md
+  - https://developers.zwitch.io/reference/bank-account-verification-copy-1.md
+  - https://developers.zwitch.io/reference/batch-refund-api.md
+  - https://developers.zwitch.io/reference/beneficiaries-bank-account-create.md
+  - https://developers.zwitch.io/reference/beneficiaries-delete.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-all.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-by-id.md
+  - https://developers.zwitch.io/reference/beneficiaries-update.md
+  - https://developers.zwitch.io/reference/constants-business-categories.md
+  - https://developers.zwitch.io/reference/constants-business-types.md
+  - https://developers.zwitch.io/reference/constants-ifsc.md
+  - https://developers.zwitch.io/reference/constants-state-codes.md
+  - https://developers.zwitch.io/reference/create-payment-token.md
+  - https://developers.zwitch.io/reference/get-all-sub-accounts.md
+  - https://developers.zwitch.io/reference/get-sub-account-by-id.md
+  - https://developers.zwitch.io/reference/requery-batch-refund.md
+  - https://developers.zwitch.io/reference/status-check-api-with-payment_token.md
+  - https://developers.zwitch.io/reference/transfers-bulk-by-id.md
+  - https://developers.zwitch.io/reference/transfers-bulk-create.md
+  - https://developers.zwitch.io/reference/transfers-bulk-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-by-id.md
+  - https://developers.zwitch.io/reference/transfers-virtual-accounts-create-to-account-beneficiary.md
+  - https://developers.zwitch.io/reference/update-sub-account.md
+  - https://developers.zwitch.io/reference/upi-qr-intent-string.md
+  - https://developers.zwitch.io/reference/verifications-bank-account-create.md
+  - https://developers.zwitch.io/reference/verifications-name-create.md
+  - https://developers.zwitch.io/reference/verifications-pan-create.md
+  - https://developers.zwitch.io/reference/verifications-vpa-create.md
+  - https://developers.zwitch.io/reference/webhooks-get-all-events.md
+  merge:
+    pages: 35
+    deduped: 34
+    conflicts_kept_first: 1

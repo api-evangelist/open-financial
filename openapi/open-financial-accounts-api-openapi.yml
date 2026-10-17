@@ -1,0 +1,1973 @@
+openapi: 3.2.0
+info:
+  title: Open Financial Accounts API
+  version: '1'
+  description: 'Operations tagged Accounts across 4 of this provider''s published API definitions: open-financial-1-openapi.yml, open-financial-2-openapi.yml, open-financial-6-openapi.yml, open-financial-8-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.zwitch.io
+security:
+- sec0: []
+tags:
+- name: Accounts
+paths:
+  /v1/accounts:
+    get:
+      summary: Get All Accounts
+      description: Use this API to get details of all accounts created by you.
+      operationId: accounts-get-all
+      parameters:
+      - name: results_per_page
+        in: query
+        description: 'The number of results to be returned per API call.<br><br>Use this with the `start_before` or `start_after` parameters for pagination.<br><ul><li>Default value 10.</li><li>Maximum value 100.</li></ul>Example: `15`'
+        schema:
+          type: string
+          default: '10'
+      - name: start_before
+        in: query
+        description: 'The `account_id` before which details should be returned.<br><br>Use this with the `results_per_page` for pagination.<br><br>Example: `va_GtkNV8sHqmGBZUnv1iHpHm4M4`'
+        schema:
+          type: string
+      - name: start_after
+        in: query
+        description: 'The `account_id` after which details should be returned.<br><br>Use this with the `results_per_page` for pagination.<br><br>Example: `va_GtkNV8sHqmGBZUnv1iHpHm4M4`'
+        schema:
+          type: string
+      - name: from_date
+        in: query
+        description: '**Has to be used with `to_date`**. <br><br>The UNIX timestamp after which details should be returned.<br><br>Use this with the `results_per_page`, `start_after`, and `start_before` for pagination.<br><br>Example: `1651052818`'
+        schema:
+          type: string
+      - name: to_date
+        in: query
+        description: '**Has to be used with `from_date`**.<br><br>The UNIX timestamp before which details should be returned.<br><br>Use this with the `results_per_page`, `start_after`, and `start_before` for pagination.<br><br>Example: `1651052818`'
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Get a list of all accounts matching the entered `type`.<br><br>Accepted values:<ul><li>`virtual`</li></ul>
+        schema:
+          type: string
+      - name: email
+        in: query
+        description: 'Get a list of all accounts matching the entered `email`.<br><br>Example: `anil.reddy@example.com`'
+        schema:
+          type: string
+      - name: mobile_number
+        in: query
+        description: 'Get a list of all accounts matching the entered `mobile_number`.<br><br>Example: `9876543210`'
+        schema:
+          type: string
+      - name: used_as
+        in: query
+        description: '**Can only be used with `type` set as `virtual`**.<br><br>Get a list of all accounts matching the entered `used_as`.<br><br>Possible values:<ul><li>`wallet`</li><li>`collection_tool`</li><li>`receivable`</li><li>`primary`</li><li>`verification`</li></ul>'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"object\": \"list\",\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"va_iymvvuibd5WvciAKxIr1ChBwj\",\n      \"object\": \"account.virtual\",\n      \"type\": \"virtual\",\n      \"used_as\": \"wallet\",\n      \"bank_name\": \"yes_bank\",\n      \"name\": \"Anil Reddy\",\n      \"mobile_number\": \"9876543210\",\n      \"email\": \"anil.reddy@example.com\",\n      \"account_number\": \"3636365124906878\",\n      \"ifsc_code\": \"YESB0CMSNOC\",\n      \"vpa\": null,\n      \"additional_vpa\": [],\n      \"whitelisted_remitters\": [],\n      \"whitelisted_beneficiaries\": [],\n      \"kyc\": {\n        \"city\": \"Bangalore\",\n        \"postal_code\": \"560010\",\n        \"state_code\": \"KA\",\n        \"pan\": \"XXXXXX290L\",\n        \"business_type\": \"partnership\",\n        \"business_category\": \"garage_owners\",\n        \"contact_person\": null,\n        \"pan_verification_id\": \"pan_t2iX5hAWHxX3cdfG6E2VKC628\"\n      },\n      \"customer\": {\n        \"id\": \"cus_OGOuL7NxzlUj27ECK6T6E0xCR\",\n        \"mobile_number\": \"9876543210\"\n      },\n      \"metadata\": {\n        \"order_id\": \"12345\"\n      },\n      \"status\": \"active\",\n      \"created_at\": 1707479900,\n      \"is_sandbox\": true,\n      \"settlement_account_id\": null,\n      \"verified_beneficiaries\": [\n        {\n          \"account_verification_id\": \"accver_v3VdjmJChY7oK2mKC5MAWjIa5\",\n          \"name_match_id\": \"nm_jj7rN3Drqmp2s4mX5qFwAmzOr\"\n        }\n      ],\n      \"verified_remitters\": []\n    },\n    {\n      \"id\": \"va_yq3RMh6N3zpoKF1UHVZ9I1DQD\",\n      \"object\": \"account.virtual\",\n      \"type\": \"virtual\",\n      \"used_as\": \"wallet\",\n      \"bank_name\": \"yes_bank\",\n      \"name\": \"Anil Reddy\",\n      \"mobile_number\": \"9876543211\",\n      \"email\": \"anil.reddy@example.com\",\n      \"account_number\": \"36363651258398478\",\n      \"ifsc_code\": \"YESB0CMSNOC\",\n      \"vpa\": \"zwch538175255@yesbank\",\n      \"additional_vpa\": [],\n      \"whitelisted_remitters\": [],\n      \"whitelisted_beneficiaries\": [\n        {\n          \"account_number\": \"012920022013\",\n          \"ifsc_code\": \"ICIC0000001\",\n          \"vpa\": null\n        }\n      ],\n      \"kyc\": {\n        \"city\": \"Bangalore\",\n        \"postal_code\": \"560010\",\n        \"state_code\": \"KA\",\n        \"pan\": \"XXXXXX290L\",\n        \"business_type\": \"partnership\",\n        \"business_category\": \"garage_owners\",\n        \"contact_person\": null,\n        \"pan_verification_id\": \"pan_Sju7xbWYX49RquNiAxHSQ1sls\"\n      },\n      \"customer\": {\n        \"id\": \"cus_OGOuL7NxzlUj27ECK6T6E0xCR\",\n        \"mobile_number\": \"9876543211\"\n      },\n      \"metadata\": {\n        \"order_id\": \"12345\"\n      },\n      \"status\": \"active\",\n      \"created_at\": 1707479836,\n      \"is_sandbox\": true,\n      \"settlement_account_id\": null,\n      \"verified_beneficiaries\": [\n        {\n          \"account_verification_id\": \"accver_8JO0Im6tmJ2OKkEtsHBdpjAWf\",\n          \"name_match_id\": \"nm_cn0S11UxAnd2eh7Lu1j8GtS5h\"\n        }\n      ],\n      \"verified_remitters\": []\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: true
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: va_iymvvuibd5WvciAKxIr1ChBwj
+                        object:
+                          type: string
+                          example: account.virtual
+                        type:
+                          type: string
+                          example: virtual
+                        used_as:
+                          type: string
+                          example: wallet
+                        bank_name:
+                          type: string
+                          example: yes_bank
+                        name:
+                          type: string
+                          example: Anil Reddy
+                        mobile_number:
+                          type: string
+                          example: '9876543210'
+                        email:
+                          type: string
+                          example: anil.reddy@example.com
+                        account_number:
+                          type: string
+                          example: '3636365124906878'
+                        ifsc_code:
+                          type: string
+                          example: YESB0CMSNOC
+                        vpa: {}
+                        additional_vpa:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        whitelisted_remitters:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        whitelisted_beneficiaries:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        kyc:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              example: Bangalore
+                            postal_code:
+                              type: string
+                              example: '560010'
+                            state_code:
+                              type: string
+                              example: KA
+                            pan:
+                              type: string
+                              example: XXXXXX290L
+                            business_type:
+                              type: string
+                              example: partnership
+                            business_category:
+                              type: string
+                              example: garage_owners
+                            contact_person: {}
+                            pan_verification_id:
+                              type: string
+                              example: pan_t2iX5hAWHxX3cdfG6E2VKC628
+                        customer:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: cus_OGOuL7NxzlUj27ECK6T6E0xCR
+                            mobile_number:
+                              type: string
+                              example: '9876543210'
+                        metadata:
+                          type: object
+                          properties:
+                            order_id:
+                              type: string
+                              example: '12345'
+                        status:
+                          type: string
+                          example: active
+                        created_at:
+                          type: integer
+                          example: 1707479900
+                          default: 0
+                        is_sandbox:
+                          type: boolean
+                          example: true
+                          default: true
+                        settlement_account_id: {}
+                        verified_beneficiaries:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              account_verification_id:
+                                type: string
+                                example: accver_v3VdjmJChY7oK2mKC5MAWjIa5
+                              name_match_id:
+                                type: string
+                                example: nm_jj7rN3Drqmp2s4mX5qFwAmzOr
+                        verified_remitters:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+      deprecated: false
+      tags:
+      - Accounts
+    post:
+      summary: Create Virtual Account used as Transfer Wallet
+      description: Use this API to create a virtual account used as a transfer wallet.
+      operationId: accounts-virtual-transfer-wallet-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - used_as
+              - name
+              - mobile_number
+              - email
+              properties:
+                type:
+                  type: string
+                  description: 'Type of account to be created.<br><br>Accepted value: <ul><li>`virtual`</ul></li>'
+                  default: virtual
+                used_as:
+                  type: string
+                  description: 'Type of virtual account to be created.<br><br>Accepted value: <ul><li>`wallet`</li></ul>'
+                  default: wallet
+                name:
+                  type: string
+                  description: 'Applicant''s name.<br><br>Maximum 70 characters.<br><br>Example: `Anil Reddy`<br><br>Supported characters:<ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li><li>`.`</li><li>`/`</li><li>`\`</li><li>`-`</li><li>`_`</li><li>`,`</li><li>`(`</li><li>`)`</li><li>`''`</li></ul>'
+                mobile_number:
+                  type: string
+                  description: 'Account holder''s mobile number.<br><br>Has to be 10 digits.<br><br>Example: `9876543210`<br><br>Supported characters: <ul><li>`0-9`</ul></li>'
+                email:
+                  type: string
+                  description: 'Account holder''s email address.<br><br>Example: `anil.reddy@example.com`'
+                bank_name:
+                  type: string
+                  description: '**To create a transfer wallet, `bank_name` must be `idfc_bank`**.<br><br>Bank where the virtual account used as a transfer wallet needs to be created.<br><br>Accepted values: <ul><li>`idfc_bank`</ul></li>'
+                kyc:
+                  type: object
+                  description: JSON object to pass the account holder's KYC details.
+                  required:
+                  - city
+                  - postal_code
+                  - state_code
+                  - business_type
+                  - business_category
+                  properties:
+                    city:
+                      type: string
+                      description: 'Account holder''s city.<br><br>Example: `bangalore`<br><br>Supported characters:<ul><li>`A-Z`</li><li>`a-z`</li><li>`0-9`</li><li>`space`</li><li>`_`</li><li>`()`</li><li>`.`</li></ul>'
+                    postal_code:
+                      type: string
+                      description: 'Account holder''s postal code.<br><br>Example: `560005`'
+                    state_code:
+                      type: string
+                      description: 'Applicant''s state code.<br><br>Example: `KA`<br><br>Use the <a href="https://developers.zwitch.io/reference/constants-state-codes" target="_blank">States API</a> to get a list of accepted values.'
+                    business_type:
+                      type: string
+                      description: 'Business type for the virtual account.<br><br>Example: `partnership`<br><br>Use the <a href="https://developers.zwitch.io/reference/constants-business-types" target="_blank">Business Type API</a> to get a list of accepted values.'
+                    business_category:
+                      type: string
+                      description: 'Business category for the virtual account.<br><br>Example: `garage_owners`<br><br>Use the <a href="https://developers.zwitch.io/reference/constants-business-categories" target="_blank">Business Categories API</a> to get a list of accepted values.'
+                    contact_person:
+                      type: string
+                      description: 'Contact person''s name for the business<br><br>Example: `Anil Reddy`'
+                metadata:
+                  type: object
+                  description: 'Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.</li><li>Maximum 5 key-value pairs.</li></ul>Example: `"key_1": "DD”`'
+                  properties:
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+            examples:
+              Transfer Wallet:
+                value:
+                  type: virtual
+                  used_as: wallet
+                  name: Anil Reddy
+                  mobile_number: '9876543210'
+                  email: anil.reddy@example.com
+                  bank_name: idfc_bank
+                  kyc:
+                    city: Bangalore
+                    postal_code: '560005'
+                    state_code: KA
+                    pan: AAAPA0000A
+                    business_type: partnership
+                    pan_verification_id: pan_teJfU3K93LKeUao3alujrW6GP
+                    business_category: garage_owners
+                    contact_person: Rahul Reddy
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Transfer Wallet:
+                  value: "{\n    \"id\": \"va_pVYnzIhqjXeOonvMR3Hqg6rDh\",\n    \"object\": \"account.virtual\",\n    \"type\": \"virtual\",\n    \"used_as\": \"wallet\",\n    \"bank_name\": \"idfc_bank\",\n    \"name\": \"Anil Reddy\",\n    \"mobile_number\": \"9896543210\",\n    \"email\": \"anil.reddy+1@example.com\",\n    \"account_number\": \"7979791565883462\",\n    \"ifsc_code\": \"IDFB0040101\",\n    \"vpa\": null,\n    \"additional_vpa\": [],\n    \"whitelisted_remitters\": [],\n    \"whitelisted_beneficiaries\": [],\n    \"kyc\": {\n        \"city\": \"Bangalore\",\n        \"postal_code\": \"560010\",\n        \"state_code\": \"KA\",\n        \"pan\": \"XXXXXX000A\",\n        \"business_type\": \"partnership\",\n        \"business_category\": \"garage_owners\",\n        \"contact_person\": \"Rahul Reddy\",\n        \"pan_verification_id\": null\n    },\n    \"customer\": {\n        \"id\": \"cus_R4WOLrJ3FlO1VwjTmNMuSZgCf\",\n        \"mobile_number\": \"9896543210\"\n    },\n    \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n    },\n    \"kyc_url\": \"https://merchant-onboarding.open.money/login?hash=3230b6b287811383c8b880f17188102d093b270e\",\n    \"status\": \"kyc_pending\",\n    \"created_at\": 1758101005,\n    \"is_sandbox\": false,\n    \"settlement_account_id\": null,\n    \"verified_beneficiaries\": [],\n    \"verified_remitters\": []\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: va_pVYnzIhqjXeOonvMR3Hqg6rDh
+                  object:
+                    type: string
+                    example: account.virtual
+                  type:
+                    type: string
+                    example: virtual
+                  used_as:
+                    type: string
+                    example: wallet
+                  bank_name:
+                    type: string
+                    example: idfc_bank
+                  name:
+                    type: string
+                    example: Anil Reddy
+                  mobile_number:
+                    type: string
+                    example: '9896543210'
+                  email:
+                    type: string
+                    example: anil.reddy+1@example.com
+                  account_number:
+                    type: string
+                    example: '7979791565883462'
+                  ifsc_code:
+                    type: string
+                    example: IDFB0040101
+                  vpa: {}
+                  additional_vpa:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  whitelisted_remitters:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  whitelisted_beneficiaries:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  kyc:
+                    type: object
+                    properties:
+                      city:
+                        type: string
+                        example: Bangalore
+                      postal_code:
+                        type: string
+                        example: '560010'
+                      state_code:
+                        type: string
+                        example: KA
+                      pan:
+                        type: string
+                        example: XXXXXX000A
+                      business_type:
+                        type: string
+                        example: partnership
+                      business_category:
+                        type: string
+                        example: garage_owners
+                      contact_person:
+                        type: string
+                        example: Rahul Reddy
+                      pan_verification_id: {}
+                  customer:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: cus_R4WOLrJ3FlO1VwjTmNMuSZgCf
+                      mobile_number:
+                        type: string
+                        example: '9896543210'
+                  metadata:
+                    type: object
+                    properties:
+                      key_1:
+                        type: string
+                        example: DD
+                      key_2:
+                        type: string
+                        example: XOF
+                  kyc_url:
+                    type: string
+                    example: https://merchant-onboarding.open.money/login?hash=3230b6b287811383c8b880f17188102d093b270e
+                  status:
+                    type: string
+                    example: kyc_pending
+                  created_at:
+                    type: integer
+                    example: 1758101005
+                    default: 0
+                  is_sandbox:
+                    type: boolean
+                    example: false
+                    default: true
+                  settlement_account_id: {}
+                  verified_beneficiaries:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  verified_remitters:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"parameter_missing\",\n    \"message\": \"The pan field is required\",\n    \"param\": \"kyc.pan\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: parameter_missing
+                      message:
+                        type: string
+                        example: The pan field is required
+                      param:
+                        type: string
+                        example: kyc.pan
+      deprecated: false
+      tags:
+      - Accounts
+    servers:
+    - url: https://api.zwitch.io
+  /v1/accounts/beneficiaries/{beneficiary_id}:
+    get:
+      summary: Get Beneficiary by ID
+      description: Use this API to get details of the specified beneficiary.
+      operationId: beneficiaries-get-by-id
+      parameters:
+      - name: beneficiary_id
+        in: path
+        description: 'Unique identifier of the beneficiary for which details should be returned.<br><br>Example: `vab_EFQeD9s8dPOqsPEUZPELmpgwm`'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"vab_ZfDkRA2ioO665Voe3WY3q9GOc\",\n  \"object\": \"beneficiary.account_number\",\n  \"type\": \"account_number\",\n  \"name_of_account_holder\": \"Ganga Reddy\",\n  \"email\": \"ganga.reddy@example.com\",\n  \"phone\": \"9000000126\",\n  \"bank_account_number\": \"10000000000126\",\n  \"bank_ifsc_code\": \"ABCD0000123\",\n  \"bank_name\": null,\n  \"metadata\": {\n    \"key_1\": \"DD\",\n    \"key_2\": \"XOF\"\n  },\n  \"created_at\": 1645522073,\n  \"status\": \"active\",\n  \"is_sandbox\": true,\n  \"account_id\": \"va_gwWeSHZ48QK1gmiVebZWV3YdA\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: vab_ZfDkRA2ioO665Voe3WY3q9GOc
+                  object:
+                    type: string
+                    example: beneficiary.account_number
+                  type:
+                    type: string
+                    example: account_number
+                  name_of_account_holder:
+                    type: string
+                    example: Ganga Reddy
+                  email:
+                    type: string
+                    example: ganga.reddy@example.com
+                  phone:
+                    type: string
+                    example: '9000000126'
+                  bank_account_number:
+                    type: string
+                    example: '10000000000126'
+                  bank_ifsc_code:
+                    type: string
+                    example: ABCD0000123
+                  bank_name: {}
+                  metadata:
+                    type: object
+                    properties:
+                      key_1:
+                        type: string
+                        example: DD
+                      key_2:
+                        type: string
+                        example: XOF
+                  created_at:
+                    type: integer
+                    example: 1645522073
+                    default: 0
+                  status:
+                    type: string
+                    example: active
+                  is_sandbox:
+                    type: boolean
+                    example: true
+                    default: true
+                  account_id:
+                    type: string
+                    example: va_gwWeSHZ48QK1gmiVebZWV3YdA
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such beneficiary: vab_EFQeD9s8dPOqsPEUZPELmpgw\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such beneficiary: vab_EFQeD9s8dPOqsPEUZPELmpgw'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    post:
+      summary: Update Beneficiary
+      description: Use this API to update the details of a beneficiary.
+      operationId: beneficiaries-update
+      parameters:
+      - name: beneficiary_id
+        in: path
+        description: 'Unique identifier of the beneficiary that should be updated.<br><br>Example: `vab_EFQeD9s8dPOqsPEUZPELmpgwm`'
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name_of_account_holder:
+                  type: string
+                  description: 'Account holder''s name.<br><br>Allowed characters: <ul><li>`a-z`</li><li>`A-Z`</li><li>`0-9`</li><li>`space`</li><li>`’`</li><li>`-`</li><li>`_`</li><li>`/`</li><li>`(`</li><li>`)`</li><li>`.`</li><li>`&`</li><li>`#`</li><li>`$`</li><li>`@`</ul></li>Example: `Anil Reddy`'
+                email:
+                  type: string
+                  description: 'Account holder''s email address.<br><br>Example: `anil.reddy@example.com`'
+                phone:
+                  type: string
+                  description: 'Account holder''s phone number.<br><br>Example: `9876543210`'
+                metadata:
+                  type: object
+                  description: 'Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.</li><li>Maximum 5 key-value pairs.</li></ul>Example: `"key_1": "DD”`'
+                  properties:
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+            examples:
+              Request Example:
+                value:
+                  name_of_account_holder: Gita Reddy
+                  email: gita.reddy@example.com
+                  phone: '9988776655'
+                  metadata:
+                    key_1: updated_DD
+                    key_2: updated_XOF
+                    key_3: MSF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"vab_ZfDkRA2ioO665Voe3WY3q9GOc\",\n  \"object\": \"beneficiary.account_number\",\n  \"type\": \"account_number\",\n  \"name_of_account_holder\": \"Gita Reddy\",\n  \"email\": \"gita.reddy@example.com\",\n  \"phone\": \"9988776655\",\n  \"bank_account_number\": \"10000000000126\",\n  \"bank_ifsc_code\": \"ABCD0000123\",\n  \"bank_name\": null,\n  \"metadata\": {\n    \"key_1\": \"updated_DD\",\n    \"key_2\": \"updated_XOF\",\n    \"key_3\": \"MSF\"\n  },\n  \"created_at\": 1645522073,\n  \"status\": \"active\",\n  \"is_sandbox\": true,\n  \"account_id\": \"va_gwWeSHZ48QK1gmiVebZWV3YdA\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: vab_ZfDkRA2ioO665Voe3WY3q9GOc
+                  object:
+                    type: string
+                    example: beneficiary.account_number
+                  type:
+                    type: string
+                    example: account_number
+                  name_of_account_holder:
+                    type: string
+                    example: Gita Reddy
+                  email:
+                    type: string
+                    example: gita.reddy@example.com
+                  phone:
+                    type: string
+                    example: '9988776655'
+                  bank_account_number:
+                    type: string
+                    example: '10000000000126'
+                  bank_ifsc_code:
+                    type: string
+                    example: ABCD0000123
+                  bank_name: {}
+                  metadata:
+                    type: object
+                    properties:
+                      key_1:
+                        type: string
+                        example: updated_DD
+                      key_2:
+                        type: string
+                        example: updated_XOF
+                      key_3:
+                        type: string
+                        example: MSF
+                  created_at:
+                    type: integer
+                    example: 1645522073
+                    default: 0
+                  status:
+                    type: string
+                    example: active
+                  is_sandbox:
+                    type: boolean
+                    example: true
+                    default: true
+                  account_id:
+                    type: string
+                    example: va_gwWeSHZ48QK1gmiVebZWV3YdA
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such beneficiary: vab_YhMDoEH8c8qse80GJCnnG0hv\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such beneficiary: vab_YhMDoEH8c8qse80GJCnnG0hv'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    delete:
+      summary: Delete Beneficiary
+      description: Use this API to delete a beneficiary.
+      operationId: beneficiaries-delete
+      parameters:
+      - name: beneficiary_id
+        in: path
+        description: 'Unique identifier of the beneficiary that should be deleted.<br><br>Example: `vab_EFQeD9s8dPOqsPEUZPELmpgwm`'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"vab_faleWdxW8dRoTmzk1g1lSiFcD\",\n  \"object\": \"beneficiary\",\n  \"deleted\": true,\n  \"account_id\": \"va_Q6USeYXbx38cKa3NbBpoHDViW\",\n  \"deleted_at\": 1645696208\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: vab_faleWdxW8dRoTmzk1g1lSiFcD
+                  object:
+                    type: string
+                    example: beneficiary
+                  deleted:
+                    type: boolean
+                    example: true
+                    default: true
+                  account_id:
+                    type: string
+                    example: va_Q6USeYXbx38cKa3NbBpoHDViW
+                  deleted_at:
+                    type: integer
+                    example: 1645696208
+                    default: 0
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such beneficiary: vab_YhMDoEH8c8qse80GJCnnG0hv\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such beneficiary: vab_YhMDoEH8c8qse80GJCnnG0hv'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    servers:
+    - url: https://api.zwitch.io
+  /v1/accounts/{account_id}:
+    get:
+      summary: Get Account by ID
+      description: Use this API to get details of the specified account.
+      operationId: accounts-get-by-id
+      parameters:
+      - name: account_id
+        in: path
+        description: 'Unique identifier of the account for which details should be returned.<br><br>Example: `va_onMda9dobg5YYX0kHLoaMecpy`'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Virtual Account:
+                  value: "{\n    \"id\": \"va_P1iM7c246KicyTNqfpK2LR3sy\",\n    \"object\": \"account.virtual\",\n    \"type\": \"virtual\",\n    \"used_as\": \"collection_tool\",\n    \"bank_name\": \"yes_bank\",\n    \"name\": \"Lush Adobe\",\n    \"mobile_number\": \"1252297492\",\n    \"email\": \"john.doe@example.com\",\n    \"account_number\": \"36363651456298373\",\n    \"ifsc_code\": \"YESB0CMSNOC\",\n    \"vpa\": null,\n    \"additional_vpa\": [],\n    \"whitelisted_remitters\": [],\n    \"whitelisted_beneficiaries\": [],\n    \"kyc\": {\n        \"city\": null,\n        \"postal_code\": null,\n        \"state_code\": null,\n        \"pan\": \"XXXXXX905H\",\n        \"business_type\": null,\n        \"business_category\": null,\n        \"contact_person\": null,\n        \"pan_verification_id\": null\n    },\n    \"customer\": {\n        \"id\": \"cus_FJuVDmHIm3L5hdrrcKJr5DIeF\",\n        \"mobile_number\": \"1252297492\"\n    },\n    \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n    },\n    \"kyc_url\": null,\n    \"status\": \"active\",\n    \"created_at\": 1757572978,\n    \"is_sandbox\": false,\n    \"settlement_account_id\": null,\n    \"verified_beneficiaries\": [],\n    \"verified_remitters\": []\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: va_P1iM7c246KicyTNqfpK2LR3sy
+                  object:
+                    type: string
+                    example: account.virtual
+                  type:
+                    type: string
+                    example: virtual
+                  used_as:
+                    type: string
+                    example: collection_tool
+                  bank_name:
+                    type: string
+                    example: yes_bank
+                  name:
+                    type: string
+                    example: Lush Adobe
+                  mobile_number:
+                    type: string
+                    example: '1252297492'
+                  email:
+                    type: string
+                    example: john.doe@example.com
+                  account_number:
+                    type: string
+                    example: '36363651456298373'
+                  ifsc_code:
+                    type: string
+                    example: YESB0CMSNOC
+                  vpa: {}
+                  additional_vpa:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  whitelisted_remitters:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  whitelisted_beneficiaries:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  kyc:
+                    type: object
+                    properties:
+                      city: {}
+                      postal_code: {}
+                      state_code: {}
+                      pan:
+                        type: string
+                        example: XXXXXX905H
+                      business_type: {}
+                      business_category: {}
+                      contact_person: {}
+                      pan_verification_id: {}
+                  customer:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: cus_FJuVDmHIm3L5hdrrcKJr5DIeF
+                      mobile_number:
+                        type: string
+                        example: '1252297492'
+                  metadata:
+                    type: object
+                    properties:
+                      key_1:
+                        type: string
+                        example: DD
+                      key_2:
+                        type: string
+                        example: XOF
+                  kyc_url: {}
+                  status:
+                    type: string
+                    example: active
+                  created_at:
+                    type: integer
+                    example: 1757572978
+                    default: 0
+                  is_sandbox:
+                    type: boolean
+                    example: false
+                    default: true
+                  settlement_account_id: {}
+                  verified_beneficiaries:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  verified_remitters:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such account: va_Cdrf246GLMWtOsyN9NIEefBQ\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such account: va_Cdrf246GLMWtOsyN9NIEefBQ'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    servers:
+    - url: https://api.zwitch.io
+  /v1/accounts/{account_id}/balance:
+    get:
+      summary: Get Account Balance
+      description: Use this API to get the balance of an account.
+      operationId: accounts-get-balance
+      parameters:
+      - name: account_id
+        in: path
+        description: 'Unique identifier of the account for which balance should be returned.<br><br>Example: `va_onMda9dobg5YYX0kHLoaMecpy`'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"object\": \"balance\",\n  \"amount\": 2,\n  \"currency\": \"inr\",\n  \"available_on\": 1653477447,\n  \"is_sandbox\": false\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: balance
+                  amount:
+                    type: integer
+                    example: 2
+                    default: 0
+                  currency:
+                    type: string
+                    example: inr
+                  available_on:
+                    type: integer
+                    example: 1653477447
+                    default: 0
+                  is_sandbox:
+                    type: boolean
+                    example: false
+                    default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"error\": {\n        \"type\": \"invalid_request_error\",\n        \"code\": \"resource_missing\",\n        \"message\": \"no such account: va_moA5ixV56i9iVmRMauiLgfjT\",\n        \"param\": \"id\"\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'no such account: va_moA5ixV56i9iVmRMauiLgfjT'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    servers:
+    - url: https://api.zwitch.io
+  /v1/accounts/{account_id}/beneficiaries:
+    post:
+      summary: Create Bank Account Beneficiary
+      description: Use this API to add a bank account beneficiary to an account.
+      operationId: beneficiaries-bank-account-create
+      parameters:
+      - name: account_id
+        in: path
+        description: 'Unique identifier of the account to which the beneficiary should be linked.<br><br>Example: `va_Y6evcApKFXhQ9X7qKQ5AaysEI`'
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - name_of_account_holder
+              - bank_account_number
+              - bank_ifsc_code
+              properties:
+                type:
+                  type: string
+                  description: Type of account details linked to the beneficiary.<br><br>Possible value:<ul><li>`account_number`</li></ul>
+                  default: account_number
+                name_of_account_holder:
+                  type: string
+                  description: 'Beneficiary''s name.<br><br>Supported characters: <ul><li>`a-z`</li><li>`A-Z`</li><li>`0-9`</li><li>`space`</li><li>`’`</li><li>`-`</li><li>`_`</li><li>`/`</li><li>`(`</li><li>`)`</li><li>`.`</li><li>`&`</li><li>`#`</li><li>`$`</li><li>`@`</ul></li>Example: `Anil Reddy`'
+                email:
+                  type: string
+                  description: 'Beneficiary''s email address.<br><br>Example: `anil.reddy@example.com`'
+                phone:
+                  type: string
+                  description: 'Beneficiary''s phone number.<br><br>Example: `9876543210`'
+                bank_account_number:
+                  type: string
+                  description: 'Beneficiary''s bank account number.<br><br>Example: `98765432101234`'
+                bank_ifsc_code:
+                  type: string
+                  description: 'Beneficiary''s bank IFSC.<br><br>Example: `HDFC0000123`'
+                bank_name:
+                  type: string
+                  description: Beneficiary bank name
+                metadata:
+                  type: object
+                  description: 'Key-value pair that can be used to store additional information about the entity.<ul><li>Each pair cannot exceed 256 characters.</li><li>Maximum 5 key-value pairs.</li></ul>Example: `"key_1": "DD”`'
+                  properties:
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+            examples:
+              Create Bank Account Beneficiary:
+                value:
+                  type: account_number
+                  name_of_account_holder: Anil Reddy
+                  email: anil.reddy@example.com
+                  phone: '9000000138'
+                  bank_account_number: '59817294880101'
+                  bank_name: ICICI Bank
+                  bank_ifsc_code: ICIC0000001
+                  metadata:
+                    key_1: DD
+                    key_2: XOF
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": \"vab_8nz7xTrqvRfuq0jVQz8ulLTnD\",\n    \"object\": \"beneficiary.account_number\",\n    \"type\": \"account_number\",\n    \"name_of_account_holder\": \"Anil Reddy\",\n    \"email\": \"anil.reddy@example.com\",\n    \"phone\": \"9000000138\",\n    \"bank_account_number\": \"59817294880101\",\n    \"bank_ifsc_code\": \"ICIC0000001\",\n    \"bank_name\": \"ICICI Bank\",\n    \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n    },\n    \"created_at\": 1742463922,\n    \"status\": \"active\",\n    \"is_sandbox\": true,\n    \"account_id\": \"va_dPDp6bNcs7mIrWPsO0kle5o6T\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: vab_8nz7xTrqvRfuq0jVQz8ulLTnD
+                  object:
+                    type: string
+                    example: beneficiary.account_number
+                  type:
+                    type: string
+                    example: account_number
+                  name_of_account_holder:
+                    type: string
+                    example: Anil Reddy
+                  email:
+                    type: string
+                    example: anil.reddy@example.com
+                  phone:
+                    type: string
+                    example: '9000000138'
+                  bank_account_number:
+                    type: string
+                    example: '59817294880101'
+                  bank_ifsc_code:
+                    type: string
+                    example: ICIC0000001
+                  bank_name:
+                    type: string
+                    example: ICICI Bank
+                  metadata:
+                    type: object
+                    properties:
+                      key_1:
+                        type: string
+                        example: DD
+                      key_2:
+                        type: string
+                        example: XOF
+                  created_at:
+                    type: integer
+                    example: 1742463922
+                    default: 0
+                  status:
+                    type: string
+                    example: active
+                  is_sandbox:
+                    type: boolean
+                    example: true
+                    default: true
+                  account_id:
+                    type: string
+                    example: va_dPDp6bNcs7mIrWPsO0kle5o6T
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such account: va_Y6evcApKFXhQ9X7qKQ5AaysE\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such account: va_Y6evcApKFXhQ9X7qKQ5AaysE'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    get:
+      summary: Get All Beneficiaries
+      description: Use this API to get all beneficiaries for an account.
+      operationId: beneficiaries-get-all
+      parameters:
+      - name: account_id
+        in: path
+        description: 'Unique identifier of the account to which the beneficiary is linked.<br><br>Example: `va_Y6evcApKFXhQ9X7qKQ5AaysEI`'
+        schema:
+          type: string
+        required: true
+      - name: start_after
+        in: query
+        description: 'The `beneficiary_id` after which details should be returned.<br><br>Use this with the `results_per_page` for pagination.<br><br>Example: `vab_EFQeD9s8dPOqsPEUZPELmpgwm`'
+        schema:
+          type: string
+      - name: start_before
+        in: query
+        description: 'The `beneficiary_id` before which details should be returned.<br><br>Use this with the `results_per_page` for pagination.<br><br>Example: `vab_EFQeD9s8dPOqsPEUZPELmpgwm`'
+        schema:
+          type: string
+      - name: results_per_page
+        in: query
+        description: 'The number of results you want to get per API call.<br><br>Use this with the `start_before` or `start_after` parameters for pagination.<br><ul><li>Default value 10.</li><li>Maximum value 100.</li></ul>Example: `15`'
+        schema:
+          type: string
+          default: '10'
+      - name: from_date
+        in: query
+        description: '**Has to be used with `to_date`**.<br><br>The UNIX timestamp after which details should be returned.<br><br>Use this with the `results_per_page`, `start_after`, and `start_before` for pagination.<br><br>Example: `1651052818`'
+        schema:
+          type: string
+      - name: to_date
+        in: query
+        description: '**Has to be used with `from_date`**.<br><br>The UNIX timestamp before which details should be returned.<br><br>Use this with the `results_per_page`, `start_after`, and `start_before` for pagination.<br><br>Example: `1651052818`'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"object\": \"list\",\n  \"has_more\": true,\n  \"data\": [\n    {\n      \"id\": \"vab_ZfDkRA2ioO665Voe3WY3q9GOc\",\n      \"object\": \"beneficiary.account_number\",\n      \"type\": \"account_number\",\n      \"name_of_account_holder\": \"Ganga Reddy\",\n      \"email\": \"ganga.reddy@example.com\",\n      \"phone\": \"9000000126\",\n      \"bank_account_number\": \"10000000000126\",\n      \"bank_ifsc_code\": \"ABCD0000123\",\n      \"bank_name\": null,\n      \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n      },\n      \"created_at\": 1645522073,\n      \"status\": \"active\",\n      \"is_sandbox\": true,\n      \"account_id\": \"va_gwWeSHZ48QK1gmiVebZWV3YdA\"\n    },\n    {\n      \"id\": \"vab_FxDHJs5ootuP8v2jY7cWix99K\",\n      \"object\": \"beneficiary.vpa\",\n      \"type\": \"vpa\",\n      \"name_of_account_holder\": \"Ganga Reddy\",\n      \"email\": \"ganga.reddy@example.com\",\n      \"phone\": \"9000000125\",\n      \"vpa\": \"ganga-reddy@example\",\n      \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n      },\n      \"created_at\": 1645522067,\n      \"status\": \"active\",\n      \"is_sandbox\": true,\n      \"account_id\": \"va_gwWeSHZ48QK1gmiVebZWV3YdA\"\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: true
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: vab_ZfDkRA2ioO665Voe3WY3q9GOc
+                        object:
+                          type: string
+                          example: beneficiary.account_number
+                        type:
+                          type: string
+                          example: account_number
+                        name_of_account_holder:
+                          type: string
+                          example: Ganga Reddy
+                        email:
+                          type: string
+                          example: ganga.reddy@example.com
+                        phone:
+                          type: string
+                          example: '9000000126'
+                        bank_account_number:
+                          type: string
+                          example: '10000000000126'
+                        bank_ifsc_code:
+                          type: string
+                          example: ABCD0000123
+                        bank_name: {}
+                        metadata:
+                          type: object
+                          properties:
+                            key_1:
+                              type: string
+                              example: DD
+                            key_2:
+                              type: string
+                              example: XOF
+                        created_at:
+                          type: integer
+                          example: 1645522073
+                          default: 0
+                        status:
+                          type: string
+                          example: active
+                        is_sandbox:
+                          type: boolean
+                          example: true
+                          default: true
+                        account_id:
+                          type: string
+                          example: va_gwWeSHZ48QK1gmiVebZWV3YdA
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such account: va_PrMR3sY49d4PKK6P8fNgssvN\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such account: va_PrMR3sY49d4PKK6P8fNgssvN'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    servers:
+    - url: https://api.zwitch.io
+  /v1/accounts/{account_id}/deactivate:
+    post:
+      summary: Deactivate Virtual Account
+      description: Use this API to deactivate a virtual account.
+      operationId: accounts-virtual-deactivate
+      parameters:
+      - name: account_id
+        in: path
+        description: 'Unique identifier of the account that should be deactivated.<br><br>Example: `va_wOkbh2GM7TcqNOB4VDEKH1IkH`'
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Virtual Account:
+                  value: "{\n    \"id\": \"va_gsXD5cMqH8XyrfTe3HelnFe43\",\n    \"object\": \"account.virtual\",\n    \"type\": \"virtual\",\n    \"used_as\": \"collection_tool\",\n    \"bank_name\": \"yes_bank\",\n    \"name\": \"Lush Adobe\",\n    \"mobile_number\": \"9876543210\",\n    \"email\": \"anil.reddy@example.com\",\n    \"account_number\": \"3636365909131910\",\n    \"ifsc_code\": \"YESB0CMSNOC\",\n    \"vpa\": null,\n    \"additional_vpa\": [],\n    \"whitelisted_remitters\": [],\n    \"whitelisted_beneficiaries\": [],\n    \"kyc\": {\n        \"city\": \"Bangalore\",\n        \"postal_code\": \"560010\",\n        \"state_code\": \"KA\",\n        \"pan\": \"XXXXXX905H\",\n        \"business_type\": \"partnership\",\n        \"business_category\": \"garage_owners\",\n        \"contact_person\": \"Rahul Reddy\",\n        \"pan_verification_id\": null\n    },\n    \"customer\": {\n        \"id\": \"cus_LuCej8PYu2A3AXD2VSsRFqNob\",\n        \"mobile_number\": \"9876543210\"\n    },\n    \"metadata\": {\n        \"key_1\": \"DD\",\n        \"key_2\": \"XOF\"\n    },\n    \"kyc_url\": null,\n    \"status\": \"deactivated\",\n    \"created_at\": 1758100959,\n    \"is_sandbox\": false,\n    \"settlement_account_id\": null,\n    \"verified_beneficiaries\": [],\n    \"verified_remitters\": []\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: va_gsXD5cMqH8XyrfTe3HelnFe43
+                  object:
+                    type: string
+                    example: account.virtual
+                  type:
+                    type: string
+                    example: virtual
+                  used_as:
+                    type: string
+                    example: collection_tool
+                  bank_name:
+                    type: string
+                    example: yes_bank
+                  name:
+                    type: string
+                    example: Lush Adobe
+                  mobile_number:
+                    type: string
+                    example: '9876543210'
+                  email:
+                    type: string
+                    example: anil.reddy@example.com
+                  account_number:
+                    type: string
+                    example: '3636365909131910'
+                  ifsc_code:
+                    type: string
+                    example: YESB0CMSNOC
+                  vpa: {}
+                  additional_vpa:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  whitelisted_remitters:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  whitelisted_beneficiaries:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  kyc:
+                    type: object
+                    properties:
+                      city:
+                        type: string
+                        example: Bangalore
+                      postal_code:
+                        type: string
+                        example: '560010'
+                      state_code:
+                        type: string
+                        example: KA
+                      pan:
+                        type: string
+                        example: XXXXXX905H
+                      business_type:
+                        type: string
+                        example: partnership
+                      business_category:
+                        type: string
+                        example: garage_owners
+                      contact_person:
+                        type: string
+                        example: Rahul Reddy
+                      pan_verification_id: {}
+                  customer:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: cus_LuCej8PYu2A3AXD2VSsRFqNob
+                      mobile_number:
+                        type: string
+                        example: '9876543210'
+                  metadata:
+                    type: object
+                    properties:
+                      key_1:
+                        type: string
+                        example: DD
+                      key_2:
+                        type: string
+                        example: XOF
+                  kyc_url: {}
+                  status:
+                    type: string
+                    example: deactivated
+                  created_at:
+                    type: integer
+                    example: 1758100959
+                    default: 0
+                  is_sandbox:
+                    type: boolean
+                    example: false
+                    default: true
+                  settlement_account_id: {}
+                  verified_beneficiaries:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  verified_remitters:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"error\": {\n        \"type\": \"invalid_request_error\",\n        \"code\": \"resource_missing\",\n        \"message\": \"kyc active account can only be deactivated : va_pVYnzIhqjXeOonvMR3Hqg6rDh\",\n        \"param\": \"id\"\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'kyc active account can only be deactivated : va_pVYnzIhqjXeOonvMR3Hqg6rDh'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    servers:
+    - url: https://api.zwitch.io
+  /v1/accounts/{account_id}/statements:
+    get:
+      summary: Get Account Statement
+      description: Use this API to generate the account statement for an account.
+      operationId: accounts-get-statement
+      parameters:
+      - name: account_id
+        in: path
+        description: 'Unique identifier of the account for which you want to generate the statement.<br><br>Example: `va_onMda9dobg5YYX0kHLoaMecpy`'
+        schema:
+          type: string
+        required: true
+      - name: start_after
+        in: query
+        description: 'The `transaction_id` after which details should be returned.<br><br>Use this with the `results_per_page` for pagination.<br><br>Example: `vws_yz46P9hiRFlidS0RbNF0kwOXb`'
+        schema:
+          type: string
+      - name: start_before
+        in: query
+        description: 'The `transaction_id` before which details should be returned.<br><br>Use this with the `results_per_page` for pagination.<br><br>Example: `vws_yz46P9hiRFlidS0RbNF0kwOXb`'
+        schema:
+          type: string
+      - name: results_per_page
+        in: query
+        description: 'The number of results you want to get per API call.<br><br>Use this with the `start_before` or `start_after` parameters for pagination.<br><ul><li>Default value 10.</li><li>Maximum value 100.</li></ul>Example: `15`'
+        schema:
+          type: string
+      - name: from_date
+        in: query
+        description: '**Has to be used with `to_date`**.<br><br>The UNIX timestamp after which details should be returned.<br><br>Use this with the `results_per_page`, `start_after`, and `start_before` for pagination.<br><br>Example: `1651052818`'
+        schema:
+          type: string
+      - name: to_date
+        in: query
+        description: '**Has to be used with `from_date`**.<br><br>The UNIX timestamp before which details should be returned.<br><br>Use this with the `results_per_page`, `start_after`, and `start_before` for pagination.<br><br>Example: `1651052818`'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"object\": \"list\",\n  \"has_more\": false,\n  \"data\": [\n    {\n      \"id\": \"vws_bB0S54cYNylYkkSGvC07lyLlj\",\n      \"object\": \"statement\",\n      \"balance\": 0,\n      \"credit\": 0,\n      \"debit\": 1,\n      \"remark\": \"Debited for transfers id tr_rr8OkQ8yvWLVTO5yhU1JaxkJg\",\n      \"transacted_at\": 1661766659,\n      \"created_at\": 1661766659,\n      \"is_sandbox\": false,\n      \"currency\": \"inr\",\n      \"source\": \"transfers\",\n      \"source_id\": null,\n      \"source_details\": {\n        \"id\": \"tr_rr8OkQ8yvWLVTO5yhU1JaxkJg\",\n        \"object\": \"transfer\",\n        \"type\": \"wallet\",\n        \"amount\": 1,\n        \"currency\": \"inr\",\n        \"beneficiary_bank_account_number\": \"3636365956247516\",\n        \"paid_to\": \"3636365956247516\",\n        \"paid_mode\": \"wallet\",\n        \"is_sandbox\": false,\n        \"remark\": \"Lego Death Star\",\n        \"merchant_reference_id\": \"1000623\"\n      },\n      \"merchant_name\": null,\n      \"bank_reference_number\": null\n    },\n    {\n      \"id\": \"vws_lf8y37fLB8v2MR5mKiwTXsTUk\",\n      \"object\": \"statement\",\n      \"balance\": 1,\n      \"credit\": 1,\n      \"debit\": 0,\n      \"transacted_at\": 1661236088,\n      \"created_at\": 1661236088,\n      \"is_sandbox\": false,\n      \"currency\": \"inr\",\n      \"source\": \"payments\",\n      \"source_id\": null,\n      \"source_details\": {\n        \"id\": \"tx_jbCFM8etzg3qgFaCGPpw8Q90s\",\n        \"object\": \"payments\",\n        \"type\": \"imps\",\n        \"amount\": 1,\n        \"currency\": \"inr\",\n        \"remitter_bank_account_number\": \"035705002374\",\n        \"remitter_full_name\": \"OPEN FINANCIAL TECHN\",\n        \"remark\": \"\",\n        \"paid_to\": \"3636365484908536\",\n        \"paid_mode\": \"imps\",\n        \"is_sandbox\": false\n      },\n      \"merchant_name\": null,\n      \"bank_reference_number\": null\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: list
+                  has_more:
+                    type: boolean
+                    example: false
+                    default: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: vws_bB0S54cYNylYkkSGvC07lyLlj
+                        object:
+                          type: string
+                          example: statement
+                        balance:
+                          type: integer
+                          example: 0
+                          default: 0
+                        credit:
+                          type: integer
+                          example: 0
+                          default: 0
+                        debit:
+                          type: integer
+                          example: 1
+                          default: 0
+                        remark:
+                          type: string
+                          example: Debited for transfers id tr_rr8OkQ8yvWLVTO5yhU1JaxkJg
+                        transacted_at:
+                          type: integer
+                          example: 1661766659
+                          default: 0
+                        created_at:
+                          type: integer
+                          example: 1661766659
+                          default: 0
+                        is_sandbox:
+                          type: boolean
+                          example: false
+                          default: true
+                        currency:
+                          type: string
+                          example: inr
+                        source:
+                          type: string
+                          example: transfers
+                        source_id: {}
+                        source_details:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: tr_rr8OkQ8yvWLVTO5yhU1JaxkJg
+                            object:
+                              type: string
+                              example: transfer
+                            type:
+                              type: string
+                              example: wallet
+                            amount:
+                              type: integer
+                              example: 1
+                              default: 0
+                            currency:
+                              type: string
+                              example: inr
+                            beneficiary_bank_account_number:
+                              type: string
+                              example: '3636365956247516'
+                            paid_to:
+                              type: string
+                              example: '3636365956247516'
+                            paid_mode:
+                              type: string
+                              example: wallet
+                            is_sandbox:
+                              type: boolean
+                              example: false
+                              default: true
+                            remark:
+                              type: string
+                              example: Lego Death Star
+                            merchant_reference_id:
+                              type: string
+                              example: '1000623'
+                        merchant_name: {}
+                        bank_reference_number: {}
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"No such account: va_Q6USeYXbx38cKa3NBpoHDViW\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'No such account: va_Q6USeYXbx38cKa3NBpoHDViW'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    servers:
+    - url: https://api.zwitch.io
+  /v1/accounts/{account_id}/test-balance:
+    post:
+      summary: '[Sandbox Only] Add Test Balance'
+      description: Use this API to add funds to your virtual account wallet in sandbox mode.
+      operationId: accounts-virtual-test-balance
+      parameters:
+      - name: account_id
+        in: path
+        description: 'Unique identifier of the account to which test balance should be added.<br><br>Example: `va_ZMSv6FicBWHVRkYFCx9nsWZUs`'
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - amount
+              properties:
+                amount:
+                  type: number
+                  description: 'Amount to be added.<br><br>Example: `3.69`'
+                  format: float
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"object\": \"balance\",\n    \"amount\": 369.28,\n    \"currency\": \"inr\",\n    \"available_on\": 1623678759\n}"
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    example: balance
+                  amount:
+                    type: number
+                    example: 369.28
+                    default: 0
+                  currency:
+                    type: string
+                    example: inr
+                  available_on:
+                    type: integer
+                    example: 1623678759
+                    default: 0
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"authentication_error\",\n    \"message\": \"Invalid secret key.\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: authentication_error
+                      message:
+                        type: string
+                        example: Invalid secret key.
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"code\": \"resource_missing\",\n    \"message\": \"no such account: va_bVdXGWr4CoRH4vGJSxqqRqrS\",\n    \"param\": \"id\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: invalid_request_error
+                      code:
+                        type: string
+                        example: resource_missing
+                      message:
+                        type: string
+                        example: 'no such account: va_bVdXGWr4CoRH4vGJSxqqRqrS'
+                      param:
+                        type: string
+                        example: id
+      deprecated: false
+      tags:
+      - Accounts
+    servers:
+    - url: https://api.zwitch.io
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-bearer-format: bearer
+      x-default: ''
+x-refined-from:
+- open-financial-1-openapi.yml
+- open-financial-2-openapi.yml
+- open-financial-6-openapi.yml
+- open-financial-8-openapi.yml
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developers.zwitch.io/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.zwitch.io/reference/accounts-get-all.md
+  - https://developers.zwitch.io/reference/accounts-get-balance.md
+  - https://developers.zwitch.io/reference/accounts-get-by-id.md
+  - https://developers.zwitch.io/reference/accounts-get-statement.md
+  - https://developers.zwitch.io/reference/accounts-virtual-deactivate.md
+  - https://developers.zwitch.io/reference/accounts-virtual-test-balance.md
+  - https://developers.zwitch.io/reference/bank-account-verification-copy-1.md
+  - https://developers.zwitch.io/reference/batch-refund-api.md
+  - https://developers.zwitch.io/reference/beneficiaries-bank-account-create.md
+  - https://developers.zwitch.io/reference/beneficiaries-delete.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-all.md
+  - https://developers.zwitch.io/reference/beneficiaries-get-by-id.md
+  - https://developers.zwitch.io/reference/beneficiaries-update.md
+  - https://developers.zwitch.io/reference/constants-business-categories.md
+  - https://developers.zwitch.io/reference/constants-business-types.md
+  - https://developers.zwitch.io/reference/constants-ifsc.md
+  - https://developers.zwitch.io/reference/constants-state-codes.md
+  - https://developers.zwitch.io/reference/create-payment-token.md
+  - https://developers.zwitch.io/reference/get-all-sub-accounts.md
+  - https://developers.zwitch.io/reference/get-sub-account-by-id.md
+  - https://developers.zwitch.io/reference/requery-batch-refund.md
+  - https://developers.zwitch.io/reference/status-check-api-with-payment_token.md
+  - https://developers.zwitch.io/reference/transfers-bulk-by-id.md
+  - https://developers.zwitch.io/reference/transfers-bulk-create.md
+  - https://developers.zwitch.io/reference/transfers-bulk-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-all.md
+  - https://developers.zwitch.io/reference/transfers-get-by-id.md
+  - https://developers.zwitch.io/reference/transfers-virtual-accounts-create-to-account-beneficiary.md
+  - https://developers.zwitch.io/reference/update-sub-account.md
+  - https://developers.zwitch.io/reference/upi-qr-intent-string.md
+  - https://developers.zwitch.io/reference/verifications-bank-account-create.md
+  - https://developers.zwitch.io/reference/verifications-name-create.md
+  - https://developers.zwitch.io/reference/verifications-pan-create.md
+  - https://developers.zwitch.io/reference/verifications-vpa-create.md
+  - https://developers.zwitch.io/reference/webhooks-get-all-events.md
+  merge:
+    pages: 35
+    deduped: 34
+    conflicts_kept_first: 1
