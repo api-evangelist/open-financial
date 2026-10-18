@@ -368,6 +368,8 @@ apis:
   humanURL: https://developers.zwitch.io/reference/virtual-accounts
   baseURL: https://api.zwitch.io/v1
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -388,6 +390,8 @@ apis:
   humanURL: https://developers.zwitch.io/reference/virtual-accounts
   baseURL: https://api.zwitch.io/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -398,6 +402,8 @@ apis:
   humanURL: https://developers.zwitch.io/reference/virtual-accounts
   baseURL: https://api.zwitch.io/v1
   tags:
+  - ICP
+  tags_raw:
   - Icp
   properties:
   - type: OpenAPI
@@ -458,6 +464,8 @@ apis:
   humanURL: https://developers.zwitch.io/reference/virtual-accounts
   baseURL: https://api.zwitch.io/v1
   tags:
+  - Verification
+  tags_raw:
   - Verifications
   properties:
   - type: OpenAPI
