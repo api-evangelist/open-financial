@@ -1,0 +1,12 @@
+{
+ "url": "https://developers.zwitch.io/openapi/65ce0c5abe7beb0010a0c969",
+ "requested_url": "https://developers.zwitch.io/openapi/65ce0c5abe7beb0010a0c969",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 9449,
+ "sha256": "c928912666f14d938d45b6c2ce7f792f2d34a6f725282a32c792dfa516824531",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
